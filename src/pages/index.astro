@@ -4,17 +4,28 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Welcome">
   <section 
-    class="w-full h-screen bg-cover bg-center flex items-center justify-center cursor-pointer"
-    style="background-image: url('/images/herobanner.jpg');"
+    id="hero-bg"
+    class="w-full h-screen flex items-center justify-center cursor-pointer transition-colors duration-500"
+    style="background: linear-gradient(120deg, #ff512f, #dd2476, #1fa2ff);"
     onclick="window.location.href='/posts'"
   >
     <div id="hero-text" class="text-center px-4 max-w-[90vw]">
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-black leading-snug">
-        기억하고 싶은 순간들을 기록합니다.
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white leading-snug drop-shadow">
+        한결
       </h1>
-      <p class="text-base md:text-lg text-black">
-        사진과 생각, 그리고 하루의 감정들을 담은 작은 아카이브.
+      <p class="text-base md:text-lg text-white drop-shadow">
+        나임에 모자람 없어라
       </p>
     </div>
+    <script>
+      const hero = document.getElementById('hero-bg');
+      window.addEventListener('mousemove', function(e) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        const hue = Math.round(x * 360);
+        const angle = Math.round(y * 360);
+        hero.style.background = `linear-gradient(${angle}deg, hsl(${hue}, 80%, 60%), hsl(${(hue+120)%360}, 80%, 60%), hsl(${(hue+240)%360}, 80%, 60%))`;
+      });
+    </script>
   </section>
 </Layout>
