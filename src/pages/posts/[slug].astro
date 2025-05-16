@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// getStaticPaths 함수: 포스트 파일 목록에서 slug 추출
+export async function getStaticPaths() {
+  const postImportResult = import.meta.glob('../../content/posts/*.md');
+  const paths = [];
+
+  for (const path in postImportResult) {
+    const slug = path.split('/').pop().replace('.md', '');
+    paths.push({ params: { slug } });
+  }
+
+  return paths;
+}
+
+// 실제 글 내용을 불러오기
+const { default: Content, frontmatter } = await import(`../../content/posts/${Astro.params.slug}.md`);
+---
+
+<Layout title={frontmatter.title}>
+  <article class="mx-auto max-w-3xl">
+    <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
+    <img src={frontmatter.image} alt={frontmatter.title} class="w-full rounded-lg mb-4" />
+    <Content />
+  </article>
+</Layout>

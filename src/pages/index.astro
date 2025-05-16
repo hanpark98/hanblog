@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Welcome">
+  <section 
+    class="w-full h-screen bg-cover bg-center flex items-center justify-center cursor-pointer"
+    style="background-image: url('/images/herobanner.jpg');"
+    onclick="window.location.href='/posts'"
+  >
+    <div id="hero-text" class="text-center px-4 max-w-[90vw]">
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-black leading-snug">
+        기억하고 싶은 순간들을 기록합니다.
+      </h1>
+      <p class="text-base md:text-lg text-black">
+        사진과 생각, 그리고 하루의 감정들을 담은 작은 아카이브.
+      </p>
+    </div>
+  </section>
+</Layout>
