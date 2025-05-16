@@ -1,5 +1,7 @@
 ---
 const { title } = Astro.props;
+const showNav = Astro.url.pathname !== '/';
+const showFooter = Astro.url.pathname !== '/';
 ---
 
 <html lang="ko">
@@ -7,34 +9,80 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>한결</title>
-
-    <!-- SEO 기본 -->
-    <meta name="description" content="한결" />
-    <meta name="keywords" content="한결, 블로그, 에세이, 문학, 수필, 일상, 성장, korean, lgbt, 퀴어, 게이, queer, 글쓰기" />
-    <meta name="author" content="Han" />
-
-    <!-- SNS 공유용(오픈그래프/트위터) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="한결" />
-    <meta property="og:description" content="나임에 모자람 없어라" />
-    <meta property="og:image" content="https://www.hanpark.kr/images/website/thumbnail.png" />
-    <meta property="og:url" content="https://www.hanpark.kr" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="한결" />
-    <meta name="twitter:description" content="나임에 모자람 없어라" />
-    <meta name="twitter:image" content="https://www.hanpark.kr/images/website/thumbnail.png" />
-
+    <!-- (폰트, SEO 등 기존 head 내용은 그대로 추가) -->
+    <script>
+      // Adobe Fonts 등 삽입
+    </script>
     <style global>
       html, body {
         margin: 0;
         padding: 0;
         height: 100%;
-        overflow-y: hidden; /* ← 세로 스크롤 제거 */
+        background: #F8F8FF;
+        font-family:
+          'forma-djr-text', 'source-han-sans-korean',
+          'Apple SD Gothic Neo', 'Malgun Gothic',
+          'Segoe UI Symbol', 'Arial', 'sans-serif',
+          'Segoe UI Emoji', 'Segoe UI Symbol';
       }
     </style>
   </head>
-  <body class="overflow-hidden">
+  <body class="overflow-x-hidden">
+    {showNav && (
+      <nav style="
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: #fff;
+        border-bottom: 2px solid #000;
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        min-height: 60px;
+      ">
+        <a href="/" style="display: flex; align-items: center; min-width: 0;">
+          <img src="/images/website/logo.svg" alt="로고" style="height: 2.25rem; width: 2.25rem; object-fit: contain; border-radius: 0; margin-right: 0.65rem;" />
+          <span style="font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; white-space: nowrap;">한결</span>
+        </a>
+        <div style="flex: 1 1 0%;"></div>
+        <form id="search-form" style="position: relative; width: 12rem; max-width: 20rem;">
+          <input
+            type="search"
+            placeholder="게시물 검색"
+            id="search-input"
+            style="
+              width: 100%;
+              padding: 0.5rem 2.2rem 0.5rem 1rem;
+              border-radius: 9999px;
+              border: 2px solid #000;
+              outline: none;
+              font-size: 1rem;
+              background: #fff;
+              transition: border 0.2s;
+            "
+          />
+          <button type="submit" style="position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: #333; cursor: pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.2rem; width: 1.2rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <circle cx="11" cy="11" r="7" stroke-width="2" />
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </form>
+      </nav>
+    )}
     <slot />
+    {showFooter && (
+      <footer style="
+        background: #F8F8FF;
+        border-top: 1px solid #eee;
+        text-align: center;
+        color: #999;
+        font-size: 0.95rem;
+        padding: 2rem 0 1.5rem 0;
+        margin-top: 4rem;
+      ">
+        © {new Date().getFullYear()} 한결 | All rights reserved. | hanparkdesign@gmail.com
+      </footer>
+    )}
   </body>
 </html>

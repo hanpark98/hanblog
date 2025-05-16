@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome">
-  <section 
+  <section
     id="hero-bg"
     class="w-full h-screen flex items-center justify-center cursor-pointer overflow-hidden"
     onclick="window.location.href='/posts'"
@@ -12,32 +12,55 @@ import Layout from '../layouts/Layout.astro';
     <!-- 배경 이미지 레이어 -->
     <div
       id="bg-img"
-      class="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-300 will-change-transform"
+      class="absolute top-0 left-0 w-full h-full bg-cover bg-center will-change-transform"
       style="background-image: url('/images/herobanner.jpg'); z-index:0;"
     ></div>
     <!-- 텍스트 레이어 -->
     <div id="hero-text" class="relative z-10 text-center px-4 max-w-[90vw]">
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-black leading-snug drop-shadow">
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white leading-snug drop-shadow">
         한결
       </h1>
-      <p class="text-base md:text-lg text-black drop-shadow">
+      <p class="text-base md:text-lg text-white drop-shadow">
         나임에 모자람 없어라
       </p>
     </div>
     <script>
+      // 참조할 요소들
       const bgImg = document.getElementById('bg-img');
-      window.addEventListener('mousemove', function(e) {
-        // 화면 중앙 기준 좌우/상하 오프셋 계산
-        const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 ~ 1
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-        // 이동 범위(px) - 원하는 강도 조절(여기선 최대 32px)
-        const xMove = x * 32;
-        const yMove = y * 24;
-        bgImg.style.transform = `translate(${xMove}px, ${yMove}px) scale(1.06)`;
+      const heroBg = document.getElementById('hero-bg');
+
+      // 목표값, 현재값
+      let targetX = 0, targetY = 0;
+      let currentX = 0, currentY = 0;
+
+      // 실제 애니메이션
+      function animate() {
+        // 이징(lerp) - 아주 부드럽고 잔잔하게 (0.07~0.13 사이 추천)
+        currentX += (targetX - currentX) * 0.10;
+        currentY += (targetY - currentY) * 0.10;
+        bgImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.08)`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // 마우스 움직임 - heroBg 내에서만 반응
+      heroBg.addEventListener('mousemove', function(e) {
+        const rect = heroBg.getBoundingClientRect();
+        // 중앙 기준 상대 좌표
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        // -1 ~ 1 정규화
+        const nx = ((x / rect.width) - 0.5) * 2;
+        const ny = ((y / rect.height) - 0.5) * 2;
+        // 최대치(잔잔하게 10~14px)
+        targetX = nx * 14;
+        targetY = ny * 10;
       });
-      // 마우스가 페이지를 벗어나면 원위치(부드럽게)
-      window.addEventListener('mouseleave', function() {
-        bgImg.style.transform = `translate(0px, 0px) scale(1.06)`;
+
+      // 영역을 벗어나면 서서히 원점으로 복귀
+      heroBg.addEventListener('mouseleave', function() {
+        targetX = 0;
+        targetY = 0;
       });
     </script>
   </section>

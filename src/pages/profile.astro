@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Profile">
+  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
+
+    <!-- Category Navigation: "뒤로가기" 버튼만 표시 -->
+    <div
+      id="category-nav"
+      class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start"
+    >
+      <button
+        onclick="window.history.back()"
+        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-6"
+        style="border:2px solid #111;background:#fff;color:#111;"
+      >
+        뒤로가기
+      </button>
+    </div>
+
+    <!-- 프로필 카드 (예시) -->
+    <div class="max-w-lg mx-auto bg-white shadow rounded-xl p-10 text-center">
+      <div class="mx-auto mb-6 w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center shadow"
+           style="font-size:1.1rem;font-weight:500;">
+        프로필 사진
+      </div>
+      <div class="text-2xl font-extrabold mb-2">박한결</div>
+      <div class="text-gray-500 mb-4">시각 디자이너 / 창작자</div>
+      <p class="mb-2">
+        안녕하세요. 삶의 결을 기록하는 것을 좋아하고, 글과 이미지를 통해 세상과 조용히 소통합니다.
+      </p>
+      <p class="mb-6">
+        느리지만 꾸준하게, 한결같은 시선으로 순간을 담아내는 작업을 하고 있습니다.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a href="mailto:hanparkdesign@gmail.com" class="text-blue-700 underline">이메일</a>
+        <a href="https://instagram.com/" target="_blank" class="text-pink-600 underline">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .category-btn {
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
+    .category-inactive:not(.active) {
+      background: #fff;
+      color: #111;
+      border: 2px solid #111;
+    }
+    body, html {
+      background: #F8F8FF !important;
+    }
+  </style>
+</Layout>

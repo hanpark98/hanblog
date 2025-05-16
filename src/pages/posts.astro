@@ -8,54 +8,73 @@ const posts = postFiles.map(([path, post]) => ({
   ...post.frontmatter
 }));
 
-// 카테고리 추출
 const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
 ---
 
 <Layout title="Blog">
+  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
 
-  <!-- 🔹 Navigation -->
-  <div id="category-nav" class="flex flex-wrap gap-2 mb-8">
-    <button class="category-btn px-4 py-2 border rounded active" data-category="all">모든 글</button>
-    {allCategories.map(cat => (
-      <button class="category-btn px-4 py-2 border rounded" data-category={cat}>{cat}</button>
-    ))}
-  </div>
-
-  <!-- 🔹 포스트 목록 -->
-  <div id="posts-wrapper" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    {posts.map(post => (
-      <a 
-        href={`/posts/${post.slug}`} 
-        class="group block border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 post-card"
-        data-category={post.category ?? '기타'}
+    <!-- 카테고리 Navigation (프로필 버튼 왼쪽, 분리) -->
+    <div
+      id="category-nav"
+      class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start items-center"
+    >
+      <!-- 프로필 버튼 (오른쪽 마진 넓게) -->
+      <a
+        href="/profile"
+        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-8"
+        style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
       >
-        <div class="w-full aspect-square overflow-hidden">
-          <img 
-            src={post.image} 
-            alt={post.title} 
-            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-        <div class="p-4">
-          <h3 class="text-base md:text-lg font-bold mb-1">{post.title}</h3>
-          <p class="text-sm text-gray-600">{post.description}</p>
-        </div>
+        프로필
       </a>
-    ))}
+      <button
+        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] active"
+        data-category="all"
+      >모든 글</button>
+      {allCategories.map(cat => (
+        <button
+          class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px]"
+          data-category={cat}
+        >{cat}</button>
+      ))}
+    </div>
+
+    <!-- 포스트 목록 -->
+    <div id="posts-wrapper" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 justify-items-start">
+      {posts.map(post => (
+        <a 
+          href={`/posts/${post.slug}`} 
+          class="group block border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 post-card"
+          data-category={post.category ?? '기타'}
+        >
+          <div class="w-full aspect-square overflow-hidden">
+            <img 
+              src={post.image} 
+              alt={post.title} 
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <h3 class="text-base md:text-lg font-bold mb-1">{post.title}</h3>
+            <p class="text-sm text-gray-600">{post.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
   </div>
 
-  <!-- 🔹 필터 스크립트 -->
+  <!-- 필터/검색 스크립트 -->
   <script>
     const buttons = document.querySelectorAll('.category-btn');
     const posts = document.querySelectorAll('.post-card');
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
 
+    // 카테고리 필터링
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        // 버튼 활성화 표시
         buttons.forEach(b => b.classList.remove('active', 'bg-black', 'text-white'));
         btn.classList.add('active', 'bg-black', 'text-white');
-
         const category = btn.dataset.category;
         posts.forEach(post => {
           const match = category === 'all' || post.dataset.category === category;
@@ -63,13 +82,36 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
         });
       });
     });
+
+    // 검색 필터링
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const q = searchInput.value.trim().toLowerCase();
+        posts.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(q) ? 'block' : 'none';
+        });
+      });
+    }
   </script>
 
-  <!-- 🔹 버튼 스타일 -->
   <style>
+    .category-btn {
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
     .category-btn.active {
-      background-color: black;
-      color: white;
+      background-color: black !important;
+      color: white !important;
+      border: none !important;
+    }
+    .category-inactive:not(.active) {
+      background: #fff;
+      color: #111;
+      border: 2px solid #111;
+    }
+    body, html {
+      background: #F8F8FF !important;
     }
   </style>
 </Layout>

@@ -5,12 +5,10 @@ import Layout from '../../layouts/Layout.astro';
 export async function getStaticPaths() {
   const postImportResult = import.meta.glob('../../content/posts/*.md');
   const paths = [];
-
   for (const path in postImportResult) {
     const slug = path.split('/').pop().replace('.md', '');
     paths.push({ params: { slug } });
   }
-
   return paths;
 }
 
@@ -19,9 +17,47 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
 ---
 
 <Layout title={frontmatter.title}>
-  <article class="mx-auto max-w-3xl">
-    <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
-    <img src={frontmatter.image} alt={frontmatter.title} class="w-full rounded-lg mb-4" />
-    <Content />
-  </article>
+  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
+    <!-- 카테고리 Navigation 자리와 완전히 동일 -->
+    <div
+      class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start items-center"
+    >
+      <!-- 프로필 대신 뒤로가기(마진 동일) -->
+      <button
+        onclick="window.history.back()"
+        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-8"
+        style="text-align:center; display:inline-flex; align-items:center; justify-content:center; border:2px solid #111;background:#fff;color:#111;"
+      >
+        뒤로가기
+      </button>
+      <!-- 오른쪽에 카테고리 버튼 없음 -->
+    </div>
+
+    <!-- 본문: 중앙정렬, 카드리스트와 동일한 px-6 -->
+    <div class="px-6">
+      <article class="mx-auto max-w-3xl mt-4">
+        <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
+        <img src={frontmatter.image} alt={frontmatter.title} class="w-full rounded-lg mb-4" />
+        <Content />
+      </article>
+    </div>
+  </div>
+  <style>
+    .category-btn {
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
+    .category-btn.active {
+      background-color: black !important;
+      color: white !important;
+      border: none !important;
+    }
+    .category-inactive:not(.active) {
+      background: #fff;
+      color: #111;
+      border: 2px solid #111;
+    }
+    body, html {
+      background: #F8F8FF !important;
+    }
+  </style>
 </Layout>
