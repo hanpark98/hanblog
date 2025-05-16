@@ -5,30 +5,39 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Welcome">
   <section 
     id="hero-bg"
-    class="w-full h-screen flex items-center justify-center cursor-pointer transition-colors duration-500"
-    style="background: linear-gradient(120deg, #4f8cff, #f8cdda 80%);"
+    class="w-full h-screen flex items-center justify-center cursor-pointer overflow-hidden"
     onclick="window.location.href='/posts'"
+    style="position:relative;"
   >
-    <div id="hero-text" class="text-center px-4 max-w-[90vw]">
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white leading-snug drop-shadow">
+    <!-- 배경 이미지 레이어 -->
+    <div
+      id="bg-img"
+      class="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-300 will-change-transform"
+      style="background-image: url('/images/herobanner.jpg'); z-index:0;"
+    ></div>
+    <!-- 텍스트 레이어 -->
+    <div id="hero-text" class="relative z-10 text-center px-4 max-w-[90vw]">
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-black leading-snug drop-shadow">
         한결
       </h1>
-      <p class="text-base md:text-lg text-white drop-shadow">
+      <p class="text-base md:text-lg text-black drop-shadow">
         나임에 모자람 없어라
       </p>
     </div>
     <script>
-      const hero = document.getElementById('hero-bg');
-      // 고정색상 (시작, 끝)
-      const colorStart = "#4f8cff";
-      const colorEnd = "#f8cdda";
+      const bgImg = document.getElementById('bg-img');
       window.addEventListener('mousemove', function(e) {
-        // 마우스 X좌표에 따라 중간색 HSL값 변화
-        const x = e.clientX / window.innerWidth;
-        const hue = Math.round(200 + x * 100); // 200~300 범위의 블루~핑크(원하는 범위로 조정 가능)
-        const midColor = `hsl(${hue}, 70%, 70%)`;
-        // 3색 그라디언트
-        hero.style.background = `linear-gradient(120deg, ${colorStart}, ${midColor} 50%, ${colorEnd})`;
+        // 화면 중앙 기준 좌우/상하 오프셋 계산
+        const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 ~ 1
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        // 이동 범위(px) - 원하는 강도 조절(여기선 최대 32px)
+        const xMove = x * 32;
+        const yMove = y * 24;
+        bgImg.style.transform = `translate(${xMove}px, ${yMove}px) scale(1.06)`;
+      });
+      // 마우스가 페이지를 벗어나면 원위치(부드럽게)
+      window.addEventListener('mouseleave', function() {
+        bgImg.style.transform = `translate(0px, 0px) scale(1.06)`;
       });
     </script>
   </section>
