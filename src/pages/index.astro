@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
   <section 
     id="hero-bg"
     class="w-full h-screen flex items-center justify-center cursor-pointer transition-colors duration-500"
-    style="background: linear-gradient(120deg, #ff512f, #dd2476, #1fa2ff);"
+    style="background: linear-gradient(120deg, #4f8cff, #f8cdda 80%);"
     onclick="window.location.href='/posts'"
   >
     <div id="hero-text" class="text-center px-4 max-w-[90vw]">
@@ -19,12 +19,16 @@ import Layout from '../layouts/Layout.astro';
     </div>
     <script>
       const hero = document.getElementById('hero-bg');
+      // 고정색상 (시작, 끝)
+      const colorStart = "#4f8cff";
+      const colorEnd = "#f8cdda";
       window.addEventListener('mousemove', function(e) {
+        // 마우스 X좌표에 따라 중간색 HSL값 변화
         const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        const hue = Math.round(x * 360);
-        const angle = Math.round(y * 360);
-        hero.style.background = `linear-gradient(${angle}deg, hsl(${hue}, 80%, 60%), hsl(${(hue+120)%360}, 80%, 60%), hsl(${(hue+240)%360}, 80%, 60%))`;
+        const hue = Math.round(200 + x * 100); // 200~300 범위의 블루~핑크(원하는 범위로 조정 가능)
+        const midColor = `hsl(${hue}, 70%, 70%)`;
+        // 3색 그라디언트
+        hero.style.background = `linear-gradient(120deg, ${colorStart}, ${midColor} 50%, ${colorEnd})`;
       });
     </script>
   </section>
