@@ -3,6 +3,7 @@ title: "첫 포스트 예시"
 description: "이곳에 짧은 요약을 작성하세요."
 image: "/images/first.jpg"
 category: "일상"
+date: "2025-05-18"
 ---
 이것은 예시 본문입니다.
 

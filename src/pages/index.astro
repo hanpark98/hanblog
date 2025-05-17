@@ -9,59 +9,112 @@ import Layout from '../layouts/Layout.astro';
     onclick="window.location.href='/posts'"
     style="position:relative;"
   >
-    <!-- 배경 이미지 레이어 -->
+    <!-- 배경 이미지 레이어: PC/모바일 분기 -->
     <div
       id="bg-img"
-      class="absolute top-0 left-0 w-full h-full bg-cover bg-center will-change-transform"
-      style="background-image: url('/images/herobanner.jpg'); z-index:0;"
+      class="absolute top-0 left-0 w-full h-full bg-cover bg-center will-change-transform bg-img-pc"
+      style="background-image: url('/images/website/mainbanner-pc.jpg'); z-index:0;"
     ></div>
-    <!-- 텍스트 레이어 -->
-    <div id="hero-text" class="relative z-10 text-center px-4 max-w-[90vw]">
+    <div
+      id="bg-img-mobile"
+      class="absolute top-0 left-0 w-full h-full bg-cover bg-center will-change-transform bg-img-mobile"
+      style="background-image: url('/images/website/mainbanner-mobile.jpg'); z-index:0; display: none;"
+    ></div>
+    <!-- 텍스트 레이어: PC에서 오른쪽 1/3, 위에서 25% -->
+    <div
+      id="hero-text"
+      class="z-10 px-4 max-w-[90vw]"
+      style="
+        position: absolute;
+        top: 25%;
+        left: 66%;
+        transform: translate(-50%, 0);
+        text-align: left;
+      "
+    >
       <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white leading-snug drop-shadow">
         한결
       </h1>
       <p class="text-base md:text-lg text-white drop-shadow">
-        나임에 모자람 없어라
+        &nbsp;블로그
       </p>
     </div>
     <script>
-      // 참조할 요소들
-      const bgImg = document.getElementById('bg-img');
-      const heroBg = document.getElementById('hero-bg');
+      function toggleHeroBg() {
+        const pc = document.getElementById('bg-img');
+        const mob = document.getElementById('bg-img-mobile');
+        const ht = document.getElementById('hero-text');
+        if (window.innerWidth <= 639) {
+          pc.style.display = 'none';
+          mob.style.display = 'block';
+          // 모바일: 텍스트 중앙, 상단 2/5 (40%)
+          ht.style.position = 'absolute';
+          ht.style.top = '40%';
+          ht.style.left = '50%';
+          ht.style.transform = 'translate(-50%, -50%)';
+          ht.style.textAlign = 'center';
+        } else {
+          pc.style.display = 'block';
+          mob.style.display = 'none';
+          // PC: 오른쪽 1/3, 위 25%
+          ht.style.position = 'absolute';
+          ht.style.top = '25%';
+          ht.style.left = '66%';
+          ht.style.transform = 'translate(-50%, 0)';
+          ht.style.textAlign = 'left';
+        }
+      }
+      window.addEventListener('resize', toggleHeroBg);
+      window.addEventListener('DOMContentLoaded', toggleHeroBg);
 
-      // 목표값, 현재값
+      // 패럴럭스 효과 대상은 현재 화면에 보이는 배경만 적용
+      let bgImg = document.getElementById('bg-img');
+      let bgImgMobile = document.getElementById('bg-img-mobile');
+      const heroBg = document.getElementById('hero-bg');
       let targetX = 0, targetY = 0;
       let currentX = 0, currentY = 0;
 
-      // 실제 애니메이션
+      function getActiveBg() {
+        return window.innerWidth <= 639 ? bgImgMobile : bgImg;
+      }
+
       function animate() {
-        // 이징(lerp) - 아주 부드럽고 잔잔하게 (0.07~0.13 사이 추천)
         currentX += (targetX - currentX) * 0.10;
         currentY += (targetY - currentY) * 0.10;
-        bgImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.08)`;
+        getActiveBg().style.transform = `translate(${currentX}px, ${currentY}px) scale(1.08)`;
         requestAnimationFrame(animate);
       }
       animate();
 
-      // 마우스 움직임 - heroBg 내에서만 반응
       heroBg.addEventListener('mousemove', function(e) {
         const rect = heroBg.getBoundingClientRect();
-        // 중앙 기준 상대 좌표
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        // -1 ~ 1 정규화
         const nx = ((x / rect.width) - 0.5) * 2;
         const ny = ((y / rect.height) - 0.5) * 2;
-        // 최대치(잔잔하게 10~14px)
         targetX = nx * 14;
         targetY = ny * 10;
       });
 
-      // 영역을 벗어나면 서서히 원점으로 복귀
       heroBg.addEventListener('mouseleave', function() {
         targetX = 0;
         targetY = 0;
       });
+
+      window.addEventListener('resize', function() {
+        bgImg = document.getElementById('bg-img');
+        bgImgMobile = document.getElementById('bg-img-mobile');
+      });
     </script>
+    <style>
+      @media (max-width: 639px) {
+        .bg-img-pc { display: none !important; }
+        .bg-img-mobile { display: block !important; }
+      }
+      @media (min-width: 640px) {
+        .bg-img-pc { display: block !important; }
+        .bg-img-mobile { display: none !important; }
+      }
+    </style>
   </section>
 </Layout>

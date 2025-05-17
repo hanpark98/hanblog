@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Profile">
   <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
-
     <!-- Category Navigation: "뒤로가기" 버튼만 표시 -->
     <div
       id="category-nav"
@@ -19,23 +18,30 @@ import Layout from '../layouts/Layout.astro';
       </button>
     </div>
 
-    <!-- 프로필 카드 (예시) -->
-    <div class="max-w-lg mx-auto bg-white shadow rounded-xl p-10 text-center">
-      <div class="mx-auto mb-6 w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center shadow"
-           style="font-size:1.1rem;font-weight:500;">
-        프로필 사진
+    <!-- 프로필 카드: 사진+텍스트 세로 정렬, 사진이 카드에 꽉 차게 -->
+    <div class="max-w-xl mx-auto bg-white shadow rounded-xl p-10 flex flex-col items-center">
+      <!-- 프로필 사진: 카드 상단, 중앙 정렬, 영역 꽉 채움 -->
+      <div class="w-full flex justify-center mb-8">
+        <div
+          class="w-48 h-48 md:w-96 md:h-96 rounded-xl bg-gray-200 flex items-center justify-center overflow-hidden shadow"
+          style="font-size:1.3rem;font-weight:500;"
+        >
+          <!-- 실제 이미지 사용 시 아래의 img 태그 활성화 -->
+          <img src="/images/website/profile.jpg" alt="프로필 사진" class="w-full h-full object-cover" />
+        
+        </div>
       </div>
-      <div class="text-2xl font-extrabold mb-2">박한결</div>
-      <div class="text-gray-500 mb-4">시각 디자이너 / 창작자</div>
-      <p class="mb-2">
-        안녕하세요. 삶의 결을 기록하는 것을 좋아하고, 글과 이미지를 통해 세상과 조용히 소통합니다.
-      </p>
-      <p class="mb-6">
-        느리지만 꾸준하게, 한결같은 시선으로 순간을 담아내는 작업을 하고 있습니다.
-      </p>
-      <div class="flex justify-center gap-4">
-        <a href="mailto:hanparkdesign@gmail.com" class="text-blue-700 underline">이메일</a>
-        <a href="https://instagram.com/" target="_blank" class="text-pink-600 underline">Instagram</a>
+      <!-- 텍스트: 왼쪽 정렬, 카드 내부 여백 충분 -->
+      <div class="w-full text-center">
+        <div class="text-2xl font-extrabold mb-1">한결</div>
+        <div class="text-gray-500 mb-2">블로그 주인</div>
+        <p class="m-8">
+          오른쪽 상단 버튼 연중무휴 이용가능
+        </p>
+        <div class="flex gap-4 justify-center">
+          <a href="mailto:hanparkdesign@gmail.com" class="text-blue-700 underline">이메일</a>
+          <a href="https://instagram.com/" target="_blank" class="text-pink-600 underline">Instagram</a>
+        </div>
       </div>
     </div>
   </div>
@@ -51,6 +57,12 @@ import Layout from '../layouts/Layout.astro';
     }
     body, html {
       background: #F8F8FF !important;
+    }
+    /* 모바일 반응형 */
+    @media (max-width: 640px) {
+      .p-10 { padding: 1.25rem !important; }
+      .w-48, .h-48 { width: 128px !important; height: 128px !important; }
+      .md\:w-64, .md\:h-64 { width: 128px !important; height: 128px !important; }
     }
   </style>
 </Layout>

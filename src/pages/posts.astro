@@ -19,11 +19,11 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
       id="category-nav"
       class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start items-center"
     >
-      <!-- 프로필 버튼 (오른쪽 마진 넓게) -->
       <a
         href="/profile"
         class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-8"
         style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
+        data-category="profile"
       >
         프로필
       </a>
@@ -44,7 +44,7 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
       {posts.map(post => (
         <a 
           href={`/posts/${post.slug}`} 
-          class="group block border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 post-card"
+          class="group rounded-lg overflow-hidden post-card transition-shadow duration-300"
           data-category={post.category ?? '기타'}
         >
           <div class="w-full aspect-square overflow-hidden">
@@ -54,33 +54,51 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
               class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
             />
           </div>
-          <div class="p-4 bg-white">
-            <h3 class="text-base md:text-lg font-bold mb-1">{post.title}</h3>
-            <p class="text-sm text-gray-600">{post.description}</p>
+          <div class="post-card-content bg-white">
+            {post.date && (
+              <div class="post-card-date">
+                {(new Date(post.date)).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+            )}
+            <h3 class="post-card-title">{post.title}</h3>
+            <p class="post-card-desc">{post.description}</p>
           </div>
         </a>
       ))}
     </div>
   </div>
 
-  <!-- 필터/검색 스크립트 -->
+  <!-- 필터/검색 스크립트 + localStorage 복원 -->
   <script>
     const buttons = document.querySelectorAll('.category-btn');
     const posts = document.querySelectorAll('.post-card');
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
 
-    // 카테고리 필터링
+    // 카테고리 필터링 + localStorage 저장
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active', 'bg-black', 'text-white'));
         btn.classList.add('active', 'bg-black', 'text-white');
         const category = btn.dataset.category;
+        // 마지막 선택 카테고리 저장 (프로필 버튼은 예외)
+        if (category !== "profile") {
+          localStorage.setItem('lastCategory', category);
+        }
         posts.forEach(post => {
           const match = category === 'all' || post.dataset.category === category;
           post.style.display = match ? 'block' : 'none';
         });
       });
+    });
+
+    // 페이지 로드시 localStorage에서 복원
+    window.addEventListener('DOMContentLoaded', () => {
+      const last = localStorage.getItem('lastCategory');
+      if (last && last !== "profile") {
+        const btn = document.querySelector(`.category-btn[data-category="${last}"]`);
+        if (btn) btn.click();
+      }
     });
 
     // 검색 필터링
@@ -99,17 +117,63 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
   <style>
     .category-btn {
       transition: background 0.2s, color 0.2s, border 0.2s;
+      border: 2px solid #111; /* 기본 테두리 */
     }
     .category-btn.active {
-      background-color: black !important;
+      background-color: #009695 !important;
       color: white !important;
-      border: none !important;
+      border: 2.5px solid #fff !important; /* ★ 흰색 테두리 확실하게 */
+      box-shadow: 0 0 0 1.5px #009695 inset !important; /* 테두리 겹침 방지용 */
     }
     .category-inactive:not(.active) {
       background: #fff;
       color: #111;
       border: 2px solid #111;
     }
+
+    .post-card {
+      border: 2px solid #111 !important;
+      border-radius: 16px;
+      background: #fff;
+      transition:
+        border-color 0.18s,
+        border-width 0.18s,
+        box-shadow 0.18s;
+    }
+    .post-card:hover,
+    .post-card:focus,
+    .post-card:active {
+      border-color: #009695 !important;
+      border-width: 6px !important;
+      box-shadow: 0 4px 20px 0 rgba(0,0,0,0.04);
+      cursor: pointer;
+    }
+
+    .post-card-content {
+      padding: 1.2rem !important;
+      background: #fff;
+    }
+    .post-card-date {
+      font-size: 0.8rem;
+      color: #A0A0A0;
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+    .post-card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .post-card-desc {
+      font-size: 1rem;
+      color: #5B5B5B;
+      margin: 0;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
     body, html {
       background: #F8F8FF !important;
     }
