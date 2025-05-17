@@ -14,29 +14,32 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
 <Layout title="Blog">
   <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
 
-    <!-- 카테고리 Navigation (프로필 버튼 왼쪽, 분리) -->
-    <div
-      id="category-nav"
-      class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start items-center"
-    >
-      <a
-        href="/profile"
-        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-8"
-        style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
-        data-category="profile"
-      >
-        프로필
-      </a>
-      <button
-        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] active"
-        data-category="all"
-      >모든 글</button>
-      {allCategories.map(cat => (
+    <!-- 카테고리 Navigation (프로필 버튼 분리) -->
+    <div id="category-nav" class="mb-8 px-6">
+      <!-- 프로필 버튼: 모바일에서 아래 여백, PC에서 오른쪽 여백 -->
+      <div class="mb-4 sm:mb-0">
+        <a
+          href="/profile"
+          class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] w-full sm:w-auto sm:mr-8"
+          style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
+          data-category="profile"
+        >
+          프로필
+        </a>
+      </div>
+      <!-- 카테고리 버튼들: 모바일에서 한 줄, PC에서는 가로 정렬 -->
+      <div class="flex flex-wrap gap-x-4 gap-y-2 items-center">
         <button
-          class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px]"
-          data-category={cat}
-        >{cat}</button>
-      ))}
+          class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] active"
+          data-category="all"
+        >모든 글</button>
+        {allCategories.map(cat => (
+          <button
+            class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px]"
+            data-category={cat}
+          >{cat}</button>
+        ))}
+      </div>
     </div>
 
     <!-- 포스트 목록 -->
@@ -122,13 +125,30 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
     .category-btn.active {
       background-color: #009695 !important;
       color: white !important;
-      border: 2.5px solid #fff !important; /* ★ 흰색 테두리 확실하게 */
-      box-shadow: 0 0 0 1.5px #009695 inset !important; /* 테두리 겹침 방지용 */
+      border: 2.5px solid #fff !important;
+      box-shadow: 0 0 0 1.5px #009695 inset !important;
     }
     .category-inactive:not(.active) {
       background: #fff;
       color: #111;
       border: 2px solid #111;
+    }
+    /* 모바일에서 category-nav 내부 버튼 분리 */
+    #category-nav > div:first-child {
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 640px) {
+      #category-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      #category-nav > div:first-child {
+        margin-bottom: 0;
+        margin-right: 2rem;
+      }
     }
 
     .post-card {
@@ -148,7 +168,6 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
       box-shadow: 0 4px 20px 0 rgba(0,0,0,0.04);
       cursor: pointer;
     }
-
     .post-card-content {
       padding: 1.2rem !important;
       background: #fff;
