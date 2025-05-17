@@ -6,11 +6,11 @@ module.exports = {
         DEFAULT: {
           css: {
             fontFamily: [
-              'forma-djr-text', 'source-han-sans-korean', 'Apple SD Gothic Neo', 'Malgun Gothic',
+              'forma-djr-text', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic',
               'Segoe UI Symbol', 'Arial', 'sans-serif'
             ].join(', '),
             h1: {
-              fontFamily: 'forma-djr-text, source-han-sans-korean, sans-serif',
+              fontFamily: 'forma-djr-text, Noto Sans KR, sans-serif',
               fontWeight: '800',
               fontSize: '2.35rem',
               lineHeight: '1.13',
