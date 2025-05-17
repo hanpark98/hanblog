@@ -14,28 +14,24 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
 <Layout title="Blog">
   <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
 
-    <!-- 카테고리 Navigation (프로필 버튼 분리) -->
-    <div id="category-nav" class="mb-8 px-6">
-      <!-- 프로필 버튼: 모바일에서 아래 여백, PC에서 오른쪽 여백 -->
-      <div class="mb-4 sm:mb-0">
-        <a
-          href="/profile"
-          class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] w-full sm:w-auto sm:mr-8"
-          style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
-          data-category="profile"
-        >
-          프로필
-        </a>
-      </div>
-      <!-- 카테고리 버튼들: 모바일에서 한 줄, PC에서는 가로 정렬 -->
-      <div class="flex flex-wrap gap-x-4 gap-y-2 items-center">
+    <!-- 카테고리 Navigation (프로필 버튼 + 카테고리 pill) -->
+    <div id="category-nav" class="flex flex-nowrap items-start gap-x-4 gap-y-2 mb-8 px-6 overflow-x-auto">
+      <a
+        href="/profile"
+        class="profile-btn px-7 py-2 rounded-full text-base font-bold min-w-[108px] flex-shrink-0 mr-4"
+        style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
+        data-category="profile"
+      >
+        프로필
+      </a>
+      <div class="flex flex-wrap gap-x-4 gap-y-2 min-w-0 flex-1">
         <button
-          class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] active"
+          class="category-btn category-inactive px-7 py-2 rounded-full text-base font-bold min-w-[108px] active"
           data-category="all"
         >모든 글</button>
         {allCategories.map(cat => (
           <button
-            class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px]"
+            class="category-btn category-inactive px-7 py-2 rounded-full text-base font-bold min-w-[108px]"
             data-category={cat}
           >{cat}</button>
         ))}
@@ -73,6 +69,7 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
 
   <!-- 필터/검색 스크립트 + localStorage 복원 -->
   <script>
+    // 프로필 버튼은 제외하고 category-btn만 관리
     const buttons = document.querySelectorAll('.category-btn');
     const posts = document.querySelectorAll('.post-card');
     const searchForm = document.getElementById('search-form');
@@ -84,10 +81,7 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
         buttons.forEach(b => b.classList.remove('active', 'bg-black', 'text-white'));
         btn.classList.add('active', 'bg-black', 'text-white');
         const category = btn.dataset.category;
-        // 마지막 선택 카테고리 저장 (프로필 버튼은 예외)
-        if (category !== "profile") {
-          localStorage.setItem('lastCategory', category);
-        }
+        localStorage.setItem('lastCategory', category);
         posts.forEach(post => {
           const match = category === 'all' || post.dataset.category === category;
           post.style.display = match ? 'block' : 'none';
@@ -98,7 +92,7 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
     // 페이지 로드시 localStorage에서 복원
     window.addEventListener('DOMContentLoaded', () => {
       const last = localStorage.getItem('lastCategory');
-      if (last && last !== "profile") {
+      if (last) {
         const btn = document.querySelector(`.category-btn[data-category="${last}"]`);
         if (btn) btn.click();
       }
@@ -118,36 +112,68 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
   </script>
 
   <style>
+    /* 프로필 버튼 pill */
+.profile-btn {
+  background: #fff;
+  color: #111;
+  border: 2px solid #111;
+  border-radius: 4px;        /* 또는 Tailwind라면 rounded */
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+    .profile-btn:active, .profile-btn:focus {
+      filter: brightness(0.94);
+    }
+
+    /* 카테고리 버튼 pill */
     .category-btn {
       transition: background 0.2s, color 0.2s, border 0.2s;
-      border: 2px solid #111; /* 기본 테두리 */
+      border: 2px solid #111;
+      border-radius: 9999px !important; /* pill */
     }
     .category-btn.active {
       background-color: #009695 !important;
       color: white !important;
-      border: 2.5px solid #fff !important;
-      box-shadow: 0 0 0 1.5px #009695 inset !important;
+      border: 2px solid #fff !important;
     }
     .category-inactive:not(.active) {
       background: #fff;
       color: #111;
       border: 2px solid #111;
     }
-    /* 모바일에서 category-nav 내부 버튼 분리 */
-    #category-nav > div:first-child {
-      margin-bottom: 1rem;
+
+    /* 모바일에서 프로필+카테고리 한줄 유지 (가로 스크롤) */
+    #category-nav {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0;
+      align-items: flex-start;
     }
+    .profile-btn {
+      flex-shrink: 0;
+      margin-right: 16px;
+      min-width: 108px;
+      max-width: 140px;
+    }
+    #category-nav > div {
+      flex-wrap: wrap;
+      flex: 1 1 0%;
+      min-width: 0;
+      display: flex;
+      gap: 12px 8px;
+    }
+
     @media (min-width: 640px) {
       #category-nav {
-        display: flex;
-        flex-wrap: wrap;
         gap: 0;
-        justify-content: flex-start;
         align-items: center;
       }
-      #category-nav > div:first-child {
+      .profile-btn {
         margin-bottom: 0;
-        margin-right: 2rem;
+        margin-right: 32px;
+      }
+      #category-nav > div {
+        gap: 16px 12px;
       }
     }
 
