@@ -6,14 +6,22 @@ const showFooter = Astro.url.pathname !== '/';
 
 <html lang="ko">
   <head>
+    <link rel="stylesheet" href="/src/styles/global.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>한결</title>
     <!-- (폰트, SEO 등 기존 head 내용은 그대로 추가) -->
     <script>
-      // Adobe Fonts 등 삽입
-    </script>
-    <style global>
+  (function(d) {
+    var config = {
+      kitId: 'uwh6hiy',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+    <style is:global>
       html, body {
         margin: 0;
         padding: 0;

@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind typography;
+
+/* 👇 마크다운 본문 모든 블록 요소에 강제 음수 마진 적용 */
+article.prose.prose-lg img {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > h1 {
+   margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > h2 {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > h3 {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > h4 {
+  margin-top: 0em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > p {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > ul,
+:root article.prose.prose-lg > ol {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > pre {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+:root article.prose.prose-lg > blockquote {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
