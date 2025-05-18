@@ -1,5 +1,6 @@
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,md}'],
+  content: ['./src/**/*.{astro,js,jsx,ts,tsx,vue,svelte,html,md}',
+  './content/**/*.{md,mdx}'],
   theme: {
     extend: {
       typography: {
