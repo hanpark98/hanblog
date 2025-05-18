@@ -11,7 +11,7 @@ module.exports = {
             ].join(', '),
             h1: {
               fontFamily: 'forma-djr-text, Noto Sans KR, sans-serif',
-              fontWeight: '800',
+              fontWeight: '600',
               fontSize: '2.35rem',
               lineHeight: '1.13',
               marginTop: '0.4em',
@@ -19,7 +19,7 @@ module.exports = {
               letterSpacing: '-0.02em',
             },
             h2: {
-              fontWeight: '700',
+              fontWeight: '600',
               fontSize: '1.7rem',
               lineHeight: '1.13',
               marginTop: '0.4em',
@@ -27,7 +27,7 @@ module.exports = {
               letterSpacing: '-0.01em',
             },
             h3: {
-              fontWeight: '700',
+              fontWeight: '600',
               fontSize: '1.18rem',
               lineHeight: '1.25',
               marginTop: '0.4em',

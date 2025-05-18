@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'Noto Sans KR';
   src: url('/fonts/NotoSansKR-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: bold;
+  font-weight: 600;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -17,6 +17,11 @@
 body {
   font-family: 'forma-djr-text', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic',
     'Segoe UI Symbol', 'Arial', sans-serif;
+}
+
+.en-auto-spacing {
+  letter-spacing: 0.02em;
+  vertical-align: 0.03em;
 }
 
 @tailwind base;

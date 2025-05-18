@@ -7,7 +7,7 @@ const showFooter = Astro.url.pathname !== '/';
 <html lang="ko">
   <head>
     <link rel="preload" as="font" type="font/woff2" href="/fonts/NotoSansKR-Regular.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/fonts/NotoSansKR-Bold.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/NotoSansKR-Bold.woff2" crossorigin>
     <link rel="stylesheet" href="/src/styles/global.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -94,5 +94,36 @@ const showFooter = Astro.url.pathname !== '/';
         © {new Date().getFullYear()} 한결 | All rights reserved. | hanparkdesign@gmail.com
       </footer>
     )}
+    <!-- 👇 JS 코드: 영문/숫자 자동 감지 및 자간 적용 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const walk = node => {
+          if (node.nodeType === 3) { // 텍스트 노드
+            const regex = /([A-Za-z0-9]+)/g;
+            if (regex.test(node.nodeValue)) {
+              const frag = document.createDocumentFragment();
+              let lastIndex = 0;
+              node.nodeValue.replace(regex, (match, p1, offset) => {
+                if (offset > lastIndex) {
+                  frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex, offset)));
+                }
+                const span = document.createElement('span');
+                span.className = 'en-auto-spacing';
+                span.textContent = match;
+                frag.appendChild(span);
+                lastIndex = offset + match.length;
+              });
+              if (lastIndex < node.nodeValue.length) {
+                frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex)));
+              }
+              node.parentNode.replaceChild(frag, node);
+            }
+          } else if (node.nodeType === 1 && !['SCRIPT','STYLE','CODE','PRE','TEXTAREA'].includes(node.tagName)) {
+            Array.from(node.childNodes).forEach(walk);
+          }
+        };
+        walk(document.body);
+      });
+    </script>
   </body>
 </html>
