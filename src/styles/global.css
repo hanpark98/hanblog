@@ -29,49 +29,26 @@ body {
 @tailwind utilities;
 @tailwind typography;
 
-/* 👇 마크다운 본문 모든 블록 요소에 강제 음수 마진 적용 */
-article.prose.prose-lg img {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
+/* 마크다운 본문 모든 텍스트 블록에 동일한 상하 마진 적용 (prose-lg/prose 공통) */
+.prose :where(h1, h2, h3, h4, p, ul, ol, pre, blockquote, li),
+.prose-lg :where(h1, h2, h3, h4, p, ul, ol, pre, blockquote, li) {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.4rem !important;
 }
 
-:root article.prose.prose-lg > h1 {
-   margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
+/* nested list와 후손 p, 특이 케이스까지 덮어쓰기 */
+.prose :where(ul ul, ul ol, ol ul, ol ol, .prose>ul>li p, .prose>ol>li p, 
+  .prose>ul>li>p:first-child, .prose>ul>li>p:last-child, 
+  .prose>ol>li>p:first-child, .prose>ol>li>p:last-child),
+.prose-lg :where(ul ul, ul ol, ol ul, ol ol, .prose-lg>ul>li p, .prose-lg>ol>li p, 
+  .prose-lg>ul>li>p:first-child, .prose-lg>ul>li>p:last-child, 
+  .prose-lg>ol>li>p:first-child, .prose-lg>ol>li>p:last-child) {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.4rem !important;
 }
 
-:root article.prose.prose-lg > h2 {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > h3 {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > h4 {
-  margin-top: 0em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > p {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > ul,
-:root article.prose.prose-lg > ol {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > pre {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > blockquote {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
+/* 이미지 상자도 동일하게 적용하고 싶다면 아래 추가 */
+.prose img, .prose-lg img {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.4rem !important;
 }
