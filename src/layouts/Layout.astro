@@ -6,8 +6,6 @@ const showFooter = Astro.url.pathname !== '/';
 
 <html lang="ko">
   <head>
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/NotoSansKR-Regular.woff2" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/NotoSansKR-Bold.woff2" crossorigin>
     <link rel="stylesheet" href="/src/styles/global.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +28,7 @@ const showFooter = Astro.url.pathname !== '/';
         height: 100%;
         background: #F8F8FF;
         font-family:
-          'forma-djr-text', 'Noto Sans KR',
+          'forma-djr-text', 'source-han-sans-korean',
           'Apple SD Gothic Neo', 'Malgun Gothic',
           'Segoe UI Symbol', 'Arial', 'sans-serif',
           'Segoe UI Emoji', 'Segoe UI Symbol';
