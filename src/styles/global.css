@@ -1,27 +1,45 @@
-/*@font-face {
+/* 
+@font-face {
   font-family: 'Noto Sans KR';
   src: url('/fonts/NotoSansKR-Bold.woff2') format('woff2');
   font-weight: 600;
-  font-style: bold;
+  font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Noto Sans KR';
   src: url('/fonts/NotoSansKR-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-}*/
+}
+*/
 
 body {
   font-family: 'forma-djr-text', 'source-han-sans-korean', 'Apple SD Gothic Neo', 'Malgun Gothic',
     'Segoe UI Symbol', 'Arial', sans-serif;
+  line-height: 1.7;         /* 👈 행간 명확히 선언 */
+  letter-spacing: 0;        /* 👈 전체 기본 자간 명확히 선언 */
 }
 
 .en-auto-spacing {
-  letter-spacing: 0.02em;
+  letter-spacing: 0.02em;   /* 영문/숫자만 자간 넓힘 */
   vertical-align: 0.03em;
+}
+
+/* bold 영문에 굵기 적용 */
+b .en-auto-spacing,
+strong .en-auto-spacing,
+.en-auto-spacing.font-bold,
+.en-auto-spacing.bold {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Tailwind prose, prose-lg에도 행간/자간 강제 지정 */
+article.prose, article.prose-lg {
+  line-height: 1.7 !important;
+  letter-spacing: 0 !important;
 }
 
 @tailwind base;
@@ -29,49 +47,25 @@ body {
 @tailwind utilities;
 @tailwind typography;
 
-/* 👇 마크다운 본문 모든 블록 요소에 강제 음수 마진 적용 */
+/* 👇 마크다운 본문 모든 블록 요소에 강제 마진 적용 */
 article.prose.prose-lg img {
   margin-top: 0.5em !important;
   margin-bottom: 0.5em !important;
 }
 
-:root article.prose.prose-lg > h1 {
-   margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > h2 {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > h3 {
+:root article.prose.prose-lg > h1,
+:root article.prose.prose-lg > h2,
+:root article.prose.prose-lg > h3,
+:root article.prose.prose-lg > h4,
+:root article.prose.prose-lg > p,
+:root article.prose.prose-lg > ul,
+:root article.prose.prose-lg > ol,
+:root article.prose.prose-lg > pre,
+:root article.prose.prose-lg > blockquote {
   margin-top: 0.5em !important;
   margin-bottom: 0.5em !important;
 }
 
 :root article.prose.prose-lg > h4 {
   margin-top: 0em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > p {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > ul,
-:root article.prose.prose-lg > ol {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > pre {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-}
-
-:root article.prose.prose-lg > blockquote {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
 }
