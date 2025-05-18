@@ -44,18 +44,19 @@ article.prose.prose-lg img {
   margin-top: 0.5em !important;
   margin-bottom: 0.5em !important;
 }
-:root article.prose.prose-lg > h1,
-:root article.prose.prose-lg > h2,
-:root article.prose.prose-lg > h3,
-:root article.prose.prose-lg > h4,
-:root article.prose.prose-lg > p,
-:root article.prose.prose-lg > ul,
-:root article.prose.prose-lg > ol,
-:root article.prose.prose-lg > pre,
-:root article.prose.prose-lg > blockquote {
+article.prose.prose-lg h1,
+article.prose.prose-lg h2,
+article.prose.prose-lg h3,
+article.prose.prose-lg h4,
+article.prose.prose-lg p,
+article.prose.prose-lg ul,
+article.prose.prose-lg ol,
+article.prose.prose-lg pre,
+article.prose.prose-lg blockquote {
   margin-top: 0.5em !important;
   margin-bottom: 0.5em !important;
 }
-:root article.prose.prose-lg > h4 {
+
+article.prose.prose-lg > h4 {
   margin-top: 0em !important;
 }
