@@ -44,3 +44,18 @@ article.prose.prose-lg ol > li > p:last-child {
   margin-top: 0.4rem !important;
   margin-bottom: 0.4rem !important;
 }
+
+/* 1:1 정사각형 이미지 스타일 */
+.square-img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+}
+
+.aspect-10-8 {
+  aspect-ratio: 1 / 0.8;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+}

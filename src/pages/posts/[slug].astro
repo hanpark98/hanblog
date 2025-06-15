@@ -40,7 +40,12 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
             <p class="text-gray-600 text-lg mt-2 mb-1">{frontmatter.description}</p>
           )}
           {frontmatter.image && (
-            <img src={frontmatter.image} alt={frontmatter.title} class="rounded-lg mt-4 mb-1" />
+            <img
+              src={frontmatter.image}
+              alt={frontmatter.title}
+              class="square-img rounded-lg mt-4 mb-1"
+              style="margin-left:auto; margin-right:auto; display:block;"
+            />
           )}
         </div>
         <Content />
@@ -64,6 +69,5 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
     body, html {
       background: #F8F8FF !important;
     }
-
   </style>
 </Layout>
