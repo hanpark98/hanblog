@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const postFiles = Object.entries(import.meta.glob('../content/posts/*.md', { eager: true }));
+
+const posts = postFiles.map(([path, post]) => ({
+  slug: path.split('/').pop().replace('.md', ''),
+  ...post.frontmatter
+}));
+
+const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
+---
+
+<Layout title="Blog">
+  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
+
+    <!-- 카테고리 Navigation (프로필 버튼 + 카테고리 pill) -->
+    <div id="category-nav" class="flex flex-nowrap items-start gap-x-4 gap-y-2 mb-8 px-6 overflow-x-auto">
+      <a
+        href="/profile"
+        class="profile-btn px-7 py-2 rounded-full text-base font-bold min-w-[108px] flex-shrink-0 mr-4"
+        style="text-align:center; display:inline-flex; align-items:center; justify-content:center;"
+        data-category="profile"
+      >
+        프로필
+      </a>
+      <div class="flex flex-wrap gap-x-4 gap-y-2 min-w-0 flex-1">
+        <button
+          class="category-btn category-inactive px-7 py-2 rounded-full text-base font-bold min-w-[108px] active"
+          data-category="all"
+        >모든 글</button>
+        {allCategories.map(cat => (
+          <button
+            class="category-btn category-inactive px-7 py-2 rounded-full text-base font-bold min-w-[108px]"
+            data-category={cat}
+          >{cat}</button>
+        ))}
+      </div>
+    </div>
+
+    <!-- 포스트 목록 -->
+    <div id="posts-wrapper" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 justify-items-start">
+      {posts.map(post => (
+        <a 
+          href={`/posts/${post.slug}`} 
+          class="group rounded-lg overflow-hidden post-card transition-shadow duration-300"
+          data-category={post.category ?? '기타'}
+        >
+          <div class="w-full aspect-square overflow-hidden">
+            <img 
+              src={post.image} 
+              alt={post.title} 
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="post-card-content bg-white">
+            {post.date && (
+              <div class="post-card-date">
+                {(new Date(post.date)).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+            )}
+            <h3 class="post-card-title">{post.title}</h3>
+            <p class="post-card-desc">{post.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- 필터/검색 스크립트 + localStorage 복원 -->
+  <script>
+    // 프로필 버튼은 제외하고 category-btn만 관리
+    const buttons = document.querySelectorAll('.category-btn');
+    const posts = document.querySelectorAll('.post-card');
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+
+    // 카테고리 필터링 + localStorage 저장
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active', 'bg-black', 'text-white'));
+        btn.classList.add('active', 'bg-black', 'text-white');
+        const category = btn.dataset.category;
+        localStorage.setItem('lastCategory', category);
+        posts.forEach(post => {
+          const match = category === 'all' || post.dataset.category === category;
+          post.style.display = match ? 'block' : 'none';
+        });
+      });
+    });
+
+    // 페이지 로드시 localStorage에서 복원
+    window.addEventListener('DOMContentLoaded', () => {
+      const last = localStorage.getItem('lastCategory');
+      if (last) {
+        const btn = document.querySelector(`.category-btn[data-category="${last}"]`);
+        if (btn) btn.click();
+      }
+    });
+
+    // 검색 필터링
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const q = searchInput.value.trim().toLowerCase();
+        posts.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(q) ? 'block' : 'none';
+        });
+      });
+    }
+  </script>
+
+  <style>
+    /* 프로필 버튼 pill */
+.profile-btn {
+  background: #fff;
+  color: #111;
+  border: 2px solid #111;
+  border-radius: 4px;        /* 또는 Tailwind라면 rounded */
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+    .profile-btn:active, .profile-btn:focus {
+      filter: brightness(0.94);
+    }
+
+    /* 카테고리 버튼 pill */
+    .category-btn {
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      border: 2px solid #111;
+      border-radius: 9999px !important; /* pill */
+    }
+    .category-btn.active {
+      background-color: #009695 !important;
+      color: white !important;
+      border: 2px solid #fff !important;
+    }
+    .category-inactive:not(.active) {
+      background: #fff;
+      color: #111;
+      border: 2px solid #111;
+    }
+
+    /* 모바일에서 프로필+카테고리 한줄 유지 (가로 스크롤) */
+    #category-nav {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0;
+      align-items: flex-start;
+    }
+    .profile-btn {
+      flex-shrink: 0;
+      margin-right: 16px;
+      min-width: 108px;
+      max-width: 140px;
+    }
+    #category-nav > div {
+      flex-wrap: wrap;
+      flex: 1 1 0%;
+      min-width: 0;
+      display: flex;
+      gap: 12px 8px;
+    }
+
+    @media (min-width: 640px) {
+      #category-nav {
+        gap: 0;
+        align-items: center;
+      }
+      .profile-btn {
+        margin-bottom: 0;
+        margin-right: 32px;
+      }
+      #category-nav > div {
+        gap: 16px 12px;
+      }
+    }
+
+    .post-card {
+      border: 2px solid #111 !important;
+      border-radius: 16px;
+      background: #fff;
+      transition:
+        border-color 0.18s,
+        border-width 0.18s,
+        box-shadow 0.18s;
+    }
+    .post-card:hover,
+    .post-card:focus,
+    .post-card:active {
+      border-color: #009695 !important;
+      border-width: 6px !important;
+      box-shadow: 0 4px 20px 0 rgba(0,0,0,0.04);
+      cursor: pointer;
+    }
+    .post-card-content {
+      padding: 1.2rem !important;
+      background: #fff;
+    }
+    .post-card-date {
+      font-size: 0.8rem;
+      color: #A0A0A0;
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+    .post-card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .post-card-desc {
+      font-size: 1rem;
+      color: #5B5B5B;
+      margin: 0;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    body, html {
+      background: #F8F8FF !important;
+    }
+  </style>
+</Layout>
