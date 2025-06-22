@@ -59,3 +59,11 @@ article.prose.prose-lg ol > li > p:last-child {
   width: 100%;
   display: block;
 }
+
+@media (max-width: 640px) {
+  div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+}
+

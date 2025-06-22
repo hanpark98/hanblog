@@ -6,7 +6,8 @@ const postFiles = Object.entries(import.meta.glob('../content/posts/*.md', { eag
 const posts = postFiles.map(([path, post]) => ({
   slug: path.split('/').pop().replace('.md', ''),
   ...post.frontmatter
-}));
+}))
+.sort((a, b) => new Date(b.date) - new Date(a.date));
 
 const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
 ---

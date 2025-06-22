@@ -4,34 +4,23 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Profile">
   <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
-    <!-- Category Navigation: "뒤로가기" 버튼만 표시 -->
-    <div
-      id="category-nav"
-      class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start"
-    >
+    <div id="category-nav" class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start">
       <button
         onclick="window.history.back()"
         class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-6"
-        style="border:2px solid #111;background:#fff;color:#111;"
-      >
+        style="border:2px solid #111;background:#fff;color:#111;">
         뒤로가기
       </button>
     </div>
 
-    <!-- 프로필 카드: 사진+텍스트 세로 정렬, 사진이 카드에 꽉 차게 -->
     <div class="max-w-xl mx-auto bg-white shadow rounded-xl p-10 flex flex-col items-center">
-      <!-- 프로필 사진: 카드 상단, 중앙 정렬, 영역 꽉 채움 -->
       <div class="w-full flex justify-center mb-8">
         <div
-          class="w-48 h-48 md:w-96 md:h-96 rounded-xl bg-gray-200 flex items-center justify-center overflow-hidden shadow"
-          style="font-size:1.3rem;font-weight:500;"
-        >
-          <!-- 실제 이미지 사용 시 아래의 img 태그 활성화 -->
+          class="profile-img-container rounded-xl bg-gray-200 flex items-center justify-center overflow-hidden shadow"
+          style="font-size:1.3rem;font-weight:500;">
           <img src="/images/website/profile.jpg" alt="프로필 사진" class="w-full h-full object-cover" />
-        
         </div>
       </div>
-      <!-- 텍스트: 왼쪽 정렬, 카드 내부 여백 충분 -->
       <div class="w-full text-center">
         <div class="text-2xl font-extrabold mb-1">한결</div>
         <div class="text-gray-500 mb-2">블로그 주인</div>
@@ -59,11 +48,33 @@ import Layout from '../layouts/Layout.astro';
     body, html {
       background: #F8F8FF !important;
     }
-    /* 모바일 반응형 */
+
+    /* 데스크탑: 192px ~ 384px */
+    .profile-img-container {
+      width: 16rem;
+      height: 16rem;
+      max-width: 100%;
+      max-height: 384px;
+    }
+
+    @media (min-width: 768px) {
+      .profile-img-container {
+        width: 24rem;
+        height: 24rem;
+      }
+    }
+
+    /* 모바일: 카드 패딩 남기고 크게 중앙정렬 */
     @media (max-width: 640px) {
       .p-10 { padding: 1.25rem !important; }
-      .w-48, .h-48 { width: 128px !important; height: 128px !important; }
-      .md\:w-64, .md\:h-64 { width: 128px !important; height: 128px !important; }
+      .profile-img-container {
+        width: 90vw;
+        height: 90vw;
+        max-width: 320px;
+        max-height: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   </style>
 </Layout>

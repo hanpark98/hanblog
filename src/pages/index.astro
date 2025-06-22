@@ -9,6 +9,23 @@ import Layout from '../layouts/Layout.astro';
     onclick="window.location.href='/posts'"
     style="position:relative;"
   >
+
+<div
+  id="center-svg"
+  style="
+    position: absolute;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    "
+>
+  <img src="/images/website/hometitle.svg" alt="홈 SVG" style="width: 400px; height: auto; display: block;" />
+</div>
+
+
+  
     <!-- 배경 이미지 레이어: PC/모바일 분기 -->
     <div
       id="bg-img"
@@ -32,12 +49,16 @@ import Layout from '../layouts/Layout.astro';
         text-align: left;
       "
     >
+
+    <!--
       <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white leading-snug drop-shadow">
         한결
       </h1>
       <p class="text-base md:text-lg text-white drop-shadow">
         &nbsp;블로그
       </p>
+      -->
+
     </div>
     <script>
       function toggleHeroBg() {
