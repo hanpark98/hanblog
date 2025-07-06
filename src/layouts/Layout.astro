@@ -76,15 +76,15 @@ const showFooter = Astro.url.pathname !== '/';
         </footer>
       )}
     </div>
-
-    <!-- 👇 불펌/복사/우클릭/드래그 금지 스크립트 -->
+<!--
+     👇 불펌/복사/우클릭/드래그 금지 스크립트
     <script>
       document.addEventListener('contextmenu', e => e.preventDefault());
       document.addEventListener('dragstart', e => e.preventDefault());
       document.addEventListener('selectstart', e => e.preventDefault());
       document.addEventListener('copy', e => e.preventDefault());
     </script>
-
+-->
     <!-- 👇 JS 코드: 영문/숫자 자동 감지 및 자간 적용 -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -115,6 +115,6 @@ const showFooter = Astro.url.pathname !== '/';
         };
         walk(document.body);
       });
-    </script>
+    </script>    
   </body>
 </html>

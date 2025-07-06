@@ -83,13 +83,16 @@ article.prose.prose-lg ol > li > p:last-child {
   --carousel-height: 600px;
   position: relative;
   height: var(--carousel-height);
+  min-height: 280px;
+  max-height: 100vw;
 }
 @media (max-width: 640px) {
   .my-carousel {
     --carousel-height: 400px;
+    min-height: 180px;
+    max-height: 90vw;
   }
 }
-
 .my-carousel-scroll {
   display: flex;
   overflow-x: auto;
@@ -101,15 +104,17 @@ article.prose.prose-lg ol > li > p:last-child {
   scrollbar-width: none;
   -ms-overflow-style: none;
   align-items: flex-end;
-  height: 100%;  /* 이거 다시 넣어야함! */
+  height: 100%;
+  min-height: 140px;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
 }
 .my-carousel-scroll::-webkit-scrollbar {
   display: none;
 }
-
 .my-carousel-item {
   flex: 0 0 auto;
-  height: 100%;  /* 이거 다시 넣어야함! */
+  height: 100%;
   min-width: 80px;
   display: flex;
   flex-direction: column;
@@ -117,16 +122,15 @@ article.prose.prose-lg ol > li > p:last-child {
   justify-content: flex-end;
   scroll-snap-align: center;
 }
-
 .my-carousel-img {
   height: calc(98% - 36px);
+  max-height: 100%;
   width: auto;
   object-fit: contain;
   border-radius: 24px;
   display: block;
   margin: 0;
 }
-
 .my-carousel-title {
   margin: 6px 0 0 0;
   line-height: 1.5;
@@ -164,7 +168,6 @@ article.prose.prose-lg ol > li > p:last-child {
 }
 .my-carousel.hide-left::before { opacity: 0; }
 .my-carousel.hide-right::after { opacity: 0; }
-
 
 /*
 footer {
