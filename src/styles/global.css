@@ -86,13 +86,15 @@ article.prose.prose-lg ol > li > p:last-child {
   min-height: 280px;
   max-height: 100vw;
 }
+
 @media (max-width: 640px) {
   .my-carousel {
-    --carousel-height: 400px;
-    min-height: 180px;
+    --carousel-height: 90vw;  /* 400px ≈ 62vw at 640px width */
+    min-height: 28vw;         /* 180px ≈ 28vw */
     max-height: 90vw;
   }
 }
+
 .my-carousel-scroll {
   display: flex;
   overflow-x: auto;
@@ -168,7 +170,6 @@ article.prose.prose-lg ol > li > p:last-child {
 }
 .my-carousel.hide-left::before { opacity: 0; }
 .my-carousel.hide-right::after { opacity: 0; }
-
 /*
 footer {
   width: 100%;
