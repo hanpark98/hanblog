@@ -1,7 +1,16 @@
-body {
-  font-family: 'forma-djr-text', 'source-han-sans-korean', 'Apple SD Gothic Neo', 'Malgun Gothic',
-    'Segoe UI Symbol', 'Arial', sans-serif;
+html, body, .layout-root{
+  min-height: 100vh !important;
+  height: 100% !important;
+  margin: 0;
+  padding: 0;
+  background: #F8F8FF;
+  font-family:
+    'forma-djr-text', 'source-han-sans-korean',
+    'Apple SD Gothic Neo', 'Malgun Gothic',
+    'Segoe UI Symbol', 'Arial', 'sans-serif',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
 }
+
 
 .en-auto-spacing {
   letter-spacing: 0.02em;
@@ -14,7 +23,6 @@ body {
 @tailwind typography;
 
 /* ------------ 마크다운 마진 완전 강제 ------------ */
-/* article.prose.prose-lg 하위 모든 텍스트 블록, 리스트, 이미지의 margin-top/bottom을 0.4rem로 강제 */
 article.prose.prose-lg h1,
 article.prose.prose-lg h2,
 article.prose.prose-lg h3,
@@ -29,7 +37,6 @@ article.prose.prose-lg img {
   margin-top: 0.4rem !important;
   margin-bottom: 0.4rem !important;
 }
-
 /* 중첩 리스트/후손 p 등도 덮어써서, Tailwind Typography의 특이 마진까지 완전히 무력화 */
 article.prose.prose-lg ul ul,
 article.prose.prose-lg ul ol,
@@ -60,10 +67,111 @@ article.prose.prose-lg ol > li > p:last-child {
   display: block;
 }
 
+/* Tailwind Typography(글로벌)에도 같은 폰트 강제 */
+.prose, .prose-lg {
+  font-family: 'forma-djr-text', 'source-han-sans-korean', 'Apple SD Gothic Neo', 'Malgun Gothic',
+    'Segoe UI Symbol', 'Arial', sans-serif !important;
+}
+
+/* 글로벌 자간(.en-auto-spacing) */
+.en-auto-spacing, .prose * .en-auto-spacing {
+  letter-spacing: 0.02em !important;
+}
+
+/* ----------- 캐러셀(세로길이 가변, 반응형/변수 적용) ----------- */
+.my-carousel {
+  --carousel-height: 600px;
+  position: relative;
+  height: var(--carousel-height);
+}
 @media (max-width: 640px) {
-  div[style*="display: flex"] {
-    flex-direction: column !important;
-    gap: 0 !important;
+  .my-carousel {
+    --carousel-height: 400px;
   }
 }
 
+.my-carousel-scroll {
+  display: flex;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  align-items: flex-end;
+  height: 100%;  /* 이거 다시 넣어야함! */
+}
+.my-carousel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.my-carousel-item {
+  flex: 0 0 auto;
+  height: 100%;  /* 이거 다시 넣어야함! */
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  scroll-snap-align: center;
+}
+
+.my-carousel-img {
+  height: calc(98% - 36px);
+  width: auto;
+  object-fit: contain;
+  border-radius: 24px;
+  display: block;
+  margin: 0;
+}
+
+.my-carousel-title {
+  margin: 6px 0 0 0;
+  line-height: 1.5;
+  font-size: 1rem;
+  text-align: center;
+  white-space: normal;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  word-break: keep-all;
+}
+
+/* 페이드 인디케이터 */
+.my-carousel::before,
+.my-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 15px;
+  height: 92%;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.5s;
+  opacity: 0.5;
+}
+.my-carousel::before {
+  mix-blend-mode: screen;
+  left: 0;
+  background: linear-gradient(to right, rgb(255, 255, 255) 0%, transparent 100%);
+}
+.my-carousel::after {
+  mix-blend-mode: screen;
+  right: 0;
+  background: linear-gradient(to left, rgb(255, 255, 255) 0%, transparent 100%);
+}
+.my-carousel.hide-left::before { opacity: 0; }
+.my-carousel.hide-right::after { opacity: 0; }
+
+
+/*
+footer {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+}
+  */

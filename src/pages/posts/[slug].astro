@@ -15,7 +15,7 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
 ---
 
 <Layout title={frontmatter.title}>
-  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
+  <div class="pt-[24px] bg-[#F8F8FF]">
     <div class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start items-center">
       <button
         onclick="window.history.back()"
@@ -66,9 +66,31 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
       color: #111;
       border: 2px solid #111;
     }
-    body, html {
-      background: #F8F8FF !important;
-    }
-
+    /* body, html 배경은 global.css에서 관리, 이 부분은 삭제 가능 */
   </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.my-carousel').forEach(function(carousel) {
+        const scrollArea = carousel.querySelector('.my-carousel-scroll');
+        if (!scrollArea) return;
+        function updateFade() {
+          const scrollLeft = scrollArea.scrollLeft;
+          const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
+          if (scrollLeft <= 2) {
+            carousel.classList.add('hide-left');
+          } else {
+            carousel.classList.remove('hide-left');
+          }
+          if (scrollLeft >= maxScroll - 2) {
+            carousel.classList.add('hide-right');
+          } else {
+            carousel.classList.remove('hide-right');
+          }
+        }
+        updateFade();
+        scrollArea.addEventListener('scroll', updateFade);
+        window.addEventListener('resize', updateFade);
+      });
+    });
+  </script>
 </Layout>

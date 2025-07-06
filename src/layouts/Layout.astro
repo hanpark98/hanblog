@@ -8,26 +8,16 @@ const showFooter = Astro.url.pathname !== '/';
 <html lang="ko">
   <head>
     <link rel="stylesheet" href="/dist/_astro/index.0R2Se6j4.css" />
-<link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>한결</title>
-    <!-- (폰트, SEO 등 기존 head 내용은 그대로 추가) -->
-    <script>
-  (function(d) {
-    var config = {
-      kitId: 'uwh6hiy',
-      scriptTimeout: 3000,
-      async: true
-    },
-    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-  })(document);
-</script>
     <style is:global>
       html, body {
+        min-height: 100vh !important;
+        height: 100% !important;
         margin: 0;
         padding: 0;
-        height: 100%;
         background: #F8F8FF;
         font-family:
           'forma-djr-text', 'source-han-sans-korean',
@@ -35,70 +25,71 @@ const showFooter = Astro.url.pathname !== '/';
           'Segoe UI Symbol', 'Arial', 'sans-serif',
           'Segoe UI Emoji', 'Segoe UI Symbol';
       }
+      .layout-root {
+        min-height: 100vh;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
     </style>
   </head>
   <body class="overflow-x-hidden">
-    {showNav && (
-      <nav style="
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: #fff;
-        border-bottom: 2px solid #000;
-        display: flex;
-        align-items: center;
-        padding: 0.75rem 1.25rem;
-        min-height: 60px;
-      ">
-        <a href="/" style="display: flex; align-items: center; min-width: 0;">
-          <img src="/images/website/logo.svg" alt="로고" style="height: 2.25rem; width: 2.25rem; object-fit: contain; border-radius: 0; margin-right: 0.65rem;" />
-          <span style="font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; white-space: nowrap;">한결</span>
-        </a>
-        <div style="flex: 1 1 0%;"></div>
-        <form id="search-form" style="position: relative; width: 12rem; max-width: 20rem;">
-          <input
-            type="search"
-            placeholder="게시물 검색"
-            id="search-input"
-            style="
-              width: 100%;
-              padding: 0.5rem 2.2rem 0.5rem 1rem;
-              border-radius: 9999px;
-              border: 2px solid #000;
-              outline: none;
-              font-size: 1rem;
-              background: #fff;
-              transition: border 0.2s;
-            "
-          />
-          <button type="submit" style="position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: #333; cursor: pointer;">
-            <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.2rem; width: 1.2rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <circle cx="11" cy="11" r="7" stroke-width="2" />
-              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </form>
-      </nav>
-    )}
-    <slot />
-    {showFooter && (
-      <footer style="
-        background: #F8F8FF;
-        border-top: 1px solid #eee;
-        text-align: center;
-        color: #999;
-        font-size: 0.95rem;
-        padding: 2rem 0 1.5rem 0;
-        margin-top: 4rem;
-      ">
-        © {new Date().getFullYear()} 한결 | All rights reserved. | hanparkdesign@gmail.com
-      </footer>
-    )}
+    <div class="layout-root">
+      {showNav && (
+        <nav style="position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 2px solid #000; display: flex; align-items: center; padding: 0.75rem 1.25rem; min-height: 60px;">
+          <a href="/" style="display: flex; align-items: center; min-width: 0;">
+            <img src="/images/website/logo.svg" alt="로고" style="height: 2.25rem; width: 2.25rem; object-fit: contain; border-radius: 0; margin-right: 0.65rem;" />
+            <span style="font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; white-space: nowrap;">한결</span>
+          </a>
+          <div style="flex: 1 1 0%;"></div>
+          <form id="search-form" style="position: relative; width: 12rem; max-width: 20rem;">
+            <input
+              type="search"
+              placeholder="게시물 검색"
+              id="search-input"
+              style="width: 100%; padding: 0.5rem 2.2rem 0.5rem 1rem; border-radius: 9999px; border: 2px solid #000; outline: none; font-size: 1rem; background: #fff; transition: border 0.2s;"
+            />
+            <button type="submit" style="position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: #333; cursor: pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.2rem; width: 1.2rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <circle cx="11" cy="11" r="7" stroke-width="2" />
+                <line x1="16.5" y1="16.5" x2="21" y2="21" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </form>
+        </nav>
+      )}
+      <main style="flex: 1 1 auto;">
+        <slot />
+      </main>
+      {showFooter && (
+        <footer style="
+          background: #F8F8FF;
+          border-top: 1px solid #eee;
+          text-align: center;
+          color: #999;
+          font-size: 0.8rem;
+          padding: 0.6rem 0 0.6rem 0;
+          margin-top: 2rem;
+          flex-shrink: 0;
+        ">
+          © {new Date().getFullYear()} 한결 | All rights reserved. | hanparkdesign@gmail.com
+        </footer>
+      )}
+    </div>
+
+    <!-- 👇 불펌/복사/우클릭/드래그 금지 스크립트 -->
+    <script>
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('dragstart', e => e.preventDefault());
+      document.addEventListener('selectstart', e => e.preventDefault());
+      document.addEventListener('copy', e => e.preventDefault());
+    </script>
+
     <!-- 👇 JS 코드: 영문/숫자 자동 감지 및 자간 적용 -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const walk = node => {
-          if (node.nodeType === 3) { // 텍스트 노드
+          if (node.nodeType === 3) {
             const regex = /([A-Za-z0-9]+)/g;
             if (regex.test(node.nodeValue)) {
               const frag = document.createDocumentFragment();
