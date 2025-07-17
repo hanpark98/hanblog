@@ -32,7 +32,7 @@ html, body, .layout-root{
 @tailwind utilities;
 @tailwind typography;
 
-/* ------------ 마크다운 마진 완전 강제 ------------ */
+/* ------------ 마크다운 마진 완전 강제 ------------
 article.prose.prose-lg h1,
 article.prose.prose-lg h2,
 article.prose.prose-lg h3,
@@ -48,7 +48,7 @@ article.prose.prose-lg img {
   margin-bottom: 0.4rem !important;
 }
 
-/* 중첩 리스트/후손 p 등도 덮어써서, Tailwind Typography의 특이 마진까지 완전히 무력화 */
+/* 중첩 리스트/후손 p 등도 덮어써서, Tailwind Typography의 특이 마진까지 완전히 무력화 
 article.prose.prose-lg ul ul,
 article.prose.prose-lg ul ol,
 article.prose.prose-lg ol ul,
@@ -62,29 +62,29 @@ article.prose.prose-lg ol > li > p:last-child {
   margin-top: 0.4rem !important;
   margin-bottom: 0.4rem !important;
 }
-
+*/
 /* 스타일 강제 적용 */
 h1 {
-  margin-top: 0.6em !important;
-  margin-bottom: 0.6em !important;
+  margin-top: 0em !important;
+  margin-bottom: 0.15em !important;
   line-height: 1 !important;
-  letter-spacing: -0.01em !important;
-  font-size: 3rem !important;
+  letter-spacing: -0.03em !important;
+  font-size: 2.5rem !important;
   font-weight: 600 !important;
 }
 h2 {
   margin-top: 0.6em !important;
-  margin-bottom: 0.6em !important;
+  margin-bottom: 0.2em !important;
   line-height: 1.2 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.02em !important;
   font-size: 1.7rem !important;
   font-weight: 600 !important;
 }
 h3 {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
+  margin-top: 0.2em !important;
+  margin-bottom: 0.2em !important;
   line-height: 1.25 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.02em !important;
   font-size: 1.18rem !important;
   font-weight: 600 !important;
 }
@@ -99,16 +99,49 @@ h4 {
   font-style: italic !important;
 }
 p {
-  margin-top: 0.4em !important;
-  margin-bottom: 0.4em !important;
+  margin-top: 0.8em !important;
+  margin-bottom: 0.8em !important;
   line-height: 1.6 !important;
   letter-spacing: -0.01em !important;
   font-size: 1.1rem !important;
   font-weight: 400 !important;
 }
 
+p2 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 1.6 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+}
+
+ul {
+  margin-top: 1.2em !important;
+  margin-bottom: 1.2em !important;
+  line-height: 1.6 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+}
+
+li {
+  margin-top: 0.6em !important;
+  margin-bottom: 0.6em !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+}
+
+img {
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+
 /* 1:1 정사각형 이미지 스타일 */
 .square-img {
+  margin-top: 1rem;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   width: 100%;
@@ -116,6 +149,7 @@ p {
 }
 
 .aspect-10-8 {
+  margin-top: 1rem;
   aspect-ratio: 1 / 0.8;
   object-fit: cover;
   width: 100%;

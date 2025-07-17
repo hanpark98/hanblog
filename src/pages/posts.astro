@@ -61,7 +61,7 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
               </div>
             )}
             <h3 class="post-card-title">{post.title}</h3>
-            <p class="post-card-desc">{post.description}</p>
+            <p2 class="post-card-desc">{post.description}</p2>
           </div>
         </a>
       ))}
@@ -202,7 +202,7 @@ const allCategories = [...new Set(posts.map(p => p.category ?? '기타'))];
     .post-card-date {
       font-size: 0.8rem;
       color: #A0A0A0;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.3rem;
       line-height: 1.4;
     }
     .post-card-title {

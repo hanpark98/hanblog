@@ -37,7 +37,7 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
           </div>
           <h1 class="mb-1">{frontmatter.title}</h1>
           {frontmatter.description && (
-            <p class="text-gray-600 text-lg mt-2 mb-1">{frontmatter.description}</p>
+            <p class="text-gray-600 text-lg mt-2 mb-3">{frontmatter.description}</p>
           )}
           {frontmatter.image && (
             <img

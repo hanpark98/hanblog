@@ -8,7 +8,7 @@ date: "2025-06-15"
 
 ## Sydney Film Festival 2025
 
-<div style="display: flex; gap: 8px;">
+<div style="display: flex; gap: 8px; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sff-mainbooth.jpg"
          style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
@@ -25,7 +25,7 @@ date: "2025-06-15"
 
 ## 시드니 극장문화
 
-<div style="display: flex; gap: 8px;">
+<div style="display: flex; gap: 8px; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sff-waitingline.jpg"
          style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
@@ -44,7 +44,7 @@ date: "2025-06-15"
 
 ## Twinless, 2025
 
-<img src="/images/posts/250615 twinless/twinless1.jpg" alt="Twinless"/>
+<img src="/images/posts/250615 twinless/twinless1.jpg" alt="Twinless" style="margin-top:1rem;"/>
 
 영화 제목을 참 잘 지었다. 처음엔 영화 장르에 따른 유희적인 접근이라고 생각했는데, 영화를 보고나니 생각이 좀 더 깊어졌다. 
 
@@ -113,6 +113,11 @@ date: "2025-06-15"
     <h4 style="margin: 0 0 0 0; line-height: 1;">못 맞추면 버거가 된다</h4>
   </div>
 </div>
+
+사람이란 이렇게나 작고 사소한 부분에서부터 다를 수 있구나, 만약 시간을 두고 들여다보지 않았다면 영원히 몰랐을 작은 것들이, 사람을 알아볼 수 있을 정도로 특징적인 것이 될 수 있구나. 그때 처음 깨달았다.
+이렇게 작은 하나하나가 모여 수천, 수만 개가 되면 ‘나’라는 사람이 되는 것이고, ‘너’라는 사람이 되는 것일 테다.<br><br>
+
+정체성을 다루는 영화인 만큼 많은 기억들이 스쳐 지나간다. 지금 밤 산책을 하면서 이 글을 쓰고 있는데, 서늘한 밤공기도 좋고, 어두운 길목에 번지는 조명빛도 아름답다. 생각해보면, 이런 순간 역시 내가 어떤 사람인지 드러내는 작은 흔적이겠다 싶다. 나는 작고 사소한 것들에도 마음을 기울이는 사람이 되고 싶다.<br><br>
 
 계란볶음밥을 해 먹으려고 산 대파에 꽃이 피었다. 물을 주고 햇빛이 잘 드는 곳에 두었다. <br>
 나태주 시인의 ‘풀꽃’이 생각난다.<br><br>
