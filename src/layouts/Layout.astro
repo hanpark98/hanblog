@@ -99,7 +99,6 @@ const showFooter = Astro.url.pathname !== '/';
                   frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex, offset)));
                 }
                 const span = document.createElement('span');
-                span.className = 'en-auto-spacing';
                 span.textContent = match;
                 frag.appendChild(span);
                 lastIndex = offset + match.length;

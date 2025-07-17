@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/NotoSansKR-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/NotoSansKR-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+
 html, body, .layout-root{
   min-height: 100vh !important;
   height: 100% !important;
@@ -5,16 +21,10 @@ html, body, .layout-root{
   padding: 0;
   background: #F8F8FF;
   font-family:
-    'forma-djr-text', 'source-han-sans-korean',
+    'Noto Sans KR',
     'Apple SD Gothic Neo', 'Malgun Gothic',
     'Segoe UI Symbol', 'Arial', 'sans-serif',
     'Segoe UI Emoji', 'Segoe UI Symbol';
-}
-
-
-.en-auto-spacing {
-  letter-spacing: 0.02em;
-  vertical-align: 0.03em;
 }
 
 @tailwind base;
@@ -37,6 +47,7 @@ article.prose.prose-lg img {
   margin-top: 0.4rem !important;
   margin-bottom: 0.4rem !important;
 }
+
 /* 중첩 리스트/후손 p 등도 덮어써서, Tailwind Typography의 특이 마진까지 완전히 무력화 */
 article.prose.prose-lg ul ul,
 article.prose.prose-lg ul ol,
@@ -50,6 +61,50 @@ article.prose.prose-lg ol > li > p:first-child,
 article.prose.prose-lg ol > li > p:last-child {
   margin-top: 0.4rem !important;
   margin-bottom: 0.4rem !important;
+}
+
+/* 스타일 강제 적용 */
+h1 {
+  margin-top: 0.6em !important;
+  margin-bottom: 0.6em !important;
+  line-height: 1 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 3rem !important;
+  font-weight: 600 !important;
+}
+h2 {
+  margin-top: 0.6em !important;
+  margin-bottom: 0.6em !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 1.7rem !important;
+  font-weight: 600 !important;
+}
+h3 {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 1.18rem !important;
+  font-weight: 600 !important;
+}
+h4 {
+  margin-top: 0.4em !important;
+  margin-bottom: 0.4em !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0em !important;
+  font-size: 0.9em !important;
+  font-weight: 400 !important;
+  color: #888 !important;
+  font-style: italic !important;
+}
+p {
+  margin-top: 0.4em !important;
+  margin-bottom: 0.4em !important;
+  line-height: 1.6 !important;
+  letter-spacing: -0.01em !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
 }
 
 /* 1:1 정사각형 이미지 스타일 */
@@ -69,13 +124,8 @@ article.prose.prose-lg ol > li > p:last-child {
 
 /* Tailwind Typography(글로벌)에도 같은 폰트 강제 */
 .prose, .prose-lg {
-  font-family: 'forma-djr-text', 'source-han-sans-korean', 'Apple SD Gothic Neo', 'Malgun Gothic',
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic',
     'Segoe UI Symbol', 'Arial', sans-serif !important;
-}
-
-/* 글로벌 자간(.en-auto-spacing) */
-.en-auto-spacing, .prose * .en-auto-spacing {
-  letter-spacing: 0.02em !important;
 }
 
 /* ----------- 캐러셀(세로길이 가변, 반응형/변수 적용) ----------- */
@@ -170,6 +220,23 @@ article.prose.prose-lg ol > li > p:last-child {
 }
 .my-carousel.hide-left::before { opacity: 0; }
 .my-carousel.hide-right::after { opacity: 0; }
+
+/* 비디오 모바일 최적화 */
+video {
+  background-color: #f0f0f0;
+  background-size: cover;
+  background-position: center;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  video {
+    object-fit: cover;
+  }
+}
 /*
 footer {
   width: 100%;
