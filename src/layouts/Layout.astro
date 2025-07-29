@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro'
 const { title } = Astro.props;
 const showNav = Astro.url.pathname !== '/';
 const showFooter = Astro.url.pathname !== '/';
@@ -124,5 +125,6 @@ window.oncontextmenu = function(){return false;}
         walk(document.body);
       });
     </script>    
+    <Analytics />
   </body>
 </html>
