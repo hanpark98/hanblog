@@ -1,7 +1,7 @@
 ---
 title: "Twinless"
 description: "2025 Sydney Film Festival"
-image: "/images/posts/250615 twinless/sff-victoria.jpg"
+image: "/images/posts/250615 twinless/sff-victoria.webp"
 category: "영화"
 date: "2025-06-15"
 ---
@@ -10,12 +10,12 @@ date: "2025-06-15"
 
 <div style="display: flex; gap: 8px; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/sff-mainbooth.jpg"
+    <img src="/images/posts/250615 twinless/sff-mainbooth.webp"
          style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">SFF Main Hub</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/sff-panel.jpg"
+    <img src="/images/posts/250615 twinless/sff-panel.webp"
          style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">SFF = SEE</h4>
   </div>
@@ -27,12 +27,12 @@ date: "2025-06-15"
 
 <div style="display: flex; gap: 8px; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/sff-waitingline.jpg"
+    <img src="/images/posts/250615 twinless/sff-waitingline.webp"
          style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">입장 기다리는 줄</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/ritz-cinema.jpg"
+    <img src="/images/posts/250615 twinless/ritz-cinema.webp"
          style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">Ritz Cinema</h4>
   </div>
@@ -59,7 +59,7 @@ date: "2025-06-15"
 
 <div style="display: flex; gap: 8px;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/ripley.jpg"
+    <img src="/images/posts/250615 twinless/ripley.webp"
          style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">The Talented Mr. Ripley, 1999, 영화</h4>
   </div>
@@ -103,12 +103,12 @@ date: "2025-06-15"
 
 <div style="display: flex; gap: 8px;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/burger1.png"
+    <img src="/images/posts/250615 twinless/burger1.webp"
          style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">눈을 가린다</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250615 twinless/burger2.png"
+    <img src="/images/posts/250615 twinless/burger2.webp"
          style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 24px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">못 맞추면 버거가 된다</h4>
   </div>
@@ -126,7 +126,7 @@ date: "2025-06-15"
 너도 그렇다
 
 <br>
-<img src="/images/posts/250615 twinless/대파.png" alt="대파" class="aspect-10-8"/>
+<img src="/images/posts/250615 twinless/대파.webp" alt="대파" class="aspect-10-8"/>
 
 <!--
 <img src="/images/posts/250517/1.avif" alt="넷플릭스 영화 life list" class="aspect-10-8" />
