@@ -1,8 +1,8 @@
 ---
-title: "너는 무슨 맛이니? 나는 죽을 맛이야."
-description: "영화 Happyend 를 보고"
+title: "큰따옴표"
+description: "너는 무슨 맛이니? 나는 죽을 맛이야."
 image: "/images/posts/250814 happyend/act/parade3.webp"
-category: "(Null)"
+category: ["에세이" , "(Null)"]
 date: "2025-08-14"
 ---
 
