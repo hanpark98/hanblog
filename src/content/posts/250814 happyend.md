@@ -94,10 +94,56 @@ date: "2025-08-14"
 
 ## 너는 무슨 맛이니? 나는 죽을 맛이야.
 
-학교 앞에서 나눠 주던 교회 전단에는 ‘동성애=에이즈’라는 구호가 버젓이 찍혀 있었고, 포털 사이트들은 클릭 수를 노리고 혐오 기사를 끊임없이 쏟아냈다. 크고 작은 차별 사건이 하루가 멀다 하고 터지던 가운데, 모두를 충격에 빠지게 한 사건이 연달아 벌어졌다.
+<div class="my-carousel">
+  <div
+    class="my-carousel-scroll"
+    onwheel="
+      if (this.matches(':hover')) {
+        event.preventDefault();
+        this.scrollBy({left: event.deltaY, behavior: 'auto'});
+      }
+    "
+  >    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/haters2.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">ADIDAS</h4>
+    </div>
+        <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/haters3.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">학교 앞 전단</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/haters1.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">그들에겐 친목 도모의 장이다.</h4>
+    </div>
+  </div>
+</div>
+
+'동성애자'는 대한민국 사회에서 동네북 같은 존재였다. 종교단체에서는 내부적으로 공동체의식을 다지기 위해 '공동의 적'을 두는 수법을 사용했고, 대표로 '동성애'를 내세웠다. 안타깝지만 성소수자의 존재유무조차 생소했던 한국 사회에서 혐오의 목소리는 너무나도 쉽게 우리 일상을 파고들었다. 학교 앞에서는 '동성애자의 양심고백' 이라는 전단을 버젓이 나누어주었고, 번화가 길거리에는 ‘동성애=에이즈’라는 팻말을 든 단체가 서명운동을 했다. 포털 사이트들은 클릭 수를 노리고 혐오 기사를 끊임없이 쏟아냈다.
+
+크고 작은 차별 사건이 하루가 멀다 하고 터지던 가운데, 모두를 충격에 빠지게 한 사건이 연달아 벌어졌다:
 
 - 차별금지법 제정을 촉구하던 활동가들에게 문재인은 TV 토론장에서 “나중에”라며 책임을 유예했다.
 - 얼마 뒤 무지개 깃발을 들고 그에게 조용히 다가가려던 활동가들이 연행됐다.
+
+<div class="my-carousel">
+  <div
+    class="my-carousel-scroll"
+    onwheel="
+      if (this.matches(':hover')) {
+        event.preventDefault();
+        this.scrollBy({left: event.deltaY, behavior: 'auto'});
+      }
+    "
+  >    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/flag2.jpg" class="my-carousel-img" />
+      <h4 class="my-carousel-title">'나중에'의 현장</h4>
+    </div>
+        <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/flag1.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">"폭력적인" 무지개 갓발</h4>
+    </div>
+  </div>
+</div>
 
 온라인 여론은 “폭력 시위니 당연한 결과”라며 활동가들을 탓했지만, 정작 폭력적이었던 것은 무지개 깃발에 투영된 혐오와 공권력의 과잉 대응이었다. 유력 대선 후보, 곧 국가최고통치권자가 될 사람이 보여 준 모습은 이미 아수라장이 된 포털 댓글창에 면죄부를 던져 준 것이나 다름없었다. 이에 성소수자 당사자들 사이에서 SNS에 커밍아웃 하는 글을, Ally 는 성소수자를 지지하는 글을 게시하는 물결이 일기도 했다.
 
@@ -127,9 +173,43 @@ date: "2025-08-14"
   </div>
 </div>
 
-"너는 무슨 맛이니? 나는 죽을 맛이야." 라는 카피가 당시 사회초년생들이 느끼는 공감대를 통해 신제품 홍보를 자연스럽게 이루었다 (당시 다양한 맛의 과일소주가 유행했었다.)는 평가를 받으며, 제일기획 출신의 교수님에게 A를 받았다. 내가 봐도 웃기긴 하지만, 오죽하면 그랬겠는가. <br><br>
+"너는 무슨 맛이니? 나는 죽을 맛이야." 라는 카피가 당시 사회초년생들이 느끼는 공감대를 통해 신제품 홍보를 자연스럽게 이루었다 (당시 다양한 맛의 과일소주가 유행했었다.)는 평가를 받으며, '제일기획 출신'의 교수님에게 A를 받았다. 내가 봐도 웃기긴 하지만, 오죽하면 그랬겠는가. <br><br>
 
 ## "큰따옴표"
+
+‘과학과 윤리’라는 수업이 있었다. 기말 시험으로 원하는 주제를 골라 강단에서 10분씩 발표하는 과제가 주어졌는데, 그 수업에는 굳이 원치 않게 커밍아웃을 하게 된 같은 과 선배 형이 있었다. 그 형은 강단에 오르더니 PPT를 띄우고 "에이즈는 원숭이에게서 왔다"느니 종교 단체에서 퍼뜨린 정보를 기말 과제로 읊기 시작했다. 개중에는 "동성애자의 양심 고백", 학교 정문 앞에서 나누어 주던 팸플릿도 자료로 들어가 있었다. 10분 내내 온갖 개소리를 가만히 들어줘야 했는데 정말 뛰쳐나가고 싶었다. 그런데 갑자기 발표 내용이 혐오에서 포용으로 바뀌면서, "동성애자를 차별하면 안 된다"고 5초 만에 논리를 비약하며 마무리되었다. 그 형은 "나는 Ally다"라는 금메달이라도 목에 건 듯, 뿌듯한 표정으로 나를 바라보며 강단에서 내려왔다. 교수를 포함한 많은 학생이 "민감한 주제"를 용기 있고 과감하게 다루었다며 큰 박수와 격려를 보냈다.
+
+"라떼는" 정보를 얻고 싶으면 도서관과 박물관에 가는 게 국룰일 만큼, 좋은 정보를 구하는 것도 능력이었다. 요즘은 AI 덕분에 단순한 '정보의 홍수' 시대를 넘어서 '정보의 쓰레기장'으로 불리는 인터넷 공간이지만, 대다수의 학생은 인터넷 네이버 지식인과 블로그를 인용했다. 정문에서 받은 팸플릿도 있겠다, 그 선배 형도 그리했을 것이다. 애초에 성소수자의 존재조차 알지 못하는 사람이 대다수였던, 성소수자 가시화조차 되어 있지 않은 한국 사회에서, 편견 없는 정보를 구하는 것은 사실상 불가능에 가까웠을 것이다.
+
+
+<div class="my-carousel">
+  <div
+    class="my-carousel-scroll"
+    onwheel="
+      if (this.matches(':hover')) {
+        event.preventDefault();
+        this.scrollBy({left: event.deltaY, behavior: 'auto'});
+      }
+    "
+  >
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/club1.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">스케치</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/club2.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">로고</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/club3.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">포스터</h4>
+    </div>
+  </div>
+</div>
+
+사실 그 수업에는 나를 포함해 3명의 성소수자가 있었다. 학교 성소수자 커뮤니티가 친목 모임의 형태로 존재해, 친한 사람들끼리 같이 수강한 것이었다. 우리는 퀴어 당사자들의 말이 조명되어야 할 필요성을 절박하게 느꼈다. 이에 친목 모임을 학교 동아리로 정식 출범하기로 결정했다. 그러기 위해선 모임 이름도 바꾸어야 했다. 남성 동성애자 중심적인 이름에서(게이-게이-) 레즈비언/트랜스젠더/젠더퀴어 회원들을 대변할 수 있는 포용적인 이름이 필요했다.
+
+동아리의 목적이 "퀴어 당사자의 말을 조명하자"인 만큼, 하고 싶은 말이 어떤 것이든 두 개의 기호 사이에 자유롭게 담을 수 있는 "큰따옴표"를 동아리명으로 지었다.
 
 <div class="my-carousel">
   <div
@@ -155,6 +235,3 @@ date: "2025-08-14"
     </div>
   </div>
 </div>
-
-
-
