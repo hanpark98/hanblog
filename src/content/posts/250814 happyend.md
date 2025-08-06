@@ -3,7 +3,7 @@ title: "큰따옴표"
 description: "너는 무슨 맛이니? 나는 죽을 맛이야."
 image: "/images/posts/250814 happyend/act/parade3.webp"
 category: ["에세이" , "(Null)"]
-date: "2025-08-14"
+date: "2016-01-01"
 ---
 
 # (TEST) 
@@ -68,7 +68,7 @@ date: "2025-08-14"
     "
   >
     <div class="my-carousel-item">
-      <img src="/images/posts/250814 happyend/act/essay1.jpg" class="my-carousel-img" />
+      <img src="/images/posts/250814 happyend/act/essay1-1.webp" class="my-carousel-img" />
       <h4 class="my-carousel-title">대자보</h4>
     </div>
     <div class="my-carousel-item">
@@ -232,6 +232,106 @@ date: "2025-08-14"
     <div class="my-carousel-item">
       <img src="/images/posts/250814 happyend/act/lez2.jpg"" class="my-carousel-img" />
       <h4 class="my-carousel-title">인증샷</h4>
+    </div>
+  </div>
+</div>
+
+## LGBTAIQ
+
+<div class="my-carousel">
+  <div
+    class="my-carousel-scroll"
+    onwheel="
+      if (this.matches(':hover')) {
+        event.preventDefault();
+        this.scrollBy({left: event.deltaY, behavior: 'auto'});
+      }
+    "
+  >
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/A1.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">LGBTAIQ</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/A2.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">학교 도서관이 사줬다</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/A3.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">도서관 동성애 코너</h4>
+    </div>
+        <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/me10.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">그 앞에서 인증샷</h4>
+    </div>
+  </div>
+</div>
+
+교내에 여성학 강의가 신설된다는 소식에 큰따옴표 동아리 사람들과 단체로 수강하러 갔다. 교수님은 여성학이 단순히 ‘여성’만을 다루는 학문이 아니라고 설명했다. 여성-장애인, 여성-성소수자 등 다양한 정체성이 존재한다고 강조하며, 정체성은 복합적으로 교차한다고 짚었다. 100명이 넘는 인원이 수강하는 대형 강의에서, 우리 동아리 회원들은 그동안 교내에서 느껴본 적 없는 포용감을 느꼈다.
+
+LGBTAIQ라는 용어의 정의도 나는 여성학 수업에서 처음 접했다. 예전에는 ‘QIA’가 아니라 ‘AIQ’ 순서로 쓰였거나, Q가 한때 ‘Questioning’로 불렸다가 후에 ‘Queer’로 정립되는 등, 수시로 용어와 정의가 달라지는 해외 담론이 한국에 수입되는 과도기였다. 교수님은 각 알파벳이 의미하는 단어와 정의를 차례로 물었는데, LGBT 이후부터는 우리 동아리조차 답변이 줄어들었다. 
+
+A, ‘성적 끌림을 느끼지 않는 사람, 무성애자‘라는 설명을 들었을때 나는, 사실 어떤 감정을 느꼈는지 말로 옮기긴 어렵다. 단지 난생 처음 들어보는 단어임에도 “나다“ 라는 생각을 했다는 것이 내가 할 수 있는 최대의 묘사일테다. 내가 그동안 왜 그렇게 느꼈고, 행동했는지 설명이 되는 유일한 단어였다.
+
+이후 ‘무성애’와 관련된 정보를 인터넷에서 검색해보았다. 여성학 시간에 배운 무성애의 개념과 맞아떨어지는 글들이 있는가 하면, 트라우마나 호르몬 결핍으로 생긴다고 설명하거나, 고쳐질 수 있는 것으로 묘사하는 글들도 많았다. 그 외에는 일반적으로 접할 수 있는 정보가 전무했다. 돈 없는 대학생이었던 나는 시중에 국문으로 된 유일한 무성애자 서적을 손에 넣기 위해, 학교 도서관에 신서 등록을 요청하고 수 주를 기다려야만 했다.
+
+
+<div class="my-carousel">
+  <div
+    class="my-carousel-scroll"
+    onwheel="
+      if (this.matches(':hover')) {
+        event.preventDefault();
+        this.scrollBy({left: event.deltaY, behavior: 'auto'});
+      }
+    "
+  >
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/act2.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">동아리방도 생겼다</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/booth3.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">학교 축제 부스 운영</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/booth2.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">회원들이 하고싶은 말들을 적어 냈다</h4>
+    </div>
+  </div>
+</div>
+
+동아리의 규모가 성장함에 따라, 성소수자 당사자로서 전하고 싶은 말들을 SNS 게시글, 홍보 포스터, 현수막 등에 담아내는 다양한 활동을 기획했다. 하지만 그 와중에도 정작 내 마음속에 있는 마음을 적어내는 데는 어려움을 겪었다.
+
+그 이유는 해외 웹사이트에 적힌 글들을 읽으며 더 자세하게 알게 될수록, 나를 완벽하게 담아내는 설명이 없다는 찝찝함이 있었기 때문이다. 무성애자라는 단어로 스스로를 표현해도 되는지, 허락받지 않은 기분이 들었다.
+
+그래서 동아리 사람들에게 조심스럽게 고민을 털어놓았는데, “성적 지향은 색상 스펙트럼과 같아. 세상에 70억 명이 있다면, 성적 지향의 종류도 70억 개일 거야.”라며 서로의 경험이 다른 것은 자연스럽다고 말해주었다. 그 이후에야 나는 비로소 동아리 사람들에게 "나 무성애자야" 라고 말을 할 수 있게 되었다.
+
+<div class="my-carousel">
+  <div
+    class="my-carousel-scroll"
+    onwheel="
+      if (this.matches(':hover')) {
+        event.preventDefault();
+        this.scrollBy({left: event.deltaY, behavior: 'auto'});
+      }
+    "
+  >
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/me11.webp" class="my-carousel-img" />
+      <h4 class="my-carousel-title">다르다구? 그게 우리야!</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/parade1.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">모두의 인권을 위하여!</h4>
+    </div>
+    <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/me6.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">페이스북 뉴스기사 여론 조성 중</h4>
+    </div>
+        <div class="my-carousel-item">
+      <img src="/images/posts/250814 happyend/act/me8.webp"" class="my-carousel-img" />
+      <h4 class="my-carousel-title">'제발ㅠ' 이라고 적고 있다. 사유는 기억안남</h4>
     </div>
   </div>
 </div>
