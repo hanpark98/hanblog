@@ -1,14 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// .md 파일 수집
 const postFiles = Object.entries(import.meta.glob('../content/posts/*.md', { eager: true }));
-const posts = postFiles.map(([p, f]) => ({ slug: p.split('/').pop().replace('.md', ''), ...f.frontmatter }))
-                      .sort((a, b) => new Date(b.date) - new Date(a.date));
 
+// frontmatter + slug 파싱
+const allPosts = postFiles.map(([p, f]) => ({
+  slug: p.split('/').pop().replace('.md', ''),
+  ...f.frontmatter
+}));
+
+// 배포 환경에서는 draft:true 또는 미래 날짜(post.date > today) 숨김
+const isProd = import.meta.env.PROD;
+const today = new Date();
+const posts = allPosts
+  .filter(p => {
+    if (!isProd) return true;                         // dev에서는 전부 보이도록
+    const isDraft = p.draft === true;                 // frontmatter: draft: true
+    const isFuture = p.date ? new Date(p.date) > today : false; // 미래 예약글 숨김
+    return !isDraft && !isFuture;
+  })
+  .sort((a, b) => new Date(b.date ?? 0) - new Date(a.date ?? 0));
+
+// 카테고리 정렬
 const categoryOrder = ['버킷리스트', '에세이', '영화', '(Null)'];
 const raw = [...new Set(posts.flatMap(p => Array.isArray(p.category) ? p.category : (p.category ? [p.category] : ['기타'])))];
 const allCategories = [...categoryOrder.filter(c => raw.includes(c)), ...raw.filter(c => !categoryOrder.includes(c))];
 ---
+
 
 <Layout title="Blog">
   <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
