@@ -3,7 +3,7 @@ title: "Bedtime Stories"
 description: "a kid who needed someone to look up to"
 image: "/images/posts/rolemodel/main.JPG"
 category: "(Null)"
-date: "2025-09-04"
+date: "2025-09-03"
 ---
 
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
