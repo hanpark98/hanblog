@@ -69,13 +69,40 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
     /* body, html 배경은 global.css에서 관리, 이 부분은 삭제 가능 */
   </style>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // 비디오 기본 썸네일 설정
-      document.querySelectorAll('video').forEach(function(video) {
-        if (!video.hasAttribute('poster')) {
-          video.setAttribute('poster', '/images/block.jpg');
+  document.addEventListener("DOMContentLoaded", function () {
+    const FALLBACK = '/images/block.jpg';
+
+    function toPosterPath(src) {
+      if (!src) return null;
+      if (!/\.(mp4|mov)$/i.test(src)) return null;
+      return src.replace(/\.(mp4|mov)$/i, '.poster.jpg');
+    }
+
+    function ensurePoster(video) {
+      const src = video.getAttribute('src') || '';
+      const isMedia = /\.(mp4|mov)$/i.test(src);
+      // 공통 권장 속성
+      if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
+      if (!video.hasAttribute('playsinline')) video.setAttribute('playsinline', '');
+      if (!video.hasAttribute('controls')) video.setAttribute('controls', '');
+
+      if (isMedia) {
+        const autoPoster = toPosterPath(src);
+        const curr = video.getAttribute('poster') || '';
+        // 기존 block.jpg거나 없으면 자동 poster로
+        if (!curr || /\/images\/block\.jpg$/.test(curr)) {
+          video.setAttribute('poster', autoPoster);
         }
-      });
+        // 자동 poster가 실제 없을 수도 있으니 로드 확인 후 fallback
+        const testImg = new Image();
+        testImg.onload = () => {};
+        testImg.onerror = () => { video.setAttribute('poster', FALLBACK); };
+        testImg.src = autoPoster;
+      } else {
+        if (!video.hasAttribute('poster')) video.setAttribute('poster', FALLBACK);
+      }
+    }
+
       
       // 캐러셀 페이드 효과
       document.querySelectorAll('.my-carousel').forEach(function(carousel) {

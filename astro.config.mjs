@@ -1,11 +1,16 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
+import { defineConfig } from 'astro/config'
+import tailwind from '@astrojs/tailwind'
+import sitemap from '@astrojs/sitemap'
+import rehypeRaw from 'rehype-raw'
+import rehypeVideoPoster from './plugins/rehype-video-poster.mjs'
 
 export default defineConfig({
-  site: 'https://www.hanpark.kr',        // ← 꼭 본인 도메인 주소로!
-  integrations: [
-    tailwind(),
-    sitemap(),                           // ← 이 줄 추가
-  ],
-});
+  site: 'https://www.hanpark.kr',
+  integrations: [tailwind(), sitemap()],
+  markdown: {
+    rehypePlugins: [
+      rehypeRaw,
+      [rehypeVideoPoster, { overwrite: true, log: true }],
+    ],
+  },
+})

@@ -3,6 +3,8 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
+    "predev": "node scripts/generate-video-thumbs.mjs",
+    "prebuild": "node scripts/generate-video-thumbs.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
@@ -16,7 +18,11 @@
   "devDependencies": {
     "astro": "^5.11.2",
     "autoprefixer": "^10.4.21",
+    "fast-glob": "^3.3.2",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
     "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "unist-util-visit": "^5.0.0"
   }
 }

@@ -77,17 +77,11 @@ draft: true
   </div>
 </div>
 
-  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <video
-      src="/images/posts/250926 butterfly/hero1.mp4"
-      poster="/images/posts/250926 butterfly/show3.webp"
-      style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
-      controls
-      playsinline
-      preload="metadata"
-    ></video>
-    <h4 style="margin: 0 0 0 0; line-height: 1;">현실자각</h4>
-  </div>
+<div style="flex:1; display: flex; flex-direction: column; align-items: center;">
+<video src="/images/posts/250926 butterfly/hero1.mp4" style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;" controls playsinline preload="metadata" ></video> 
+<h4 style="margin: 0 0 0 0; line-height: 1;">현실자각</h4>
+</div>
+
 
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
@@ -98,7 +92,6 @@ draft: true
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/hero2.mp4"
-      poster="/images/posts/250926 butterfly/lyrics1.webp"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
       controls
       playsinline
@@ -117,7 +110,6 @@ draft: true
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/hero3.mp4"
-      poster="/images/posts/250926 butterfly/lyrics2.webp"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
       controls
       playsinline
@@ -139,7 +131,6 @@ draft: true
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/butterfly.mp4"
-      poster="/images/posts/250926 butterfly/lyrics3.webp"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
       controls
       playsinline
