@@ -354,24 +354,39 @@ For love is sufficient unto love.
 }
 #home-bar .home-link:hover{ opacity:.8; }
 
-/* 애니메이션 섹션: 화면 하단까지 꽉 채움 */
+/* 애니메이션 섹션: 화면 하단까지 꽉 채움 (모바일 스크롤 방지) */
 .anim-wrap{
   display:flex; align-items:center; justify-content:center;
   padding: var(--anim-margin);
   background: var(--anim-margin-bg);
+
+  /* 패딩 포함해 높이 계산 */
+  box-sizing: border-box;
+
+  /* 기본: 100vh 기준으로 바 높이만큼 빼기 */
   min-height: calc(100vh  - var(--bar-h));
   height:     calc(100vh  - var(--bar-h));
 }
+
+/* iOS/안드 최신: 작은 뷰포트(svh) 우선 → 주소창 노출 시에도 넘치지 않음 */
+@supports (height: 100svh){
+  .anim-wrap{
+    min-height: calc(100svh - var(--bar-h));
+    height:     calc(100svh - var(--bar-h));
+  }
+}
+
+/* 최적: 동적 뷰포트(dvh) 사용 → 주소창 변화에 맞춰 딱 맞춤 */
 @supports (height: 100dvh){
   .anim-wrap{
     min-height: calc(100dvh - var(--bar-h));
     height:     calc(100dvh - var(--bar-h));
   }
 }
+
 @media (max-width: 639px){
   #home-hero{ --anim-inner-pad-x: 24px; }
 }
-
 .anim-panel{
   width: 100%; height: 100%;
   background: var(--anim-inner-gradient);
@@ -380,11 +395,16 @@ For love is sufficient unto love.
   padding-left:  var(--anim-inner-pad-x);
   padding-right: var(--anim-inner-pad-x);
   position: relative;
-}
-.anim-panel.is-clickable{ cursor: pointer; }
-.anim-panel.is-clickable:focus{ outline: 2px solid #000; outline-offset: 4px; }
 
-/* 그레인 */
+  /* ▼ iOS Safari 테두리 헤어라인 방지 */
+  overflow: hidden;                        /* 자식/의사요소를 라운드 안으로 클립 */
+  background-clip: padding-box;
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* 레이어 합성 버그 회피 */
+  -webkit-transform: translateZ(0);        /* 합성 레이어 고정 */
+  transform: translateZ(0);
+  outline: 1px solid transparent;         /* AA 경계 억제 트릭 */
+}
+
 .anim-panel::after{
   content:"";
   position:absolute; inset:0; pointer-events:none; border-radius:inherit;
@@ -399,7 +419,17 @@ For love is sufficient unto love.
   background-size: 200px 200px;
   mix-blend-mode: multiply;
   opacity: var(--anim-grain-opacity);
+  will-change: opacity;
 }
+
+/* ▼ iOS(WebKit) 전용 완화: grain 블렌드로 테두리선 발생 시 normal로 강등 */
+@supports (-webkit-touch-callout: none){
+  .anim-panel::after{
+    mix-blend-mode: normal;
+    opacity: calc(var(--anim-grain-opacity) * 0.8);
+  }
+}
+
 .anim-panel > .text-block{ position: relative; z-index: 1; }
 
 /* 텍스트 블록 */
