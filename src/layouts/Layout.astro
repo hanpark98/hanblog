@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import Analytics from '@vercel/analytics/astro'
+import Analytics from '@vercel/analytics/astro';
 const { title } = Astro.props;
 const showNav = Astro.url.pathname !== '/';
 const showFooter = Astro.url.pathname !== '/';
@@ -8,54 +8,23 @@ const showFooter = Astro.url.pathname !== '/';
 
 <html lang="ko">
   <head>
-    <!-- ⚠️ 해시된 dist CSS와 중복 global.css 링크 제거 -->
     <meta charset="UTF-8" />
-    <!-- viewport-fit=cover 로 safe-area 사용 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>한결</title>
+    <title>{title ?? '한결'}</title>
 
-    <!-- 레이아웃 레벨 최소 베이스만: vh 강제 금지 -->
+    <!-- 레이아웃 전용 보정만: 전역 뷰포트/배경/overflow 등은 global.css가 처리 -->
     <style is:global>
-      html, body {
-        height: 100% !important;
-        min-height: 100% !important;
-        margin: 0;
-        padding: 0;
-        /* 바디 배경색은 global.css와 동일하게 유지 */
-        background: #F8F8FF;
-        /* iOS 폰트 자동확대 방지 */
-        -webkit-text-size-adjust: 100%;
-        /* overscroll(튕김) 시 바디가 비치는 현상 줄이기 */
-        overscroll-behavior: none;
-      }
-      /* 구형 WebKit 폴백 */
-      @supports (-webkit-touch-callout: none){
-        html, body { height: -webkit-fill-available; }
-      }
-
-      .layout-root {
-        /* 페이지 래퍼는 100vh 대신 100% 기반으로 */
-        min-height: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* flex 자식이 내부 스크롤 생길 때 잘리는 문제 방지 */
-      main { min-height: 0; }
-
-      /* 가로 1px 넘침 방지(전역) */
-      body { overflow-x: hidden; }
+      main { flex: 1 1 auto; min-height: 0; }
     </style>
   </head>
 
-  <body class="overflow-x-hidden">
+  <body>
     <div class="layout-root">
       {showNav && (
         <nav style="position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 2px solid #000; display: flex; align-items: center; padding: 0.75rem 1.25rem; min-height: 60px;">
           <a href="/" style="display: flex; align-items: center; min-width: 0;">
-            <img src="/images/website/logo.svg" alt="로고" style="height: 2.25rem; width: 2.25rem; object-fit: contain; border-radius: 0; margin-right: 0.65rem;" />
-            <span style="font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; white-space: nowrap;">한결</span>
+            <img src="/images/website/logo.svg" alt="로고" style="height: 2rem; width: 2rem; object-fit: contain; border-radius: 0; margin-right: 0.65rem;" />
+            <span style="font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; white-space: nowrap;">한결</span>
           </a>
           <div style="flex: 1 1 0%;"></div>
           <form id="search-form" style="position: relative; width: 12rem; max-width: 20rem;">
@@ -75,7 +44,7 @@ const showFooter = Astro.url.pathname !== '/';
         </nav>
       )}
 
-      <main style="flex: 1 1 auto;">
+      <main>
         <slot />
       </main>
 
@@ -95,19 +64,19 @@ const showFooter = Astro.url.pathname !== '/';
       )}
     </div>
 
-    <!-- (선택) 우클릭/복사 방지 스크립트: 스크롤에는 영향 없음 -->
+    <!-- (선택) 우클릭/복사 방지 스크립트 -->
     <script>
       document.addEventListener('contextmenu', e => e.preventDefault());
       document.addEventListener('dragstart', e => e.preventDefault());
       document.addEventListener('selectstart', e => e.preventDefault());
       document.addEventListener('copy', e => e.preventDefault());
       document.addEventListener('keydown', e => {
-        if ((e.ctrlKey || e.metaKey) && ['c', 'u', 's', 'p'].includes(e.key.toLowerCase())) e.preventDefault();
+        if ((e.ctrlKey || e.metaKey) && ['c','u','s','p'].includes(e.key.toLowerCase())) e.preventDefault();
       });
       window.oncontextmenu = function(){return false;}
     </script>
 
-    <!-- 영문/숫자 감지 스크립트(유지) -->
+    <!-- 영문/숫자 감지 스크립트 -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const walk = node => {
@@ -116,7 +85,7 @@ const showFooter = Astro.url.pathname !== '/';
             if (regex.test(node.nodeValue)) {
               const frag = document.createDocumentFragment();
               let lastIndex = 0;
-              node.nodeValue.replace(regex, (match, p1, offset) => {
+              node.nodeValue.replace(regex, (match, _p1, offset) => {
                 if (offset > lastIndex) frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex, offset)));
                 const span = document.createElement('span');
                 span.textContent = match;
