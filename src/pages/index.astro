@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome">
-  <section id="home-hero" class="w-full flex flex-col bg-white" style="position:relative;">
+  <section id="home-hero" class="w-full flex flex-col bg-white full-viewport section-clip" style="position:relative;">
+
 
     <!-- =========================
          Single bar (상단/좌/우 40px, 하단 0)
@@ -328,12 +329,18 @@ For love is sufficient unto love.
 /* 상단 바 */
 #home-bar .home-bar{
   padding: 30px 30px 0 30px;
-  height: var(--bar-h);
+
+  /* 고정 height 제거하고, padding 포함 높이를 '최소'로만 강제 */
+  box-sizing: border-box;
+  min-height: var(--bar-h);
+  height: auto;
+
   background: var(--bar-bg);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
+
 #home-bar .home-brand{
   display:flex; align-items:flex-start; gap: var(--brand-gap);
   color: var(--bar-fg); text-decoration: none;
@@ -360,29 +367,34 @@ For love is sufficient unto love.
   padding: var(--anim-margin);
   background: var(--anim-margin-bg);
 
-  /* 패딩 포함해 높이 계산 */
   box-sizing: border-box;
+
+  /* ▼ 추가: 자식 그림자/트랜스폼 넘침 클립 */
+  overflow: hidden;
 
   /* 기본: 100vh 기준으로 바 높이만큼 빼기 */
   min-height: calc(100vh  - var(--bar-h));
   height:     calc(100vh  - var(--bar-h));
 }
 
-/* iOS/안드 최신: 작은 뷰포트(svh) 우선 → 주소창 노출 시에도 넘치지 않음 */
 @supports (height: 100svh){
   .anim-wrap{
     min-height: calc(100svh - var(--bar-h));
     height:     calc(100svh - var(--bar-h));
   }
 }
-
-/* 최적: 동적 뷰포트(dvh) 사용 → 주소창 변화에 맞춰 딱 맞춤 */
 @supports (height: 100dvh){
   .anim-wrap{
     min-height: calc(100dvh - var(--bar-h));
     height:     calc(100dvh - var(--bar-h));
   }
 }
+
+/* 노치/홈바 안전영역 하단 여백(필요 시) */
+.anim-panel > .text-block{
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 
 @media (max-width: 639px){
   #home-hero{ --anim-inner-pad-x: 24px; }
@@ -396,14 +408,18 @@ For love is sufficient unto love.
   padding-right: var(--anim-inner-pad-x);
   position: relative;
 
+  /* ▼ 추가 */
+  background-origin: border-box;
+
   /* ▼ iOS Safari 테두리 헤어라인 방지 */
-  overflow: hidden;                        /* 자식/의사요소를 라운드 안으로 클립 */
+  overflow: hidden;
   background-clip: padding-box;
-  -webkit-mask-image: -webkit-radial-gradient(white, black); /* 레이어 합성 버그 회피 */
-  -webkit-transform: translateZ(0);        /* 합성 레이어 고정 */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  outline: 1px solid transparent;         /* AA 경계 억제 트릭 */
+  outline: 1px solid transparent;
 }
+
 
 .anim-panel::after{
   content:"";

@@ -14,18 +14,55 @@
   font-display: swap;
 }
 
+/* === 뷰포트/스크롤 기본값 보수 === */
 html, body, .layout-root{
-  min-height: 100vh !important;
+  /* 기존 코드 유지하되, vh 의존 최소화 */
   height: 100% !important;
-  margin: 0;
-  padding: 0;
-  background: #F8F8FF;
-  font-family:
-    'Noto Sans KR',
-    'Apple SD Gothic Neo', 'Malgun Gothic',
-    'Segoe UI Symbol', 'Arial', 'sans-serif',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
+  min-height: 100% !important;
+
+  /* 가로 1px 넘침 스크롤 방지 */
+  overflow-x: hidden;
+
+  /* iOS 사파리 튕김시 바디 배경 번쩍 방지 */
+  overscroll-behavior: none;
+
+  /* iOS 폰트 자동확대 방지 */
+  -webkit-text-size-adjust: 100%;
 }
+
+/* 페이지 섹션을 진짜 ‘뷰포트 꽉 채움’으로 쓰고 싶을 때 */
+.full-viewport {
+  min-height: 100vh;
+  height: 100vh;
+}
+@supports (height: 100svh){
+  .full-viewport {
+    min-height: 100svh;
+    height: 100svh;
+  }
+}
+@supports (height: 100dvh){
+  .full-viewport {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+}
+/* 구형 WebKit 폴백 */
+@supports (-webkit-touch-callout: none){
+  html, body { height: -webkit-fill-available; }
+  .full-viewport { min-height: -webkit-fill-available; height: -webkit-fill-available; }
+}
+
+/* 섹션 경계 넘침(그림자/transform)로 인한 미세 스크롤 방지 */
+.section-clip { overflow: clip; }
+@supports not (overflow: clip) {
+  .section-clip { overflow: hidden; }
+}
+
+/* 첫/마지막 마진 붕괴 방지용 래퍼(필요 섹션 내부에 사용) */
+.section-inner > :first-child { margin-top: 0 !important; }
+.section-inner > :last-child  { margin-bottom: 0 !important; }
+
 
 @tailwind base;
 @tailwind components;
