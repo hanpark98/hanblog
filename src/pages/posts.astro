@@ -15,9 +15,9 @@ const isProd = import.meta.env.PROD;
 const today = new Date();
 const posts = allPosts
   .filter(p => {
-    if (!isProd) return true;                         // dev에서는 전부 보이도록
-    const isDraft = p.draft === true;                 // frontmatter: draft: true
-    const isFuture = p.date ? new Date(p.date) > today : false; // 미래 예약글 숨김
+    if (!isProd) return true; // dev에서는 전부 보이도록
+    const isDraft = p.draft === true;
+    const isFuture = p.date ? new Date(p.date) > today : false;
     return !isDraft && !isFuture;
   })
   .sort((a, b) => new Date(b.date ?? 0) - new Date(a.date ?? 0));
@@ -28,19 +28,17 @@ const raw = [...new Set(posts.flatMap(p => Array.isArray(p.category) ? p.categor
 const allCategories = [...categoryOrder.filter(c => raw.includes(c)), ...raw.filter(c => !categoryOrder.includes(c))];
 ---
 
-
 <Layout title="Blog">
-  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
+  <div class="pt-[24px] bg-[#ebe9e5] min-h-screen">
 
     <!-- 카테고리 Navigation -->
-<div id="category-nav" class="flex items-start gap-0 px-6 mb-8">
-  <a href="/profile" class="profile-btn mr-6" data-category="profile">프로필</a>
+    <div id="category-nav" class="flex items-start gap-0 px-6 mb-0">
+      <a href="/profile" class="profile-btn mr-6" data-category="profile">프로필</a>
 
-  <!-- 여기 한 줄만 바꾸면 해결 -->
-  <div id="cat-track"
-       class="flex flex-nowrap overflow-x-auto gap-2 min-w-0 flex-1
-              -mr-6 pr-6">
-    <button class="category-btn active" data-category="all">모든 글</button>
+      <!-- 가로 스크롤 트랙 -->
+      <div id="cat-track"
+           class="flex flex-nowrap overflow-x-auto gap-2 min-w-0 flex-1 -mr-6 pr-6">
+        <button class="category-btn active" data-category="all">모든 글</button>
         {allCategories.map(c => (
           <button class="category-btn" data-category={c}>{c}</button>
         ))}
@@ -48,13 +46,13 @@ const allCategories = [...categoryOrder.filter(c => raw.includes(c)), ...raw.fil
     </div>
 
     <!-- 포스트 목록 -->
-    <div id="posts-wrapper" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 justify-items-start overflow-y-auto overscroll-contain">
+    <div id="posts-wrapper" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 py-6 justify-items-start overflow-y-auto overscroll-contain">
       {posts.map(p => (
         <a href={`/posts/${p.slug}`} class="group post-card"
            data-category={Array.isArray(p.category) ? p.category.join(',') : (p.category ?? '기타')}>
           <div class="w-full aspect-square overflow-hidden">
             <img src={p.image} alt={p.title}
-                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"/>
+                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"/>
           </div>
           <div class="post-card-content">
             {p.date && <div class="post-card-date">{(new Date(p.date)).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'})}</div>}
@@ -97,39 +95,83 @@ const allCategories = [...categoryOrder.filter(c => raw.includes(c)), ...raw.fil
 
   <style>
     /* 프로필 버튼 */
-    .profile-btn{flex-shrink:0;padding:.5rem 1.4rem;border:2px solid #111;border-radius:6px;background:#fff;color:#111;font-weight:700;white-space:nowrap;}
+    .profile-btn {
+      flex-shrink: 0;
+      padding: .40rem 1.6rem;
+      border-radius: 6px;
+      background: #fff;
+      color: #111;
+      font-weight: 600;
+      white-space: nowrap;
+    }
 
     /* pill */
-    .category-btn{flex-shrink:0;min-width:100px;max-width:120px;padding:.48rem 1rem;border:2px solid #111;border-radius:9999px;background:#fff;color:#111;font-weight:700;white-space:nowrap;transition:background .2s,color .2s,border .2s;}
-    .category-btn.active{background:#009695;color:#fff;border-color:#fff;}
+    .category-btn {
+      flex-shrink: 0;
+      min-width: 100px;
+      max-width: 160px;
+      padding: .42rem 1.3rem;
+      border-radius: 9999px;
+      background: #fff;
+      color: #111;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    }
+
+    /* 클릭 시(active) 색상 변경 */
+    .category-btn.active {
+      background: #009695;
+      color: #fff;
+    }
+
+    /* 마우스로 눌렀을 때 약간 눌린 듯한 피드백 */
+    .category-btn:active {
+      transform: scale(0.96);
+    }
 
     /* 마지막 pill이 잘리지 않도록 트랙에 더미 공간 추가 */
-    #cat-track::after{content:'';flex:0 0 2.5rem;}  /* 2.5rem(40px) 만큼 오른쪽 여백 */
+    #cat-track::after {
+      content: '';
+      flex: 0 0 2.5rem;
+    }
 
     /* 카드 */
-    .post-card{border:2px solid #111;border-radius:16px;background:#fff; overflow:hidden; transition:border .18s,box-shadow .18s;}
-    .post-card:hover{border-width:6px;border-color:#009695;box-shadow:0 4px 20px rgba(0,0,0,.04);}
-    .post-card-content{padding:1.2rem}
-    .post-card-date{font-size:.8rem;color:#A0A0A0;margin-bottom:0.3rem}
-    .post-card-title{font-size:1.3rem;font-weight:800;margin-bottom:0rem}
-    .post-card-desc{font-size:1rem;color:#5B5B5B;margin:0}
+    .post-card {
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      transition: border 0.18s ease;
+      display: block;
+    }
+    .post-card:hover {
+      border-width: 6px;
+      border-color: #009695;
+    }
+    .post-card-content { padding: 1.2rem; }
+    .post-card-date { font-size: .8rem; color: #A0A0A0; margin-bottom: 0.3rem; }
+    .post-card-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0rem; }
+    .post-card-desc { font-size: 1rem; color: #5B5B5B; margin: 0; }
 
-    body,html{background:#F8F8FF}
+    body, html { background: #F8F8FF; }
 
     /* 스크롤바 숨김 */
-    #cat-track{scrollbar-width:none;-ms-overflow-style:none;}
-    #cat-track::-webkit-scrollbar{display:none}
-    #cat-track{scroll-behavior:smooth;}
+    #cat-track { scrollbar-width: none; -ms-overflow-style: none; }
+    #cat-track::-webkit-scrollbar { display: none; }
+    #cat-track { scroll-behavior: smooth; }
+
     /* ▼ 카테고리 바 오른쪽 fade-out */
-#category-nav{position:relative;}              /* 기준 레이어 */
-#category-nav::after{                          /* 오버레이 */
-  content:'';
-  position:absolute; right:0; top:0;
-  width:35px; height:100%;
-  pointer-events:none;                         /* 클릭 막지 않음 */
-  background:linear-gradient(to right,
-              rgba(248,248,255,0) 0%,
-              rgba(248,248,255,1) 100%);       /* 투명→배경색 #F8F8FF */
-}
+    #category-nav { position: relative; }
+    #category-nav::after {
+      content: '';
+      position: absolute; right: 0; top: 0;
+      width: 35px; height: 100%;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(248,248,255,0) 0%, #ebe9e5 100%);
+    }
   </style>
 </Layout>

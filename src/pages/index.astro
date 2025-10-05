@@ -42,18 +42,26 @@ For love is sufficient unto love.
     </div>
 
     <!-- =========================
-         경량 스크램블(해독) 애니메이션: 근접 시 크로스페이드 + 3~4초 후 자동 복귀
+         경량 스크램블(해독) 애니메이션: 근접 시 크로스페이드 + 3~4초 후 자동 복귀(모바일은 5.5~7.5초)
          ========================= -->
     <script>
       (() => {
         const RADIUS = 100;
         const MAX_DUR = 600;
         const MIN_DUR = 200;
-        const SCRAMBLE_GLYPH = "·"; // 폭 안정화용 고정폭 문자
+        const SCRAMBLE_GLYPH = ":"; // 폭 안정화용 고정폭 문자
 
-        // ▼ 3~4초 후 되돌리기(무작위 범위)
+        // ▼ 기본(데스크톱) 자동 복귀 시간
         const REVERT_MIN_MS = 3000;
         const REVERT_MAX_MS = 4000;
+
+        // ▼ 모바일 전용: 자동 복귀(사라지기 시작) 시간 늘리기
+        const REVERT_MIN_MS_TOUCH = 5500;
+        const REVERT_MAX_MS_TOUCH = 7500;
+
+        // ▼ 모바일 전용: 0.5초 대기 후 랜덤 노출
+        const MOBILE_REVEAL_DELAY = 500; // ms
+
         const REVERT_BACK_DUR = 220; // 되돌아갈 때 페이드 속도(부드럽게)
 
         const mql = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
@@ -155,7 +163,6 @@ For love is sufficient unto love.
 
             function tokenize(text){
               // 공백/탭/다중 스페이스는 그룹으로, 나머지는 단어 그룹
-              // (개행은 이미 코드 인덴트 정리에서 공백으로 치환함)
               const tokens = text.split(/(\s+)/);
               tokens.forEach(tok=>{
                 if (!tok) return;
@@ -219,7 +226,7 @@ For love is sufficient unto love.
             return;
           }
 
-          // ====== 근접 시 크로스페이드 + 3~4초 후 자동 복귀 ======
+          // ====== 근접 시 크로스페이드 + 자동 복귀 ======
           function clearRevert(el){ if (el._rt){ clearTimeout(el._rt); el._rt = null; } }
           function revertToGib(el, dur){
             const gib = el.querySelector('.g.gib');
@@ -245,13 +252,18 @@ For love is sufficient unto love.
             orig.style.opacity = '1';
             el.dataset.state = 'orig';
 
-            // 3~4초 뒤 자동 복귀
+            // 자동 복귀: 플랫폼별 시간 사용
+            const min = isTouch ? REVERT_MIN_MS_TOUCH : REVERT_MIN_MS;
+            const max = isTouch ? REVERT_MAX_MS_TOUCH : REVERT_MAX_MS;
             clearRevert(el);
-            el._rt = setTimeout(() => revertToGib(el, REVERT_BACK_DUR), Math.floor(REVERT_MIN_MS + Math.random()*(REVERT_MAX_MS-REVERT_MIN_MS)));
+            el._rt = setTimeout(
+              () => revertToGib(el, REVERT_BACK_DUR),
+              Math.floor(min + Math.random()*(max - min))
+            );
           }
 
           if (!isTouch){
-            // 데스크톱: 포인터 근접 → 해독 페이드 후 3~4초 뒤 원상복귀
+            // 데스크톱: 포인터 근접 → 해독 페이드 후 자동 복귀
             textRoot.addEventListener('pointermove', (e)=>{
               const ex = e.clientX, ey = e.clientY;
               for (let i=0;i<boxes.length;i++){
@@ -266,14 +278,20 @@ For love is sufficient unto love.
               }
             });
           } else {
-            // 모바일: 인뷰 시 전체 1회 해독 → 3~4초 뒤 자동 복귀
+            // 모바일: 0.5초 대기 후, 랜덤 순서로 해독 → 5.5~7.5초 뒤 자동 복귀
             const io = new IntersectionObserver((ents)=>{
               ents.forEach(e=>{
                 if (e.isIntersecting){
-                  const base = 360;
-                  asciiChars.forEach((el, idx)=>{
-                    resolveToOrig(el, base + (idx % 10) * 30);
-                  });
+                  setTimeout(() => {
+                    // 무작위 순서로 문자 배열 셔플
+                    const shuffled = asciiChars.slice().sort(() => Math.random() - 0.5);
+                    // 각 글자에 약간의 지터(0~120ms) + 개별 전환시간(320~580ms)
+                    shuffled.forEach((el) => {
+                      const jitter = Math.floor(Math.random() * 720);
+                      const dur = 320 + Math.floor(Math.random() * 860);
+                      setTimeout(() => resolveToOrig(el, dur), jitter);
+                    });
+                  }, MOBILE_REVEAL_DELAY);
                   io.disconnect();
                 }
               });
@@ -296,7 +314,7 @@ For love is sufficient unto love.
     <style>
 /* 변수 */
 #home-bar{
-  --bar-bg   : #f3f4f6;
+  --bar-bg   : #ebe9e5;
   --bar-fg   : #040404;
   --link-fg  : #040404;
 
@@ -307,7 +325,7 @@ For love is sufficient unto love.
 }
 #home-hero{
   --bar-h           : clamp(200px, 20vw, 600px);
-  --anim-margin-bg  : #f3f4f6;
+  --anim-margin-bg  : #ebe9e5;
   --anim-text       : #ffffff;
   --anim-margin     : 24px;
   --anim-radius     : 16px;
@@ -342,7 +360,7 @@ For love is sufficient unto love.
 }
 
 #home-bar .home-brand{
-  display:flex; align-items:flex-start; gap: var(--brand-gap);
+  display:flex; align-items:center; gap: var(--brand-gap);
   color: var(--bar-fg); text-decoration: none;
 }
 #home-bar .home-logo{ height: var(--logo-size); width:auto; display:block; }
@@ -395,7 +413,6 @@ For love is sufficient unto love.
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-
 @media (max-width: 639px){
   #home-hero{ --anim-inner-pad-x: 24px; }
 }
@@ -419,7 +436,6 @@ For love is sufficient unto love.
   transform: translateZ(0);
   outline: 1px solid transparent;
 }
-
 
 .anim-panel::after{
   content:"";
@@ -454,6 +470,7 @@ For love is sufficient unto love.
   margin: 0 auto;
   text-align: center;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-weight: 300;
   font-size: clamp(16px, 4vw, 40px);
   line-height: 1.45;
   letter-spacing: 0;

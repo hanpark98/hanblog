@@ -2,17 +2,11 @@
 @font-face {
   font-family: 'Noto Sans KR';
   font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/NotoSansKR-Regular.woff2') format('woff2');
+  font-weight: 100 900;  /* 100~900 범위 커버 */
+  src: url('/fonts/NotoSansKR-Variable.woff2') format('woff2-variations');
   font-display: swap;
 }
-@font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/fonts/NotoSansKR-Bold.woff2') format('woff2');
-  font-display: swap;
-}
+
 
 /* === 뷰포트/스크롤 기본값 보수 === */
 /* html/body만 100% 기준으로 유지 */
@@ -114,7 +108,7 @@ h1 {
   line-height: 1 !important;
   letter-spacing: -0.03em !important;
   font-size: 2.5rem !important;
-  font-weight: 600 !important;
+  font-weight: 550 !important;
 }
 h2 {
   margin-top: 0.6em !important;
@@ -122,15 +116,15 @@ h2 {
   line-height: 1.2 !important;
   letter-spacing: -0.02em !important;
   font-size: 1.7rem !important;
-  font-weight: 600 !important;
+  font-weight: 650 !important;
 }
 h3 {
   margin-top: 0.2em !important;
   margin-bottom: 0.2em !important;
   line-height: 1.25 !important;
   letter-spacing: -0.02em !important;
-  font-size: 1.18rem !important;
-  font-weight: 600 !important;
+  font-size: 1.2rem !important;
+  font-weight: 550 !important;
 }
 h4 {
   margin-top: 0.4em !important;
@@ -143,9 +137,9 @@ h4 {
   font-style: italic !important;
 }
 p {
-  margin-top: 0.85em !important;
-  margin-bottom: 0.85em !important;
-  line-height: 1.7 !important;
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+  line-height: 1.6 !important;
   letter-spacing: -0.01em !important;
   font-size: 1.15rem !important;
   font-weight: 400 !important;
@@ -233,7 +227,7 @@ img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
   max-height: 100%;
   width: auto;
   object-fit: contain;
-  border-radius: 24px;
+  border-radius: 16px;
   display: block;
   margin: 0;
 }

@@ -15,19 +15,21 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
 ---
 
 <Layout title={frontmatter.title}>
-  <div class="pt-[24px] bg-[#F8F8FF]">
+  <!-- 전체 배경색 변경 -->
+  <div class="pt-[24px] bg-[#ebe9e5]">
     <div class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start items-center">
+      <!-- 뒤로가기: 프로필 버튼과 동일 디자인 (rounded 6px) -->
       <button
         onclick="window.history.back()"
-        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-8"
-        style="text-align:center; display:inline-flex; align-items:center; justify-content:center; border:2px solid #111;background:#fff;color:#111;"
+        class="back-btn mr-6"
       >
         뒤로가기
       </button>
     </div>
+
     <div class="px-6">
       <article class="prose prose-lg max-w-3xl mx-auto mt-4 !prose-img:rounded-xl !prose-img:mb-1">
-        <div class="bg-white border-2 border-black rounded-xl px-7 py-6 mb-7 shadow-sm">
+        <div class="bg-white rounded-16px px-5 py-5 mb-7 card-shell">
           <div class="mb-1 flex gap-3 items-center text-gray-400 text-[0.96rem]">
             <span>
               {frontmatter.date && (new Date(frontmatter.date)).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -43,31 +45,50 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
             <img
               src={frontmatter.image}
               alt={frontmatter.title}
-              class="square-img rounded-lg mt-4 mb-1"
+              class="square-img rounded-8px mt-4 mb-1"
               style="margin-left:auto; margin-right:auto; display:block;"
             />
           )}
         </div>
+
         <Content />
       </article>
     </div>
   </div>
+
   <style>
-    .category-btn {
-      transition: background 0.2s, color 0.2s, border 0.2s;
-    }
-    .category-btn.active {
-      background-color: black !important;
-      color: white !important;
-      border: none !important;
-    }
-    .category-inactive:not(.active) {
+    /* 🔹 공통 round 값 */
+    .rounded-6px { border-radius: 6px; }
+    .rounded-16px { border-radius: 16px; }
+
+    /* 🔹 뒤로가기 버튼: 프로필 버튼과 동일 디자인 (round 6px) */
+    .back-btn {
+      flex-shrink: 0;
+      padding: .40rem 1.6rem;
+      border-radius: 6px;
       background: #fff;
       color: #111;
-      border: 2px solid #111;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: none;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0);
+      transition: background 0.2s ease;
     }
-    /* body, html 배경은 global.css에서 관리, 이 부분은 삭제 가능 */
+
+    /* 🔹 카드 컨테이너: round 16px + postcard 그림자 */
+    .card-shell {
+      border-radius: 16px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    /* 페이지 배경색 */
+    html, body { background: #ebe9e5; }
   </style>
+
   <script>
   document.addEventListener("DOMContentLoaded", function () {
     const FALLBACK = '/images/block.jpg';
@@ -81,7 +102,6 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
     function ensurePoster(video) {
       const src = video.getAttribute('src') || '';
       const isMedia = /\.(mp4|mov)$/i.test(src);
-      // 공통 권장 속성
       if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
       if (!video.hasAttribute('playsinline')) video.setAttribute('playsinline', '');
       if (!video.hasAttribute('controls')) video.setAttribute('controls', '');
@@ -89,11 +109,9 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
       if (isMedia) {
         const autoPoster = toPosterPath(src);
         const curr = video.getAttribute('poster') || '';
-        // 기존 block.jpg거나 없으면 자동 poster로
         if (!curr || /\/images\/block\.jpg$/.test(curr)) {
           video.setAttribute('poster', autoPoster);
         }
-        // 자동 poster가 실제 없을 수도 있으니 로드 확인 후 fallback
         const testImg = new Image();
         testImg.onload = () => {};
         testImg.onerror = () => { video.setAttribute('poster', FALLBACK); };
@@ -103,38 +121,37 @@ const { default: Content, frontmatter } = await import(`../../content/posts/${As
       }
     }
 
-      
-      // 캐러셀 페이드 효과
-      document.querySelectorAll('.my-carousel').forEach(function(carousel) {
-        const scrollArea = carousel.querySelector('.my-carousel-scroll');
-        if (!scrollArea) return;
-        function updateFade() {
-          const scrollLeft = scrollArea.scrollLeft;
-          const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
-          if (scrollLeft <= 2) {
-            carousel.classList.add('hide-left');
-          } else {
-            carousel.classList.remove('hide-left');
-          }
-          if (scrollLeft >= maxScroll - 2) {
-            carousel.classList.add('hide-right');
-          } else {
-            carousel.classList.remove('hide-right');
-          }
+    // 캐러셀 페이드 효과
+    document.querySelectorAll('.my-carousel').forEach(function(carousel) {
+      const scrollArea = carousel.querySelector('.my-carousel-scroll');
+      if (!scrollArea) return;
+      function updateFade() {
+        const scrollLeft = scrollArea.scrollLeft;
+        const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
+        if (scrollLeft <= 2) {
+          carousel.classList.add('hide-left');
+        } else {
+          carousel.classList.remove('hide-left');
         }
-        updateFade();
-        scrollArea.addEventListener('scroll', updateFade);
-        window.addEventListener('resize', updateFade);
-      });
+        if (scrollLeft >= maxScroll - 2) {
+          carousel.classList.add('hide-right');
+        } else {
+          carousel.classList.remove('hide-right');
+        }
+      }
+      updateFade();
+      scrollArea.addEventListener('scroll', updateFade);
+      window.addEventListener('resize', updateFade);
+    });
 
-      // Safari 렌더링 버그 수정을 위해 캐러셀 레이아웃 강제 재계산
-      window.addEventListener('load', function() {
-        document.querySelectorAll('.my-carousel-scroll').forEach(function(scrollArea) {
-          scrollArea.style.display = 'none';
-          scrollArea.offsetHeight; // 브라우저가 리플로우를 하도록 강제
-          scrollArea.style.display = '';
-        });
+    // Safari 렌더링 버그 수정을 위해 캐러셀 레이아웃 강제 재계산
+    window.addEventListener('load', function() {
+      document.querySelectorAll('.my-carousel-scroll').forEach(function(scrollArea) {
+        scrollArea.style.display = 'none';
+        scrollArea.offsetHeight;
+        scrollArea.style.display = '';
       });
     });
+  });
   </script>
 </Layout>

@@ -12,35 +12,138 @@ const showFooter = Astro.url.pathname !== '/';
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>{title ?? '한결'}</title>
 
-    <!-- 레이아웃 전용 보정만: 전역 뷰포트/배경/overflow 등은 global.css가 처리 -->
     <style is:global>
       main { flex: 1 1 auto; min-height: 0; }
+    </style>
+
+    <style>
+      :root{
+        --nav-radius: 16px; /* postcard와 동일 */
+        --nav-pad-x: 27px;  /* 내부 좌우 패딩 */
+        --nav-pad-t: 22px;  /* 내부 상단 패딩 */
+        --nav-pad-b: 22px;  /* 내부 하단 패딩(필요 시 0으로) */
+        --nav-side-gap: 24px; /* 양옆 마진(상자 외부 여백) */
+        --nav-gradient: linear-gradient(
+          to bottom,
+          #040404 0%,
+          #040404 18%,
+          #13151e 34%,
+          #2f3756 50%,
+          #747e89 80%,
+          #c3c0ba 100%
+        );
+      }
+      .layout-root {
+  background: #ebe9e5;
+  min-height: 100vh;
+}
+
+
+      /* 배경 레일(페이지 톤 유지 + sticky) */
+      .site-nav{
+        position: sticky; top: 0; z-index: 50;
+        background: transparent; /* 페이지 배경 */
+        padding-top: 0; padding-left: 0; padding-right: 0; padding-bottom: 0;
+      }
+
+      /* 실제 네비 상자 */
+/* 실제 네비 상자 */
+.site-nav-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin: 0 max(var(--nav-side-gap), env(safe-area-inset-left)) 0 max(var(--nav-side-gap), env(safe-area-inset-right));
+  background: var(--nav-gradient);
+  border-radius: 0 0 var(--nav-radius) var(--nav-radius); /* 아래만 라운드 */
+  padding: var(--nav-pad-t) var(--nav-pad-x) var(--nav-pad-b);
+  box-sizing: border-box;
+
+  /* iOS hairline 방지 */
+  -webkit-transform: translateZ(0);
+
+  /* ✅ 기본 그림자 — 이제 세미콜론 포함 */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.18);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* ✅ hover 시: 네이비 색상 강조 */
+.site-nav-box:hover {
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+
+      /* 좌측 브랜드 */
+      .site-brand{
+        display:flex; align-items:center; gap: 12px; min-width:0;
+        text-decoration:none; color:#fff;
+      }
+      .brand-logo{
+        height: clamp(28px, 3.7vw, 30px); width:auto; object-fit:contain; border-radius:0;
+        /* 로고 흰색 반전 */
+        filter: invert(1) brightness(1.05) contrast(1.05);
+      }
+      .brand-title{
+        font-weight:500; font-size: clamp(22px, 3.5vw, 25px);
+        letter-spacing:-0.02em; line-height:1; white-space:nowrap; color:#fff;
+        overflow:hidden; text-overflow:ellipsis;
+      }
+
+      /* 검색창: 다크 배경 대비 */
+      #search-form{
+        position: relative; display:flex; align-items:center; flex:0 0 auto;
+        width: min(11rem, 46vw); margin-top: 0;
+      }
+      #search-input{
+        width:100%;
+        font-size: clamp(14px, 3.6vw, 15px); line-height:1.1;
+        padding: 0.5rem 2.0rem 0.5rem 0.9rem;
+        border-radius: 9999px; border: 0;
+        background: rgba(255,255,255,0.92); color:#111;
+        outline: none; transition: box-shadow .2s, background .2s;
+      }
+      #search-input::placeholder{ color: rgba(0,0,0,.5); }
+      #search-form button{
+        position:absolute; right: .6rem; top:50%; transform: translateY(-50%);
+        background:none; border:none; color:#111; cursor:pointer;
+      }
+      #search-form svg{ width:1rem; height:1rem; }
+
+      /* 호버 시 입력 강조(선택사항) */
+      #search-input:focus{ box-shadow: 0 0 0 0px rgba(255,255,255,.6), 0 0 0 5px rgba(0,0,0,.2) inset; }
+
+      /* 모바일 여백/폭 조절(패딩은 30px 유지 요청 반영) */
+      @media (max-width: 640px){
+        .site-nav-box{ margin-inline: max(var(--nav-side-gap), 24px); }
+        #search-form{ width: min(10rem, 52vw); }
+      }
+      @media (max-width: 400px){
+        .site-nav-box{ margin-inline: max(var(--nav-side-gap), 20px); }
+        #search-form{ width: min(9.2rem, 56vw); }
+      }
     </style>
   </head>
 
   <body>
     <div class="layout-root">
       {showNav && (
-        <nav style="position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 2px solid #000; display: flex; align-items: center; padding: 0.75rem 1.25rem; min-height: 60px;">
-          <a href="/" style="display: flex; align-items: center; min-width: 0;">
-            <img src="/images/website/logo.svg" alt="로고" style="height: 2rem; width: 2rem; object-fit: contain; border-radius: 0; margin-right: 0.65rem;" />
-            <span style="font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; white-space: nowrap;">한결</span>
-          </a>
-          <div style="flex: 1 1 0%;"></div>
-          <form id="search-form" style="position: relative; width: 12rem; max-width: 20rem;">
-            <input
-              type="search"
-              placeholder="게시물 검색"
-              id="search-input"
-              style="width: 100%; padding: 0.5rem 2.2rem 0.5rem 1rem; border-radius: 9999px; border: 2px solid #000; outline: none; font-size: 1rem; background: #fff; transition: border 0.2s;"
-            />
-            <button type="submit" style="position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: #333; cursor: pointer;">
-              <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.2rem; width: 1.2rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <circle cx="11" cy="11" r="7" stroke-width="2" />
-                <line x1="16.5" y1="16.5" x2="21" y2="21" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </button>
-          </form>
+        <nav class="site-nav">
+          <div class="site-nav-box">
+            <a href="/" class="site-brand" aria-label="홈">
+              <img src="/images/website/logo.svg" alt="로고" class="brand-logo" />
+              <span class="brand-title">한결</span>
+            </a>
+
+            <form id="search-form">
+              <input type="search" placeholder="게시물 검색" id="search-input" />
+              <button type="submit" aria-label="검색">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <circle cx="11" cy="11" r="7" stroke-width="2" />
+                  <line x1="16.5" y1="16.5" x2="21" y2="21" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </form>
+          </div>
         </nav>
       )}
 
@@ -56,52 +159,13 @@ const showFooter = Astro.url.pathname !== '/';
           color: #999;
           font-size: 0.8rem;
           padding: 0.6rem 0 0.6rem 0;
-          margin-top: 2rem;
+          margin-top: 0;
           flex-shrink: 0;
         ">
           © {new Date().getFullYear()} 한결 | All rights reserved. | hanparkdesign@gmail.com
         </footer>
       )}
     </div>
-
-    <!-- (선택) 우클릭/복사 방지 스크립트 -->
-    <script>
-      document.addEventListener('contextmenu', e => e.preventDefault());
-      document.addEventListener('dragstart', e => e.preventDefault());
-      document.addEventListener('selectstart', e => e.preventDefault());
-      document.addEventListener('copy', e => e.preventDefault());
-      document.addEventListener('keydown', e => {
-        if ((e.ctrlKey || e.metaKey) && ['c','u','s','p'].includes(e.key.toLowerCase())) e.preventDefault();
-      });
-      window.oncontextmenu = function(){return false;}
-    </script>
-
-    <!-- 영문/숫자 감지 스크립트 -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const walk = node => {
-          if (node.nodeType === 3) {
-            const regex = /([A-Za-z0-9]+)/g;
-            if (regex.test(node.nodeValue)) {
-              const frag = document.createDocumentFragment();
-              let lastIndex = 0;
-              node.nodeValue.replace(regex, (match, _p1, offset) => {
-                if (offset > lastIndex) frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex, offset)));
-                const span = document.createElement('span');
-                span.textContent = match;
-                frag.appendChild(span);
-                lastIndex = offset + match.length;
-              });
-              if (lastIndex < node.nodeValue.length) frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex)));
-              node.parentNode.replaceChild(frag, node);
-            }
-          } else if (node.nodeType === 1 && !['SCRIPT','STYLE','CODE','PRE','TEXTAREA'].includes(node.tagName)) {
-            Array.from(node.childNodes).forEach(walk);
-          }
-        };
-        walk(document.body);
-      });
-    </script>
 
     <Analytics/>
   </body>

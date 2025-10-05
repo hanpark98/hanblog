@@ -3,21 +3,23 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Profile">
-  <div class="pt-[24px] bg-[#F8F8FF] min-h-screen">
+  <div class="pt-[24px] bg-[#ebe9e5] min-h-screen">
     <div id="category-nav" class="flex flex-wrap gap-x-4 gap-y-2 mb-8 px-6 justify-start">
       <button
         onclick="window.history.back()"
-        class="category-btn category-inactive px-7 py-2 rounded text-base font-bold min-w-[108px] mr-6"
-        style="border:2px solid #111;background:#fff;color:#111;">
+        class="back-btn mr-6"
+      >
         뒤로가기
       </button>
     </div>
 
-    <div class="max-w-xl mx-auto bg-white shadow rounded-xl p-10 flex flex-col items-center">
+    <!-- 프로필 카드 -->
+    <div class="profile-card max-w-xl mx-auto my-8 bg-white shadow rounded-[16px] p-10 flex flex-col items-center">
       <div class="w-full flex justify-center mb-8">
         <div
-          class="profile-img-container rounded-xl bg-gray-200 flex items-center justify-center overflow-hidden shadow"
-          style="font-size:1.3rem;font-weight:600;">
+          class="profile-img-container rounded-[16px] bg-gray-200 flex items-center justify-center overflow-hidden shadow"
+          style="font-size:1.3rem;font-weight:600;"
+        >
           <img src="/images/website/profile.jpg" alt="프로필 사진" class="w-full h-full object-cover" />
         </div>
       </div>
@@ -25,9 +27,11 @@ import Layout from '../layouts/Layout.astro';
         <div class="text-2xl font-semibold mb-1">한결</div>
         <div class="text-gray-500 mb-2">블로그 주인</div>
         <p class="m-6">
-        "우리 성소수자들에게는 진정한 자신의 모습으로 자랄 기회가 주어지지 않습니다. 어릴 적부터 모욕과 편견을 피하기 위해 진정성을 희생한 모습을 자신인 양 연기하며 살아갑니다."<br><br>
-"우리가 성인이 되어 마주하는 거대한 과제는, 자신의 진짜 모습이 무엇인지, 그리고 자신을 보호하기 위해 꾸며낸 모습이 무엇인지 하나씩 분리해내는 일입니다."
-<br><br>— Alexander Leon
+          "우리 성소수자들에게는 진정한 자신의 모습으로 자랄 기회가 주어지지 않습니다.
+          어릴 적부터 모욕과 편견을 피하기 위해 진정성을 희생한 모습을 자신인 양 연기하며 살아갑니다."<br><br>
+          "우리가 성인이 되어 마주하는 거대한 과제는, 자신의 진짜 모습이 무엇인지,
+          그리고 자신을 보호하기 위해 꾸며낸 모습이 무엇인지 하나씩 분리해내는 일입니다."
+          <br><br>— Alexander Leon
         </p>
         <div class="flex gap-4 justify-center">
           <a href="mailto:hanparkdesign@gmail.com" class="text-blue-700 underline">이메일</a>
@@ -38,19 +42,28 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <style>
-    .category-btn {
-      transition: background 0.2s, color 0.2s, border 0.2s;
-    }
-    .category-inactive:not(.active) {
+    /* 뒤로가기 버튼 (flat, no shadow) */
+    .back-btn {
+      flex-shrink: 0;
+      padding: .40rem 1.6rem;
+      border-radius: 6px;
       background: #fff;
       color: #111;
-      border: 2px solid #111;
-    }
-    body, html {
-      background: #F8F8FF !important;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: none;
+      box-shadow: none;
+      transition: background 0.2s ease;
     }
 
-    /* 데스크탑: 192px ~ 384px */
+    body, html {
+      background: #ebe9e5 !important;
+    }
+
     .profile-img-container {
       width: 16rem;
       height: 16rem;
@@ -65,9 +78,12 @@ import Layout from '../layouts/Layout.astro';
       }
     }
 
-    /* 모바일: 카드 패딩 남기고 크게 중앙정렬 */
+    /* ✅ 모바일: 카드 좌우 마진 추가 + 내부 여백 최적화 */
     @media (max-width: 640px) {
-      .p-10 { padding: 1.25rem !important; }
+      .profile-card {
+        margin-inline: 24px; /* ← 좌우 여백 추가 */
+        padding: 1.25rem !important;
+      }
       .profile-img-container {
         width: 90vw;
         height: 90vw;
