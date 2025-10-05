@@ -5,7 +5,6 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Welcome">
   <section id="home-hero" class="w-full flex flex-col bg-white full-viewport section-clip" style="position:relative;">
 
-
     <!-- =========================
          Single bar (상단/좌/우 40px, 하단 0)
          좌측: 로고 + '한결' → 홈
@@ -40,6 +39,49 @@ For love is sufficient unto love.
         </div>
       </div>
     </div>
+
+    <!-- =========================
+         모바일 주소창 변동 + 바 실제 높이 반영 (핵심 스크립트)
+         ========================= -->
+    <script>
+      (() => {
+        const root = document.documentElement;
+
+        function setVH() {
+          const h = (window.visualViewport?.height || window.innerHeight);
+          root.style.setProperty('--vh', (h * 0.01) + 'px');
+        }
+
+        function setBarH() {
+          const bar = document.getElementById('home-bar');
+          if (!bar) return;
+          const h = Math.round(bar.getBoundingClientRect().height);
+          root.style.setProperty('--bar-h-actual', h + 'px');
+        }
+
+        const init = () => { setVH(); setBarH(); };
+
+        // bar 높이 변화 관찰(줄바꿈/폰트 로드/반응형 등)
+        const barEl = document.getElementById('home-bar');
+        if (barEl && 'ResizeObserver' in window) {
+          const ro = new ResizeObserver(setBarH);
+          ro.observe(barEl);
+        }
+
+        // 뷰포트 변화 대응
+        window.addEventListener('resize', setVH, { passive: true });
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', setVH, { passive: true });
+        }
+        window.addEventListener('orientationchange', () => setTimeout(setVH, 250), { passive: true });
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
 
     <!-- =========================
          경량 스크램블(해독) 애니메이션: 근접 시 크로스페이드 + 3~4초 후 자동 복귀(모바일은 5.5~7.5초)
@@ -283,9 +325,7 @@ For love is sufficient unto love.
               ents.forEach(e=>{
                 if (e.isIntersecting){
                   setTimeout(() => {
-                    // 무작위 순서로 문자 배열 셔플
                     const shuffled = asciiChars.slice().sort(() => Math.random() - 0.5);
-                    // 각 글자에 약간의 지터(0~120ms) + 개별 전환시간(320~580ms)
                     shuffled.forEach((el) => {
                       const jitter = Math.floor(Math.random() * 720);
                       const dur = 320 + Math.floor(Math.random() * 860);
@@ -324,7 +364,7 @@ For love is sufficient unto love.
   --link-size : clamp(17px, 2.4vw, 18px);
 }
 #home-hero{
-  --bar-h           : clamp(200px, 20vw, 600px);
+  --bar-h           : clamp(200px, 20vw, 600px); /* 초기 최소값 (실측은 --bar-h-actual) */
   --anim-margin-bg  : #ebe9e5;
   --anim-text       : #ffffff;
   --anim-margin     : 24px;
@@ -347,12 +387,9 @@ For love is sufficient unto love.
 /* 상단 바 */
 #home-bar .home-bar{
   padding: 30px 30px 0 30px;
-
-  /* 고정 height 제거하고, padding 포함 높이를 '최소'로만 강제 */
   box-sizing: border-box;
   min-height: var(--bar-h);
   height: auto;
-
   background: var(--bar-bg);
   display: flex;
   align-items: flex-start;
@@ -379,32 +416,30 @@ For love is sufficient unto love.
 }
 #home-bar .home-link:hover{ opacity:.8; }
 
-/* 애니메이션 섹션: 화면 하단까지 꽉 채움 (모바일 스크롤 방지) */
+/* 애니메이션 섹션: 남는 스크롤 없이 화면 하단까지 꽉 채움 */
 .anim-wrap{
   display:flex; align-items:center; justify-content:center;
   padding: var(--anim-margin);
   background: var(--anim-margin-bg);
-
   box-sizing: border-box;
-
-  /* ▼ 추가: 자식 그림자/트랜스폼 넘침 클립 */
   overflow: hidden;
 
-  /* 기본: 100vh 기준으로 바 높이만큼 빼기 */
-  min-height: calc(100vh  - var(--bar-h));
-  height:     calc(100vh  - var(--bar-h));
+  /* 핵심: 실측 vh와 바의 실제 높이 사용 */
+  min-height: calc(var(--vh, 1vh) * 100 - var(--bar-h-actual, var(--bar-h)));
+  height:     calc(var(--vh, 1vh) * 100 - var(--bar-h-actual, var(--bar-h)));
 }
 
-@supports (height: 100svh){
-  .anim-wrap{
-    min-height: calc(100svh - var(--bar-h));
-    height:     calc(100svh - var(--bar-h));
-  }
-}
+/* 브라우저가 dvh/svh 지원 시 오차 추가 보정 */
 @supports (height: 100dvh){
   .anim-wrap{
-    min-height: calc(100dvh - var(--bar-h));
-    height:     calc(100dvh - var(--bar-h));
+    min-height: calc(100dvh - var(--bar-h-actual, var(--bar-h)));
+    height:     calc(100dvh - var(--bar-h-actual, var(--bar-h)));
+  }
+}
+@supports (height: 100svh){
+  .anim-wrap{
+    min-height: calc(100svh - var(--bar-h-actual, var(--bar-h)));
+    height:     calc(100svh - var(--bar-h-actual, var(--bar-h)));
   }
 }
 
@@ -424,11 +459,9 @@ For love is sufficient unto love.
   padding-left:  var(--anim-inner-pad-x);
   padding-right: var(--anim-inner-pad-x);
   position: relative;
-
-  /* ▼ 추가 */
   background-origin: border-box;
 
-  /* ▼ iOS Safari 테두리 헤어라인 방지 */
+  /* iOS Safari 테두리 헤어라인 방지 */
   overflow: hidden;
   background-clip: padding-box;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -454,7 +487,7 @@ For love is sufficient unto love.
   will-change: opacity;
 }
 
-/* ▼ iOS(WebKit) 전용 완화: grain 블렌드로 테두리선 발생 시 normal로 강등 */
+/* iOS(WebKit) 전용 완화: grain 블렌드로 테두리선 발생 시 normal로 강등 */
 @supports (-webkit-touch-callout: none){
   .anim-panel::after{
     mix-blend-mode: normal;
@@ -485,6 +518,8 @@ For love is sufficient unto love.
          동적 요소용 글로벌 스타일(중요!)
          ========================= -->
     <style is:global>
+html, body { margin:0; padding:0; height:100%; overflow-x:hidden; }
+
 /* 문자 컨테이너: ASCII는 폭 고정(1ch) + 레이어 두 겹 */
 #home-hero .char{ display:inline-block; vertical-align: baseline; }
 #home-hero .char.ascii{
@@ -521,6 +556,10 @@ For love is sufficient unto love.
   #home-hero .rm-ready { opacity: 0; }
   #home-hero .rm-ready.rm-fade-in { opacity: 1; transition: opacity .28s ease-out; }
 }
+
+/* 페이지 자체의 수직 스크롤 잠금(테스트용) — 스크롤이 즉시 사라지면 "아래 형제"가 원인 확정 */
+body:has(#home-hero) { overflow-y: hidden !important; }
+
     </style>
   </section>
 </Layout>
