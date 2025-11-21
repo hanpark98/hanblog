@@ -11,12 +11,12 @@ date: "2025-06-15"
 <div style="display: flex; gap: 8px; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sff-mainbooth.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">SFF Main Hub</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sff-panel.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">SFF = SEE</h4>
   </div>
 </div>
@@ -28,12 +28,12 @@ date: "2025-06-15"
 <div style="display: flex; gap: 8px; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sff-waitingline.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">입장 기다리는 줄</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/ritz-cinema.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">Ritz Cinema</h4>
   </div>
 </div>
@@ -60,12 +60,12 @@ date: "2025-06-15"
 <div style="display: flex; gap: 8px;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/ripley.webp"
-         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">The Talented Mr. Ripley, 1999, 영화</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/hansen.jpg"
-         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">Dear Evan Hansen, 2015, 뮤지컬</h4>
   </div>
 </div>
@@ -79,12 +79,12 @@ date: "2025-06-15"
 <div style="display: flex; gap: 8px;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sterek2.jpg"
-         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">Teen Wolf, 2011, 미국 드라마</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/sterek.gif"
-         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 5/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">열심히 홍보 중</h4>
   </div>
 </div>
@@ -104,12 +104,12 @@ date: "2025-06-15"
 <div style="display: flex; gap: 8px;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/burger1.webp"
-         style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">눈을 가린다</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250615 twinless/burger2.webp"
-         style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 24px; display: block;">
+         style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: 16px; display: block;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">못 맞추면 버거가 된다</h4>
   </div>
 </div>
