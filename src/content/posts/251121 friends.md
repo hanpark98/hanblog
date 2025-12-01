@@ -20,11 +20,11 @@ draft: true
     "
   ><div class="my-carousel-item">
       <img src="/images/posts/251121 friends/map3.webp" class="my-carousel-img" />
-      <h4 class="my-carousel-title">영국의 wales 지방에 살았다</h4>
+      <h4 class="my-carousel-title">캐나다 Manitoba에 위치한 작은 마을에 살았다.</h4>
     </div>
     <div class="my-carousel-item">
       <img src="/images/posts/251121 friends/map4.webp" class="my-carousel-img" />
-      <h4 class="my-carousel-title">바닷가에 위치해 갈매기가 많았다.</h4>
+      <h4 class="my-carousel-title">겨울이면 눈이 가슴까지 왔다.</h4>
     </div>
   </div>
 </div>
@@ -40,11 +40,11 @@ draft: true
     "
   ><div class="my-carousel-item">
       <img src="/images/posts/251121 friends/david1.JPG" class="my-carousel-img" />
-      <h4 class="my-carousel-title">대학 동기들</h4>
+      <h4 class="my-carousel-title">앞니가 새로 나고 있어서 자랑한다고 지은 표정인 듯 </h4>
     </div>
     <div class="my-carousel-item">
       <img src="/images/posts/251121 friends/david2.JPG" class="my-carousel-img" />
-      <h4 class="my-carousel-title">대학 동기들</h4>
+      <h4 class="my-carousel-title">서로를 흉내내는 것을 자주 했다.</h4>
     </div>
   </div>
 </div>
@@ -99,7 +99,7 @@ draft: true
     </div>
     <div class="my-carousel-item">
       <img src="/images/posts/251121 friends/matt1.jpg" class="my-carousel-img" />
-      <h4 class="my-carousel-title">대학 동기들</h4>
+      <h4 class="my-carousel-title">남아 있는 사진이 별로 없다.</h4>
     </div>
   </div>
 </div>
