@@ -160,105 +160,121 @@ const showFooter = Astro.url.pathname !== '/';
 
     <Analytics/>
 
-        <script>
-      function enhanceVideo(video) {
-        const existingWrapper = video.closest('.video-wrapper');
-        if (existingWrapper) {
-          return existingWrapper;
+  <script>
+  function enhanceVideo(video) {
+    const existingWrapper = video.closest('.video-wrapper');
+    if (existingWrapper) {
+      return existingWrapper;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'video-wrapper';
+
+    const parent = video.parentNode;
+    if (!parent) return null;
+
+    parent.insertBefore(wrapper, video);
+    wrapper.appendChild(video);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'video-play-overlay';
+    wrapper.appendChild(overlay);
+
+    const syncOverlay = () => {
+      if (video.paused) {
+        wrapper.classList.remove('is-playing');
+      } else {
+        wrapper.classList.add('is-playing');
+      }
+    };
+
+    video.addEventListener('play', syncOverlay);
+    video.addEventListener('pause', syncOverlay);
+    video.addEventListener('ended', syncOverlay);
+
+    syncOverlay();
+    return wrapper;
+  }
+
+  // ✅ 여기 함수만 교체
+  function setupVideoControls() {
+    const videos = document.querySelectorAll('video');
+
+    videos.forEach((video) => {
+      // 1) 모바일에서 디폴트 UI 뜨는 핵심 원인 제거: controls 강제 삭제
+      if (video.hasAttribute('controls')) {
+        video.removeAttribute('controls');
+      }
+
+      // 2) 인라인 재생 강제 (iOS 전체 화면 진입 방지)
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+
+      // 필요하면 자동으로 muted도 기본값으로 줄 수 있음 (옵션)
+      // if (!video.hasAttribute('muted')) {
+      //   video.muted = true;
+      // }
+
+      // 3) 우리 커스텀 래퍼 + 오버레이 적용
+      enhanceVideo(video);
+
+      // 4) 중복 이벤트 방지
+      if (video.dataset.hasListener) return;
+
+      video.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
         }
+      });
 
-        const wrapper = document.createElement('div');
-        wrapper.className = 'video-wrapper';
+      // 모바일 더블탭 확대 방지
+      video.addEventListener('dblclick', function (e) {
+        e.preventDefault();
+      });
 
-        const parent = video.parentNode;
-        if (!parent) return null;
+      video.dataset.hasListener = 'true';
+    });
+  }
 
-        parent.insertBefore(wrapper, video);
-        wrapper.appendChild(video);
+  function setupAntiCopy() {
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
 
-        const overlay = document.createElement('div');
-        overlay.className = 'video-play-overlay';
-        wrapper.appendChild(overlay);
+    function applyNoDrag() {
+      document.querySelectorAll('img, video').forEach((el) => {
+        el.setAttribute('draggable', 'false');
+      });
+    }
+    applyNoDrag();
 
-        const syncOverlay = () => {
-          if (video.paused) {
-            wrapper.classList.remove('is-playing');
-          } else {
-            wrapper.classList.add('is-playing');
-          }
-        };
+    document.addEventListener('keydown', function (e) {
+      const key = e.key.toLowerCase();
 
-        video.addEventListener('play', syncOverlay);
-        video.addEventListener('pause', syncOverlay);
-        video.addEventListener('ended', syncOverlay);
-
-        syncOverlay();
-        return wrapper;
+      if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
+        e.preventDefault();
       }
 
-      function setupVideoControls() {
-        const videos = document.querySelectorAll('video');
-
-        videos.forEach((video) => {
-          enhanceVideo(video);
-
-          if (video.dataset.hasListener) return;
-
-          video.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (video.paused) {
-              video.play();
-            } else {
-              video.pause();
-            }
-          });
-
-          video.addEventListener('dblclick', function (e) {
-            e.preventDefault();
-          });
-
-          video.dataset.hasListener = 'true';
-        });
+      if (key === 'f12') {
+        e.preventDefault();
       }
+    });
+  }
 
-      function setupAntiCopy() {
-        // 1) 우클릭 전체 차단
-        document.addEventListener('contextmenu', function (e) {
-          e.preventDefault();
-        });
+  function setupAll() {
+    setupVideoControls();
+    setupAntiCopy();
+  }
 
-        // 2) 이미지/비디오 드래그 속성 강제 해제
-        function applyNoDrag() {
-          document.querySelectorAll('img, video').forEach((el) => {
-            el.setAttribute('draggable', 'false');
-          });
-        }
-        applyNoDrag();
+  document.addEventListener('astro:page-load', setupAll);
+  document.addEventListener('DOMContentLoaded', setupAll);
+</script>
 
-        // 3) 일부 단축키 차단 (복사/소스보기 등)
-        document.addEventListener('keydown', function (e) {
-          const key = e.key.toLowerCase();
-
-          if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
-            e.preventDefault();
-          }
-
-          if (key === 'f12') {
-            e.preventDefault();
-          }
-        });
-      }
-
-      function setupAll() {
-        setupVideoControls();
-        setupAntiCopy();
-      }
-
-      document.addEventListener('astro:page-load', setupAll);
-      document.addEventListener('DOMContentLoaded', setupAll);
-    </script>
 
     
   </body>
