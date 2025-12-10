@@ -66,10 +66,9 @@ date: "2025-12-08"
       <video
         class="my-carousel-img"
         src="/images/posts/250926 butterfly/hotelvid1.mp4"
-        autoplay
         loop
-        muted
         playsinline
+        controlsList="nodownload"
       ></video>
       <h4 class="my-carousel-title">경찰 등장</h4>
     </div>
@@ -163,10 +162,9 @@ date: "2025-12-08"
       <video
         class="my-carousel-img"
         src="/images/posts/250926 butterfly/hero1.mp4"
-        autoplay
         loop
-        muted
         playsinline
+        controlsList="nodownload"
       ></video>
       <h4 class="my-carousel-title">귀청 찢어지는 줄</h4>
     </div>
@@ -193,6 +191,7 @@ date: "2025-12-08"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0; !important;"
       controls
       playsinline
+      controlsList="nodownload"
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">This is a triumph!</h4>
@@ -226,6 +225,7 @@ and I know that I'm strong enough to mend<br>
       style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
+      controlsList="nodownload"
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">이 곡 하나만 듣고 나왔어도 본전 뽑은 격</h4>
@@ -247,6 +247,7 @@ and I know that I'm strong enough to mend<br>
       style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
+      controlsList="nodownload"
       preload="metadata"
     ></video>
   </div>
@@ -259,6 +260,7 @@ and I know that I'm strong enough to mend<br>
       style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
+      controlsList="nodownload"
       preload="metadata"
     ></video>
   </div>
@@ -283,23 +285,12 @@ and I know that I'm strong enough to mend<br>
 
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <video src="/images/posts/250926 butterfly/butterfly2.mp4" 
-           class="custom-video"
-           playsinline
-           webkit-playsinline
-           style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
-    </video>
-    </div>
-</div>
-
-<div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
-  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/butterfly2.mp4"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
-      controls
       playsinline
       webkit-playsinline
+      controlsList="nodownload"
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">고양이와 나비</h4>
@@ -308,14 +299,15 @@ and I know that I'm strong enough to mend<br>
     <video
       src="/images/posts/250926 butterfly/butterfly1.mp4"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
-      controls
       playsinline
       webkit-playsinline
+      controlsList="nodownload"
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">SHENZHEN 호텔에서</h4>
   </div>
-</div>  
+</div>
+
 
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">

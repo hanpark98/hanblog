@@ -183,6 +183,21 @@ img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
     'Segoe UI Symbol', 'Arial', sans-serif !important;
 }
 
+/* 이미지/비디오 불펌 방지 기본값 */
+img,
+video {
+  -webkit-user-drag: none;   /* 드래그 저장 방지 */
+  -webkit-touch-callout: none; /* iOS 길게눌러 저장 메뉴 방지 */
+  user-select: none;         /* 선택 방지 */
+}
+
+/* (선택) 사이트 전체 텍스트 선택 방지 */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
 /* ----------- 캐러셀 ----------- */
 .my-carousel {
   --carousel-height: 600px;
@@ -271,39 +286,107 @@ img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
 .my-carousel.hide-left::before { opacity: 0; }
 .my-carousel.hide-right::after { opacity: 0; }
 
-/* 비디오 모바일 최적화 */
-video { background-color: #f0f0f0; background-size: cover; background-position: center; }
-video::-webkit-media-controls-start-playback-button { display: none !important; }
-@media (max-width: 640px) { video { object-fit: cover; } }
-
-/* 특정 클래스나 모든 비디오에 적용 */
-video::-webkit-media-controls-timeline {
-    display: none !important;
+/* 캐러셀 안 비디오를 이미지랑 동일하게 맞추기 */
+.my-carousel-item .video-wrapper {
+  height: calc(98% - 36px);  /* .my-carousel-img와 동일한 높이 */
+  max-height: 100%;
+  width: auto;
+  border-radius: 16px;
+  margin: 0;
+  overflow: hidden;          /* 모서리 밖으로 안 튀어나가게 */
+  display: block;
 }
 
-/* (선택사항) 현재 재생 시간 텍스트도 숨기고 싶다면 추가 */
+/* 래퍼 안의 실제 비디오 */
+.my-carousel-item .video-wrapper video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;       /* 이미지와 동일하게 프레임 안에 맞추기 */
+  display: block;
+}
+
+
+/* 비디오 스타일 및 네이티브 컨트롤 숨김 */
+video {
+  background-color: #f0f0f0;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* iOS / Safari 중앙 재생 버튼 숨김 */
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
+/* 전체 컨트롤 바 통째로 숨김 (WebKit 계열) */
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+/* 타임라인 / 시간 표시도 숨김 */
+video::-webkit-media-controls-timeline,
 video::-webkit-media-controls-current-time-display,
 video::-webkit-media-controls-time-remaining-display {
-    display: none !important;
+  display: none !important;
 }
 
-video {
-  cursor: pointer; /* 마우스 올렸을 때 손가락 모양 */
+@media (max-width: 640px) {
+  video {
+    object-fit: cover;
+  }
 }
 
-video, .custom-video {
-  /* 비디오가 다른 요소보다 위에 오도록 */
-  position: relative; 
-  z-index: 10;
-  /* 터치 동작 허용 */
-  pointer-events: auto;
+/* 커스텀 최소 UI용 래퍼와 오버레이 */
+.video-wrapper {
+  position: relative;
+  display: block;
+}
+
+/* 재생 아이콘 오버레이 */
+.video-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+  z-index: 20;
+}
+
+/* 동그란 반투명 배경 */
+.video-play-overlay::before {
+content: none;
+}
+
+/* 흰색 삼각형 아이콘 */
+.video-play-overlay::after {
+  content: "";
+  position: absolute;
+  margin-left: 2px;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.96);
+}
+
+/* 재생 중일 때는 살짝 축소하면서 숨김 */
+.video-wrapper.is-playing .video-play-overlay {
+  opacity: 0;
+  transform: scale(0.9);
 }
 
 /* Tailwind Typography blockquote padding 강제 덮어쓰기 */
 .prose-lg :where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: 1.5rem;
-  padding: 1rem !important;          /* 사면 2rem */
-  padding-inline-start: 2rem !important; /* left도 2rem로 고정 */
+  padding: 1rem !important;
+  padding-inline-start: 2rem !important;
 }
 
 
