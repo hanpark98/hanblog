@@ -170,6 +170,9 @@ li {
 }
 img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
 
+
+
+
 /* 1:1 정사각형 이미지 스타일 */
 .square-img { margin-top: 1rem; aspect-ratio: 1 / 1; object-fit: cover; width: 100%; display: block; }
 .aspect-10-8 { margin-top: 1rem; aspect-ratio: 1 / 0.8; object-fit: cover; width: 100%; display: block; }
@@ -272,6 +275,29 @@ img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
 video { background-color: #f0f0f0; background-size: cover; background-position: center; }
 video::-webkit-media-controls-start-playback-button { display: none !important; }
 @media (max-width: 640px) { video { object-fit: cover; } }
+
+/* 특정 클래스나 모든 비디오에 적용 */
+video::-webkit-media-controls-timeline {
+    display: none !important;
+}
+
+/* (선택사항) 현재 재생 시간 텍스트도 숨기고 싶다면 추가 */
+video::-webkit-media-controls-current-time-display,
+video::-webkit-media-controls-time-remaining-display {
+    display: none !important;
+}
+
+video {
+  cursor: pointer; /* 마우스 올렸을 때 손가락 모양 */
+}
+
+/* Tailwind Typography blockquote padding 강제 덮어쓰기 */
+.prose-lg :where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin-top: 1.5rem;
+  padding: 1rem !important;          /* 사면 2rem */
+  padding-inline-start: 2rem !important; /* left도 2rem로 고정 */
+}
+
 
 /*
 footer {

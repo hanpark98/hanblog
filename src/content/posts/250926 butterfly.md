@@ -7,17 +7,30 @@ date: "2025-12-08"
 ---
 
 ## 버킷리스트 1호
-
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250926 butterfly/apple1.jpeg"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block; margin-top: 0 !important;">
+         style="width: 100%; aspect-ratio: 3/5; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
+    <h4 style="margin: 0 0 0 0; line-height: 1;">애플 뮤직 Replay 2025</h4>
+  </div>
+  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
+    <img src="/images/posts/250926 butterfly/apple2.png"
+         style="width: 100%; aspect-ratio: 3/5; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
+    <h4 style="margin: 0 0 0 0; line-height: 1;">애플 뮤직 Replay 2024</h4>
+  </div>
+  </div>
+
+<!--
+<div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
+  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
+    <img src="/images/posts/250926 butterfly/apple1.jpeg"
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">애플 뮤직 Replay 2025</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/hero-me.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
       preload="metadata"
@@ -25,6 +38,7 @@ date: "2025-12-08"
     <h4 style="margin: 0 0 0 0; line-height: 1;">내 노래방 18번</h4>
   </div>
 </div>  
+-->
 
 버킷리스트를 적으면서 그중 가장 쉽게 이룰 수 있겠다 싶었던 항목이었다. 기회만 생기면 바로 낚아챌 마음의 준비는 이미 끝나 있었다. 그 와중에 들려온 소식, 머라이어 캐리가 중국에 온다는 것이다. 그래서 나는 오직 머라이어 캐리 공연 하나만을 위해 중국, 선전에 가기로 했다. 
 
@@ -141,10 +155,6 @@ date: "2025-12-08"
       <img src="/images/posts/250926 butterfly/show1.webp" class="my-carousel-img" />
       <h4 class="my-carousel-title">슬슬 모여드는 관람객들</h4>
     </div>
-    <div class="my-carousel-item">
-      <img src="/images/posts/250926 butterfly/show2.webp" class="my-carousel-img" />
-      <h4 class="my-carousel-title">나름 테크 도시라고 전광판 퀄리티가 좋다</h4>
-    </div>
         <div class="my-carousel-item">
       <img src="/images/posts/250926 butterfly/show4.webp" class="my-carousel-img" />
       <h4 class="my-carousel-title">공연장 개조 이후 첫 공연이라고</h4>
@@ -158,7 +168,7 @@ date: "2025-12-08"
         muted
         playsinline
       ></video>
-      <h4 class="my-carousel-title">Hero 전주에 환호하는 관객들 귀청 찢어지는 줄</h4>
+      <h4 class="my-carousel-title">귀청 찢어지는 줄</h4>
     </div>
   </div>
 </div>
@@ -173,14 +183,14 @@ date: "2025-12-08"
 
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250926 butterfly/poster1.jpg"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block; margin-top: 0 !important;">
+    <img src="/images/posts/250926 butterfly/show2.webp"
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0;  !important;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">2025년 5월 10일 선전 공연</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/celebration.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0; !important;"
       controls
       playsinline
       preload="metadata"
@@ -190,7 +200,7 @@ date: "2025-12-08"
 </div>  
 
 
->   They’ve got to give us a celebration – that’s just all there is to it.
+>   "They’ve got to give us a celebration – that’s just all there is to it."
 
 살다 보면 좋은 일과 나쁜 일이 이상하게 동시에 찾아오는 순간이 있다. 그렇다고 애도와 축하를 양극단에 놓고 둘 중 하나만 골라야 한다는 규칙이 있는 것도 아니다. 
 
@@ -210,23 +220,18 @@ and I know that I'm strong enough to mend<br>
 
 ## Butterfly
 
-<div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
-  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250926 butterfly/lyrics3.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block; margin-top: 0 !important;">
-    <h4 style="margin: 0 0 0 0; line-height: 1;">Fly abandonedly into the sun</h4>
-  </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/butterfly.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">이 곡 하나만 듣고 나왔어도 본전 뽑은 격</h4>
   </div>
-</div>  
+
+> Blindly I imagined I could keep you under glass <br> Now I understand to hold you I must open up my hands <br> And watch you rise
 
 반면 7집 Butterfly에서는 사랑을 놓아주며 마주하는 해방을 노래한다. 타이틀 곡 ‘Butterfly’의 가사를 자세히 들여다보면, 한쪽에서는 화자가 손을 펼쳐 나비를 떠나보내고, 다른 쪽에서는 화자가 떠나가는 두 개의 시점이 겹친다. 이 노래에서 나비는 단순히 ‘상대방’만을 가리키지 않는다. 화자가 너무나 사랑하는 사람이기도 하며, 그 사람에게 어떻게든 사랑받고 싶어 하는 자신의 마음이기도 하다. 사랑하는 대상과 사랑을 갈망하는 자아가 포개져 있는 상징이다.
 
@@ -236,41 +241,29 @@ and I know that I'm strong enough to mend<br>
 
 ## Hero
 
-<div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
-  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250926 butterfly/lyrics1.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block; margin-top: 0 !important;">
-    <h4 style="margin: 0 0 0 0; line-height: 1;">You don't have to be afraid of what you are</h4>
-  </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/hero2.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
       preload="metadata"
     ></video>
-    <h4 style="margin: 0 0 0 0; line-height: 1;">Verse 1</h4>
   </div>
-</div>
 
-<div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
-  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
-    <img src="/images/posts/250926 butterfly/lyrics2.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 24px; display: block; margin-top: 0 !important;">
-    <h4 style="margin: 0 0 0 0; line-height: 1;">You can find love, if you search within yourself</h4>
-  </div>
+> There's a hero, if you look inside your heart <br> You don't have to be afraid of what you are
+
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/hero3.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 4/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
       preload="metadata"
     ></video>
-    <h4 style="margin: 0 0 0 0; line-height: 1;">Verse 2</h4>
   </div>
-</div>  
+
+> You can find love, if you search within yourself <br> and that emptiness you felt will disapear
 
 
 내가 어린 시절, 어려운 일을 마주했을 때 할 수 있는 일은 누군가가 와서 나를 구해 줄 때까지 기다리는 것뿐이었다.
@@ -292,7 +285,7 @@ and I know that I'm strong enough to mend<br>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/butterfly2.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
       preload="metadata"
@@ -302,7 +295,7 @@ and I know that I'm strong enough to mend<br>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/butterfly1.mp4"
-      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0; margin-bottom: 6.4px !important;"
+      style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
       preload="metadata"
@@ -314,12 +307,12 @@ and I know that I'm strong enough to mend<br>
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250926 butterfly/drawing1.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0 !important;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">오랫만에 꺼내든 붓</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250926 butterfly/drawing2.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0 !important;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">나비를 바라보는 나를 바라보는 나</h4>
   </div>
 </div>  
@@ -327,18 +320,18 @@ and I know that I'm strong enough to mend<br>
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250926 butterfly/me1.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0 !important;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">버킷리스트 1호 달성!</h4>
   </div>
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <img src="/images/posts/250926 butterfly/show3.webp"
-         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; display: block; margin-top: 0 !important;">
+         style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
     <h4 style="margin: 0 0 0 0; line-height: 1;">I made it through the rain!</h4>
   </div>
 </div>  
 
 <br><br>
->There was a little boy that all he wanted was a butterfly. So he got a butterfly net and went outside started swinging. But with no luck, he sat down on the ground, he finally let go and surrendered. He was okay he wasn’t going to capture this beautiful butterfly.
+> There was a little boy that all he wanted was a butterfly. <br> So he got a butterfly net and went outside started swinging. <br>But with no luck, he sat down on the ground, he finally let go and surrendered. He was okay he wasn’t going to capture this beautiful butterfly.<br>
 And right when he did, is when the butterfly came and landed right on the tip of his nose.
 
 <br><br><br>

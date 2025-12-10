@@ -112,6 +112,21 @@ module.exports = {
               margin: '0.4em 0',
               borderCollapse: 'collapse',
             },
+                    blockquote: {
+          fontStyle: 'italic',
+          borderLeft: '0px solid #dadada',
+          color: '#555',
+          backgroundColor: '#fafafa',
+          borderRadius: 'var(--nav-radius)',
+  overflow: 'hidden',
+          // 여백 키우기
+
+
+          // 따옴표 제거
+          quotes: 'none',
+          '& p:first-of-type::before': { content: 'none' },
+          '& p:last-of-type::after': { content: 'none' },
+        },
             'th, td': {
               border: '1px solid #e3e3e3',
               padding: '0.38em 0.7em',
