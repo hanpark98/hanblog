@@ -160,122 +160,198 @@ const showFooter = Astro.url.pathname !== '/';
 
     <Analytics/>
 
-  <script>
-  function enhanceVideo(video) {
+    <script>
+      // 비디오 구조/오버레이 세팅
+function enhanceVideo(video) {
+  const isCarousel = video.classList.contains('my-carousel-img');
+
+  if (isCarousel) {
+    // 캐러셀 비디오는 래퍼 사용 안 함. 혹시 예전 래퍼 있으면 풀어준다.
     const existingWrapper = video.closest('.video-wrapper');
     if (existingWrapper) {
-      return existingWrapper;
+      const parent = existingWrapper.parentNode;
+      if (parent) {
+        parent.insertBefore(video, existingWrapper);
+      }
+      existingWrapper.remove();
     }
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'video-wrapper';
+    // 캐러셀 비디오 오버레이 생성
+    const item = video.closest('.my-carousel-item');
+    if (item && !item.querySelector('.carousel-video-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'carousel-video-overlay';
+      item.appendChild(overlay);
+    }
+    return null;
+  }
 
-    const parent = video.parentNode;
-    if (!parent) return null;
-
-    parent.insertBefore(wrapper, video);
-    wrapper.appendChild(video);
-
-    const overlay = document.createElement('div');
-    overlay.className = 'video-play-overlay';
-    wrapper.appendChild(overlay);
-
-    const syncOverlay = () => {
-      if (video.paused) {
-        wrapper.classList.remove('is-playing');
-      } else {
-        wrapper.classList.add('is-playing');
-      }
-    };
-
-    video.addEventListener('play', syncOverlay);
-    video.addEventListener('pause', syncOverlay);
-    video.addEventListener('ended', syncOverlay);
-
-    syncOverlay();
+  // 그 외(일반) 비디오는 래퍼 + video-play-overlay 사용
+  let wrapper = video.closest('.video-wrapper');
+  if (wrapper) {
     return wrapper;
   }
 
-  // ✅ 여기 함수만 교체
-  function setupVideoControls() {
-    const videos = document.querySelectorAll('video');
+  wrapper = document.createElement('div');
+  wrapper.className = 'video-wrapper';
 
-    videos.forEach((video) => {
-      // 1) 모바일에서 디폴트 UI 뜨는 핵심 원인 제거: controls 강제 삭제
-      if (video.hasAttribute('controls')) {
-        video.removeAttribute('controls');
+  const parent = video.parentNode;
+  if (!parent) return null;
+
+  parent.insertBefore(wrapper, video);
+  wrapper.appendChild(video);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'video-play-overlay';
+  wrapper.appendChild(overlay);
+
+  // 🔹 재생/정지 상태에 따라 아이콘 바꿔주기
+  let hasPlayed = false;
+
+  const syncOverlay = () => {
+    if (video.paused) {
+      // 아직 한 번도 재생 안 했으면 → 기본 삼각형 유지
+      if (hasPlayed) {
+        wrapper.classList.add('is-paused');
       }
-
-      // 2) 인라인 재생 강제 (iOS 전체 화면 진입 방지)
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-
-      // 필요하면 자동으로 muted도 기본값으로 줄 수 있음 (옵션)
-      // if (!video.hasAttribute('muted')) {
-      //   video.muted = true;
-      // }
-
-      // 3) 우리 커스텀 래퍼 + 오버레이 적용
-      enhanceVideo(video);
-
-      // 4) 중복 이벤트 방지
-      if (video.dataset.hasListener) return;
-
-      video.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (video.paused) {
-          video.play();
-        } else {
-          video.pause();
-        }
-      });
-
-      // 모바일 더블탭 확대 방지
-      video.addEventListener('dblclick', function (e) {
-        e.preventDefault();
-      });
-
-      video.dataset.hasListener = 'true';
-    });
-  }
-
-  function setupAntiCopy() {
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-
-    function applyNoDrag() {
-      document.querySelectorAll('img, video').forEach((el) => {
-        el.setAttribute('draggable', 'false');
-      });
+      wrapper.classList.remove('is-playing');
+    } else {
+      // 재생 중
+      hasPlayed = true;
+      wrapper.classList.add('is-playing');
+      wrapper.classList.remove('is-paused');
     }
-    applyNoDrag();
+  };
 
-    document.addEventListener('keydown', function (e) {
-      const key = e.key.toLowerCase();
+  video.addEventListener('play', syncOverlay);
+  video.addEventListener('pause', syncOverlay);
+  video.addEventListener('ended', () => {
+    // 끝났을 때는 다시 "처음부터 재생" 느낌 → 삼각형으로 복귀
+    hasPlayed = false;
+    syncOverlay();
+  });
 
-      if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
-        e.preventDefault();
+  // 초기 상태 반영
+  syncOverlay();
+
+  return wrapper;
+}
+
+
+      function setupVideoControls() {
+        const videos = document.querySelectorAll('video');
+
+        videos.forEach((video) => {
+          const isCarousel = video.classList.contains('my-carousel-img');
+
+          // 네이티브 컨트롤 제거
+          if (video.hasAttribute('controls')) {
+            video.removeAttribute('controls');
+          }
+
+          // 인라인 재생 강제
+          video.setAttribute('playsinline', '');
+          video.setAttribute('webkit-playsinline', '');
+
+          // 구조 세팅 (캐러셀: 오버레이만, 일반: 래퍼+오버레이)
+          enhanceVideo(video);
+
+          if (video.dataset.hasListener) return;
+
+          // 캐러셀 비디오용 오버레이 상태 싱크
+
+if (isCarousel) {
+  const item = video.closest('.my-carousel-item');
+  const overlay = item ? item.querySelector('.carousel-video-overlay') : null;
+  let hasPlayed = false;
+
+  const syncCarouselOverlay = () => {
+    if (!overlay) return;
+
+    if (!hasPlayed && video.paused) {
+      // 아직 한 번도 재생 안 한 초기 상태 → 삼각형
+      overlay.classList.remove('is-playing', 'is-paused');
+    } else if (!video.paused) {
+      // 재생 중
+      hasPlayed = true;
+      overlay.classList.add('is-playing');
+      overlay.classList.remove('is-paused');
+    } else {
+      // 한 번 이상 재생했고, 지금은 멈춘 상태 → 정지 아이콘
+      overlay.classList.remove('is-playing');
+      overlay.classList.add('is-paused');
+    }
+  };
+
+  video.addEventListener('play', syncCarouselOverlay);
+  video.addEventListener('pause', syncCarouselOverlay);
+  video.addEventListener('ended', () => {
+    // 끝난 뒤에는 다시 "재생 준비" 상태로 돌려놓고 싶으면:
+    hasPlayed = false;
+    syncCarouselOverlay();
+  });
+
+  // 초기 상태 반영
+  syncCarouselOverlay();
+}
+
+
+          // 공통 클릭 재생/일시정지
+          video.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+
+          // 모바일 더블탭 확대 방지
+          video.addEventListener('dblclick', function (e) {
+            e.preventDefault();
+          });
+
+          video.dataset.hasListener = 'true';
+        });
       }
 
-      if (key === 'f12') {
-        e.preventDefault();
+      function setupAntiCopy() {
+        // 우클릭 전체 차단
+        document.addEventListener('contextmenu', function (e) {
+          e.preventDefault();
+        });
+
+        // 이미지/비디오 드래그 방지
+        function applyNoDrag() {
+          document.querySelectorAll('img, video').forEach((el) => {
+            el.setAttribute('draggable', 'false');
+          });
+        }
+        applyNoDrag();
+
+        // 일부 단축키 차단
+        document.addEventListener('keydown', function (e) {
+          const key = e.key.toLowerCase();
+
+          if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
+            e.preventDefault();
+          }
+
+          if (key === 'f12') {
+            e.preventDefault();
+          }
+        });
       }
-    });
-  }
 
-  function setupAll() {
-    setupVideoControls();
-    setupAntiCopy();
-  }
+      function setupAll() {
+        setupVideoControls();
+        setupAntiCopy();
+      }
 
-  document.addEventListener('astro:page-load', setupAll);
-  document.addEventListener('DOMContentLoaded', setupAll);
-</script>
-
-
-    
+      document.addEventListener('astro:page-load', setupAll);
+      document.addEventListener('DOMContentLoaded', setupAll);
+    </script>
   </body>
 </html>

@@ -170,9 +170,6 @@ li {
 }
 img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
 
-
-
-
 /* 1:1 정사각형 이미지 스타일 */
 .square-img { margin-top: 1rem; aspect-ratio: 1 / 1; object-fit: cover; width: 100%; display: block; }
 .aspect-10-8 { margin-top: 1rem; aspect-ratio: 1 / 0.8; object-fit: cover; width: 100%; display: block; }
@@ -186,9 +183,9 @@ img { margin-top: 0rem !important; margin-bottom: 0rem !important; }
 /* 이미지/비디오 불펌 방지 기본값 */
 img,
 video {
-  -webkit-user-drag: none;   /* 드래그 저장 방지 */
+  -webkit-user-drag: none;     /* 드래그 저장 방지 */
   -webkit-touch-callout: none; /* iOS 길게눌러 저장 메뉴 방지 */
-  user-select: none;         /* 선택 방지 */
+  user-select: none;           /* 선택 방지 */
 }
 
 /* (선택) 사이트 전체 텍스트 선택 방지 */
@@ -196,7 +193,6 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
-
 
 /* ----------- 캐러셀 ----------- */
 .my-carousel {
@@ -239,6 +235,7 @@ body {
   align-items: center;
   justify-content: flex-end;
   scroll-snap-align: center;
+  position: relative; /* 캐러셀 비디오 오버레이 기준점 */
 }
 .my-carousel-img {
   height: calc(98% - 36px);
@@ -286,23 +283,55 @@ body {
 .my-carousel.hide-left::before { opacity: 0; }
 .my-carousel.hide-right::after { opacity: 0; }
 
-/* 캐러셀 안 비디오를 이미지랑 동일하게 맞추기 */
-.my-carousel-item .video-wrapper {
-  height: calc(98% - 36px);  /* .my-carousel-img와 동일한 높이 */
-  max-height: 100%;
-  width: auto;
-  border-radius: 16px;
-  margin: 0;
-  overflow: hidden;          /* 모서리 밖으로 안 튀어나가게 */
-  display: block;
+/* 캐러셀 비디오용 최소 재생/정지 아이콘 오버레이 */
+.carousel-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  /* 제목 영역(약 36px)을 제외하고 비디오 영역만 덮도록 */
+  bottom: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+  z-index: 20;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
 }
 
-/* 래퍼 안의 실제 비디오 */
-.my-carousel-item .video-wrapper video {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;       /* 이미지와 동일하게 프레임 안에 맞추기 */
+/* 기본: 재생 준비 상태 = 삼각형 */
+.carousel-video-overlay::before {
+  content: "";
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.96);
+}
+
+/* 정지 상태: 두 줄(일시정지 아이콘) */
+.carousel-video-overlay.is-paused::before {
+  border-width: 0; /* 삼각형 제거 */
+  border-color: transparent;
+}
+
+.carousel-video-overlay.is-paused::after {
+  content: "";
   display: block;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-left: 4px solid rgba(255, 255, 255, 0.96);
+  border-right: 4px solid rgba(255, 255, 255, 0.96);
+}
+
+/* 재생 중일 때는 살짝 축소하며 숨김 */
+.carousel-video-overlay.is-playing {
+  opacity: 0;
+  transform: scale(0.9);
 }
 
 
@@ -341,9 +370,18 @@ video::-webkit-media-controls-time-remaining-display {
   }
 }
 
-/* 커스텀 최소 UI용 래퍼와 오버레이 */
+/* 커스텀 최소 UI용 래퍼와 오버레이 (캐러셀 밖 일반 비디오용) */
 .video-wrapper {
   position: relative;
+  display: block;
+  overflow: hidden; /* 라운드 모서리 안으로 비디오 잘리게 */
+}
+
+/* 래퍼 안 비디오는 래퍼 크기에 맞춤 */
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
 }
 
@@ -361,9 +399,9 @@ video::-webkit-media-controls-time-remaining-display {
   z-index: 20;
 }
 
-/* 동그란 반투명 배경 */
+/* 동그란 반투명 배경 제거 */
 .video-play-overlay::before {
-content: none;
+  content: none;
 }
 
 /* 흰색 삼각형 아이콘 */
@@ -381,6 +419,25 @@ content: none;
   opacity: 0;
   transform: scale(0.9);
 }
+
+/* 일반 비디오 정지 상태 아이콘 (일시정지 표시) */
+.video-wrapper.is-paused .video-play-overlay::after {
+  /* 삼각형(재생 아이콘) 숨기기 */
+  border-width: 0;
+  border-color: transparent;
+}
+
+.video-wrapper.is-paused .video-play-overlay::before {
+  /* 두 줄짜리 일시정지 아이콘 */
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-left: 4px solid rgba(255, 255, 255, 0.96);
+  border-right: 4px solid rgba(255, 255, 255, 0.96);
+}
+
 
 /* Tailwind Typography blockquote padding 강제 덮어쓰기 */
 .prose-lg :where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
