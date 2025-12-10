@@ -168,5 +168,43 @@ const showFooter = Astro.url.pathname !== '/';
     </div>
 
     <Analytics/>
+
+<script>
+  // 이 함수가 페이지 이동 때마다 실행되도록 합니다.
+  function setupVideoControls() {
+    const videos = document.querySelectorAll('video'); // class="custom-video"가 있다면 .custom-video로 변경
+
+    videos.forEach(video => {
+      // 중복 이벤트 등록 방지 (이미 등록된 경우 패스)
+      if (video.dataset.hasListener) return;
+
+      video.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // 이벤트 버블링 방지 (상위 요소 클릭 간섭 차단)
+        
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+      
+      // 모바일 더블탭 확대 방지
+      video.addEventListener('dblclick', function(e) {
+         e.preventDefault();
+      });
+
+      // 리스너 등록 완료 표시
+      video.dataset.hasListener = "true";
+    });
+  }
+
+  // Astro 페이지 로드 이벤트 (View Transitions 대응)
+  document.addEventListener('astro:page-load', setupVideoControls);
+  
+  // 혹시 View Transitions을 안 쓸 경우를 대비해 기본 로드 이벤트도 추가
+  document.addEventListener('DOMContentLoaded', setupVideoControls);
+</script>
+
   </body>
 </html>

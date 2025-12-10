@@ -291,6 +291,14 @@ video {
   cursor: pointer; /* 마우스 올렸을 때 손가락 모양 */
 }
 
+video, .custom-video {
+  /* 비디오가 다른 요소보다 위에 오도록 */
+  position: relative; 
+  z-index: 10;
+  /* 터치 동작 허용 */
+  pointer-events: auto;
+}
+
 /* Tailwind Typography blockquote padding 강제 덮어쓰기 */
 .prose-lg :where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: 1.5rem;

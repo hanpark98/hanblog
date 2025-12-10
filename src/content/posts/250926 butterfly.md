@@ -283,11 +283,23 @@ and I know that I'm strong enough to mend<br>
 
 <div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
   <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
+    <video src="/images/posts/250926 butterfly/butterfly2.mp4" 
+           class="custom-video"
+           playsinline
+           webkit-playsinline
+           style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0 !important;">
+    </video>
+    </div>
+</div>
+
+<div style="display: flex; gap: 8px; align-items: flex-start; margin-top:1rem;">
+  <div style="flex:1; display: flex; flex-direction: column; align-items: center;">
     <video
       src="/images/posts/250926 butterfly/butterfly2.mp4"
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
+      webkit-playsinline
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">고양이와 나비</h4>
@@ -298,6 +310,7 @@ and I know that I'm strong enough to mend<br>
       style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--nav-radius); display: block; margin-top: 0; margin-bottom: 0px !important;"
       controls
       playsinline
+      webkit-playsinline
       preload="metadata"
     ></video>
     <h4 style="margin: 0 0 0 0; line-height: 1;">SHENZHEN 호텔에서</h4>
